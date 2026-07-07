@@ -1,0 +1,43 @@
+services:
+  app-dev:
+    container_name: just-lift-development-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env.development
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    container_name: pg-db
+    image: postgres:18
+    restart: always
+    env_file:
+      - ./backend/.env.development
+
+    healthcheck:
+      test: 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB'
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  adminer:
+    container_name: pg-admin
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
