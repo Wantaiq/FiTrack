@@ -1,0 +1,26 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+
+# IDEs and system files
+.git
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment variables (highly critical to ignore for security)
+.env
+.env.development
+.env.local
