@@ -15,4 +15,19 @@ export class ConfigService {
       database: this.configService.getOrThrow('POSTGRES_DB'),
     };
   }
+
+  get tokens() {
+    return {
+      accessToken: {
+        secret: this.configService.getOrThrow('ACCESS_TOKEN_SECRET'),
+        expiryMinutes: this.configService.getOrThrow(
+          'ACCESS_TOKEN_EXPIRY_MINUTES',
+        ),
+      },
+    };
+  }
+
+  get nodeEnvironment() {
+    return this.configService.getOrThrow('NODE_ENV');
+  }
 }
