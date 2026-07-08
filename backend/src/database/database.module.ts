@@ -1,7 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '../config/config.service';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '../config/config.module';
 
 @Module({
   imports: [
@@ -16,7 +15,7 @@ import { ConfigModule } from '../config/config.module';
           password: config.database.password,
           database: config.database.database,
           autoLoadEntities: true,
-          synchronize: false,
+          synchronize: true,
         };
       },
     }),
