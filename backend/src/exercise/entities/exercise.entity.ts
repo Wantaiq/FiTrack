@@ -35,12 +35,14 @@ export class ExerciseEntity {
   )
   instructions!: ExerciseInstructionEntity[];
 
+  @Index()
   @Column({
     type: 'enum',
     enum: ExerciseType,
   })
   type!: ExerciseType;
 
+  @Index()
   @Column({
     type: 'enum',
     enum: Difficulty,
@@ -48,6 +50,7 @@ export class ExerciseEntity {
   })
   difficulty?: Difficulty;
 
+  @Index()
   @Column({
     type: 'enum',
     enum: MechanicType,

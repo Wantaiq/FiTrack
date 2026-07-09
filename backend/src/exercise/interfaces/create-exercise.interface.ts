@@ -1,4 +1,3 @@
-import { UserEntity } from '../../user/entities/user.entity';
 import {
   Difficulty,
   ExerciseType,
@@ -18,5 +17,5 @@ export interface CreateExerciseInput {
   difficulty?: Difficulty;
   mechanic?: MechanicType;
   instructions: CreateInstructionInput[];
-  createdBy: UserEntity | null;
+  createdBy: { id: string } | null;
 }

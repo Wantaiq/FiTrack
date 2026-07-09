@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExerciseEntity } from '../entities/exercise.entity';
 import { CreateExerciseInput } from '../interfaces/create-exercise.interface';
-import { ExerciseFilters } from '../interfaces/list-execise-query.interface';
+import { ExerciseFilters } from '../interfaces/list-exercise-query.interface';
 
 @Injectable()
 export class ExerciseRepository {
