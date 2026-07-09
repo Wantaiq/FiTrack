@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { HashService } from './hash.service';
-import { RegisterDto } from './dto/register.dto';
-import { UserService } from '../user/user.service';
-import { AuthResponseDto } from './dto/auth-response.dto';
-import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from '../dto/register.dto';
+import { UserService } from '../../user/user.service';
+import { AuthResponseDto } from '../dto/auth-response.dto';
+import { LoginDto } from '../dto/login.dto';
 import { TokensService } from './tokens.service';
 
 @Injectable()
