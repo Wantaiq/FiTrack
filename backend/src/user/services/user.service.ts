@@ -1,8 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { UserRepository } from './user.repository';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UserResponseDto } from './dto/response-user.dto';
-import { UserMapper } from './user.mapper';
+import { UserRepository } from '../repository/user.repository';
+import { UserResponseDto } from '../dto/response-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UserMapper } from '../mappers/user.mapper';
 
 @Injectable()
 export class UserService {
@@ -19,6 +19,8 @@ export class UserService {
       email: dto.email,
       username: dto.username,
       password: dto.passwordHash,
+      firstName: dto.firstName,
+      lastName: dto.lastName,
     });
 
     return UserMapper.toResponse(user);

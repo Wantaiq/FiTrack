@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
-import { AuthService } from './services/auth.service';
-import { LocalAuthGuard } from './guards/local.guard';
-import { Public } from './decorators/public.decorator';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-import { ConfigService } from '../shared/config/config.service';
 import { type Response } from 'express';
+import { AuthService } from '../services/auth.service';
+import { ConfigService } from '../../shared/config/config.service';
+import { Public } from '../decorators/public.decorator';
+import { LocalAuthGuard } from '../guards/local.guard';
+import { LoginDto } from '../dto/login.dto';
+import { RegisterDto } from '../dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
