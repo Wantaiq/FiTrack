@@ -7,7 +7,6 @@ import {
   IsUUID,
   ValidateNested,
 } from 'class-validator';
-import { ExerciseEntity } from '../../exercise/entities/exercise.entity';
 import { Type } from 'class-transformer';
 import { CreateWorkoutExerciseSetDto } from './create-workout-exercise-set.dto';
 
