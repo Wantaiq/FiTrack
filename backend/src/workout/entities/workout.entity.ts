@@ -39,10 +39,6 @@ export class WorkoutEntity {
   )
   exercises!: WorkoutExerciseEntity[];
 
-  @Column({ default: WorkoutStatus.PLANNED })
-  @IsEnum(WorkoutStatus)
-  status?: WorkoutStatus;
-
   @CreateDateColumn()
   createdAt!: Date;
 

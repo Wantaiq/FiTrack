@@ -17,5 +17,5 @@ export interface CreateWorkoutInput {
   name: string;
   createdBy: { id: string };
   exercises: WorkoutExerciseInput[];
-  status?: WorkoutStatus;
+  // status?: WorkoutStatus;
 }

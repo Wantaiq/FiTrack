@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { WorkoutRepository } from '../repositories/workout.repository';
 import { CreateWorkoutDto } from '../dto/create-workout.dto';
 import { TCurrentUser } from '../../user/types/current-user.types';
+import { ListWorkoutsQueryDto } from '../dto/list-workout-query.dto';
 
 @Injectable()
 export class WorkoutService {
@@ -18,6 +19,14 @@ export class WorkoutService {
         };
       }),
       createdBy: { id: user.id },
+    });
+  }
+
+  async list(query: ListWorkoutsQueryDto) {
+    return this.workoutRepository.find({
+      name: query.name,
+      page: query.page,
+      limit: query.limit,
     });
   }
 }

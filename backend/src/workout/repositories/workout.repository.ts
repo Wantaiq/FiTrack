@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { WorkoutEntity } from '../entities/workout.entity';
 import { Repository } from 'typeorm';
 import { CreateWorkoutInput } from '../interfaces/create-workout.interface';
+import { WorkoutFilters } from '../interfaces/list-workout-query.interface';
 
 @Injectable()
 export class WorkoutRepository {
@@ -13,5 +14,20 @@ export class WorkoutRepository {
 
   async save(workout: CreateWorkoutInput) {
     return this.repository.save(workout);
+  }
+
+  async find(filters: WorkoutFilters) {
+    const qb = this.repository.createQueryBuilder('workout');
+
+    if (filters.name) {
+      qb.andWhere(`workout.name ILIKE :name`, {
+        name: `${filters.name}%`,
+      });
+    }
+
+    qb.skip((filters.page - 1) * filters.limit);
+    qb.take(filters.limit);
+
+    return qb.getMany();
   }
 }

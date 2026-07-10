@@ -24,7 +24,7 @@ export class CreateWorkoutDto {
   @Type(() => CreateWorkoutExerciseDto)
   exercises!: CreateWorkoutExerciseDto[];
 
-  @IsEnum(WorkoutStatus)
-  @IsOptional()
-  status?: WorkoutStatus = WorkoutStatus.PLANNED;
+  // @IsEnum(WorkoutStatus)
+  //@IsOptional()
+  //status?: WorkoutStatus = WorkoutStatus.PLANNED;
 }
