@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ExerciseRepository } from '../repositories/exercise.repository';
 import { TCurrentUser } from '../../user/types/current-user.types';
 import { UserEntity } from '../../user/entities/user.entity';
@@ -16,8 +16,8 @@ export class ExerciseService {
     });
   }
 
-  async list(query: ListExercisesQueryDto) {
-    return this.exerciseRepository.find({
+  async list(user: TCurrentUser, query: ListExercisesQueryDto) {
+    return this.exerciseRepository.findVisible(user.id, {
       name: query.name,
       type: query.type,
       difficulty: query.difficulty,
@@ -27,7 +27,13 @@ export class ExerciseService {
     });
   }
 
-  async view(id: string) {
-    return this.exerciseRepository.findById(id);
+  async view(user: TCurrentUser, id: string) {
+    const exercise = await this.exerciseRepository.findVisibleById(user.id, id);
+
+    if (!exercise) {
+      throw new NotFoundException();
+    }
+
+    return exercise;
   }
 }

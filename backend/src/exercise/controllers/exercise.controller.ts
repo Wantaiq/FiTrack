@@ -28,12 +28,18 @@ export class ExerciseController {
   }
 
   @Get('/')
-  async list(@Query() query: ListExercisesQueryDto) {
-    return this.exerciseService.list(query);
+  async list(
+    @Query() query: ListExercisesQueryDto,
+    @CurrentUser() currentUser: TCurrentUser,
+  ) {
+    return this.exerciseService.list(currentUser, query);
   }
 
   @Get('/:id')
-  async view(@Param('id', ParseUUIDPipe) id: string) {
-    return this.exerciseService.view(id);
+  async view(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() currentUser: TCurrentUser,
+  ) {
+    return this.exerciseService.view(currentUser, id);
   }
 }

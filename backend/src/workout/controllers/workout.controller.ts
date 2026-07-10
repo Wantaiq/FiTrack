@@ -1,4 +1,13 @@
-import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateWorkoutDto } from '../dto/create-workout.dto';
 import { CurrentUser } from '../../shared/decorators/current-user.decorator';
 import { type TCurrentUser } from '../../user/types/current-user.types';
@@ -19,7 +28,18 @@ export class WorkoutController {
   }
 
   @Get('/')
-  async list(@Query() query: ListWorkoutsQueryDto) {
-    return this.workoutService.list(query);
+  async list(
+    @Query() query: ListWorkoutsQueryDto,
+    @CurrentUser() currentUser: TCurrentUser,
+  ) {
+    return this.workoutService.list(query, currentUser);
+  }
+
+  @Get('/:id')
+  async view(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() currentUser: TCurrentUser,
+  ) {
+    return this.workoutService.view(id, currentUser);
   }
 }

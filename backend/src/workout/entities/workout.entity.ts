@@ -38,10 +38,4 @@ export class WorkoutEntity {
     },
   )
   exercises!: WorkoutExerciseEntity[];
-
-  @CreateDateColumn()
-  createdAt!: Date;
-
-  @UpdateDateColumn()
-  updatedAt!: Date;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { WorkoutRepository } from '../repositories/workout.repository';
 import { CreateWorkoutDto } from '../dto/create-workout.dto';
 import { TCurrentUser } from '../../user/types/current-user.types';
@@ -22,11 +22,21 @@ export class WorkoutService {
     });
   }
 
-  async list(query: ListWorkoutsQueryDto) {
-    return this.workoutRepository.find({
+  async list(query: ListWorkoutsQueryDto, user: TCurrentUser) {
+    return this.workoutRepository.findVisible(user.id, {
       name: query.name,
       page: query.page,
       limit: query.limit,
     });
+  }
+
+  async view(id: string, user: TCurrentUser) {
+    const workout = await this.workoutRepository.findVisibleById(user.id, id);
+
+    if (!workout) {
+      throw new NotFoundException();
+    }
+
+    return workout;
   }
 }

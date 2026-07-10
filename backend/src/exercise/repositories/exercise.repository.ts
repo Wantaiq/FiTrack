@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExerciseEntity } from '../entities/exercise.entity';
@@ -12,8 +12,12 @@ export class ExerciseRepository {
     private readonly repository: Repository<ExerciseEntity>,
   ) {}
 
-  async find(filters: ExerciseFilters) {
-    const qb = this.repository.createQueryBuilder('exercise');
+  async findVisible(userId: string, filters: ExerciseFilters) {
+    const qb = this.repository
+      .createQueryBuilder('exercise')
+      .where('(exercise.createdBy = :userId OR exercise.createdBy IS NULL)', {
+        userId,
+      });
 
     if (filters.name) {
       qb.andWhere(`exercise.name ILIKE :name`, {
@@ -49,7 +53,12 @@ export class ExerciseRepository {
     return this.repository.save(exercise);
   }
 
-  async findById(id: string) {
-    return this.repository.findOneBy({ id });
+  async findVisibleById(userId: string, id: string) {
+    return this.repository.findOne({
+      where: [
+        { id, createdBy: IsNull() },
+        { id, createdBy: { id: userId } },
+      ],
+    });
   }
 }

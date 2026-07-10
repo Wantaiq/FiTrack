@@ -16,8 +16,10 @@ export class WorkoutRepository {
     return this.repository.save(workout);
   }
 
-  async find(filters: WorkoutFilters) {
-    const qb = this.repository.createQueryBuilder('workout');
+  async findVisible(userId: string, filters: WorkoutFilters) {
+    const qb = this.repository
+      .createQueryBuilder('workout')
+      .where('workout.createdBy = :userId', { userId: userId });
 
     if (filters.name) {
       qb.andWhere(`workout.name ILIKE :name`, {
@@ -29,5 +31,11 @@ export class WorkoutRepository {
     qb.take(filters.limit);
 
     return qb.getMany();
+  }
+
+  async findVisibleById(userId: string, id: string) {
+    return this.repository.findOne({
+      where: { id, createdBy: { id: userId } },
+    });
   }
 }
