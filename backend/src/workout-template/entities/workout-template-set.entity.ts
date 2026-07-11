@@ -21,8 +21,6 @@ export class WorkoutTemplateSetEntity {
   @Column()
   targetReps!: number;
 
-  @Column({
-    default: false,
-  })
-  completed?: boolean;
+  @Column()
+  targetSets!: number;
 }

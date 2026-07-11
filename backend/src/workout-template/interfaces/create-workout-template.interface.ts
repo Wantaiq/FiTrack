@@ -1,6 +1,7 @@
 interface WorkoutTemplateExerciseSetInput {
   order: number;
   targetReps: number;
+  targetSets: number;
 }
 
 interface WorkoutTemplateExerciseInput {

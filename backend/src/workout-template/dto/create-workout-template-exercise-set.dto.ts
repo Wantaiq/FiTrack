@@ -8,4 +8,8 @@ export class CreateWorkoutTemplateExerciseSetDto {
   @IsNumber()
   @IsPositive()
   targetReps!: number;
+
+  @IsNumber()
+  @IsPositive()
+  targetSets!: number;
 }
