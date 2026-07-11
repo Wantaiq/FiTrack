@@ -7,23 +7,17 @@ import {
   UpdateDateColumn,
   ManyToOne,
 } from 'typeorm';
-import { WorkoutExerciseEntity } from './workout-exercise.entity';
-import { UserEntity } from '../../user/entities/user.entity';
-import { IsEnum } from 'class-validator';
-import { WorkoutStatus } from '../enums/workout.enum';
 
-@Entity('workouts')
-export class WorkoutEntity {
+import { UserEntity } from '../../user/entities/user.entity';
+import { WorkoutTemplateExerciseEntity } from './workout-template-exercise.entity';
+
+@Entity('workout_templates')
+export class WorkoutTemplateEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column()
   name!: string;
-
-  //@Column({
-  //type: 'date',
-  //})
-  //date!: Date;
 
   @ManyToOne(() => UserEntity, {
     nullable: false,
@@ -31,11 +25,11 @@ export class WorkoutEntity {
   createdBy!: UserEntity;
 
   @OneToMany(
-    () => WorkoutExerciseEntity,
+    () => WorkoutTemplateExerciseEntity,
     (workoutExercise) => workoutExercise.workout,
     {
       cascade: true,
     },
   )
-  exercises!: WorkoutExerciseEntity[];
+  exercises!: WorkoutTemplateExerciseEntity[];
 }

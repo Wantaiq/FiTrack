@@ -1,6 +1,5 @@
 import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 import { Type } from 'class-transformer';
-import { WorkoutStatus } from '../enums/workout.enum';
 
 export class ListWorkoutsQueryDto {
   @IsOptional()

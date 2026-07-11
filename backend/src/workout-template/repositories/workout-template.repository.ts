@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { WorkoutEntity } from '../entities/workout.entity';
+import { WorkoutTemplateEntity } from '../entities/workout-template.entity';
 import { Repository } from 'typeorm';
-import { CreateWorkoutInput } from '../interfaces/create-workout.interface';
-import { WorkoutFilters } from '../interfaces/list-workout-query.interface';
+import { CreateWorkoutTemplateInput } from '../interfaces/create-workout-template.interface';
+import { WorkoutTemplateFilters } from '../interfaces/list-workout-template-query.interface';
 
 @Injectable()
-export class WorkoutRepository {
+export class WorkoutTemplateRepository {
   constructor(
-    @InjectRepository(WorkoutEntity)
-    private readonly repository: Repository<WorkoutEntity>,
+    @InjectRepository(WorkoutTemplateEntity)
+    private readonly repository: Repository<WorkoutTemplateEntity>,
   ) {}
 
-  async save(workout: CreateWorkoutInput) {
+  async save(workout: CreateWorkoutTemplateInput) {
     return this.repository.save(workout);
   }
 
-  async findVisible(userId: string, filters: WorkoutFilters) {
+  async findVisible(userId: string, filters: WorkoutTemplateFilters) {
     const qb = this.repository
       .createQueryBuilder('workout')
       .where('workout.createdBy = :userId', { userId: userId });

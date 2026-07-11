@@ -8,9 +8,9 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateWorkoutExerciseSetDto } from './create-workout-exercise-set.dto';
+import { CreateWorkoutTemplateExerciseSetDto } from './create-workout-template-exercise-set.dto';
 
-export class CreateWorkoutExerciseDto {
+export class CreateWorkoutTemplateExerciseDto {
   @IsOptional()
   @IsString()
   note?: string;
@@ -18,8 +18,8 @@ export class CreateWorkoutExerciseDto {
   @IsArray()
   @ArrayNotEmpty()
   @ValidateNested({ each: true })
-  @Type(() => CreateWorkoutExerciseSetDto)
-  sets!: CreateWorkoutExerciseSetDto[];
+  @Type(() => CreateWorkoutTemplateExerciseSetDto)
+  sets!: CreateWorkoutTemplateExerciseSetDto[];
 
   @IsUUID('4')
   @IsNotEmpty()

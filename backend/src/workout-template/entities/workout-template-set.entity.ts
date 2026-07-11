@@ -1,30 +1,25 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { WorkoutExerciseEntity } from './workout-exercise.entity';
+import { WorkoutTemplateExerciseEntity } from './workout-template-exercise.entity';
 
-@Entity('workout_sets')
-export class WorkoutSetEntity {
+@Entity('workout_template_sets')
+export class WorkoutTemplateSetEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @ManyToOne(
-    () => WorkoutExerciseEntity,
+    () => WorkoutTemplateExerciseEntity,
     (workoutExercise) => workoutExercise.sets,
     {
       onDelete: 'CASCADE',
     },
   )
-  workoutExercise!: WorkoutExerciseEntity;
+  workoutTemplateExercise!: WorkoutTemplateExerciseEntity;
 
   @Column()
   order!: number;
 
-  @Column({
-    type: 'decimal',
-  })
-  weight!: number;
-
   @Column()
-  reps!: number;
+  targetReps!: number;
 
   @Column({
     default: false,

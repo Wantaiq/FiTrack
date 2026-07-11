@@ -1,15 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { WorkoutRepository } from '../repositories/workout.repository';
-import { CreateWorkoutDto } from '../dto/create-workout.dto';
+import { WorkoutTemplateRepository } from '../repositories/workout-template.repository';
+import { CreateWorkoutTemplateDto } from '../dto/create-workout-template.dto';
 import { TCurrentUser } from '../../user/types/current-user.types';
-import { ListWorkoutsQueryDto } from '../dto/list-workout-query.dto';
+import { ListWorkoutsQueryDto } from '../dto/list-workout-template-query.dto';
 
 @Injectable()
-export class WorkoutService {
-  constructor(private readonly workoutRepository: WorkoutRepository) {}
+export class WorkoutTemplateService {
+  constructor(
+    private readonly workoutTemplateRepository: WorkoutTemplateRepository,
+  ) {}
 
-  async save(dto: CreateWorkoutDto, user: TCurrentUser) {
-    return this.workoutRepository.save({
+  async save(dto: CreateWorkoutTemplateDto, user: TCurrentUser) {
+    return this.workoutTemplateRepository.save({
       ...dto,
       exercises: dto.exercises.map((exercise) => {
         return {
@@ -23,7 +25,7 @@ export class WorkoutService {
   }
 
   async list(query: ListWorkoutsQueryDto, user: TCurrentUser) {
-    return this.workoutRepository.findVisible(user.id, {
+    return this.workoutTemplateRepository.findVisible(user.id, {
       name: query.name,
       page: query.page,
       limit: query.limit,
@@ -31,7 +33,10 @@ export class WorkoutService {
   }
 
   async view(id: string, user: TCurrentUser) {
-    const workout = await this.workoutRepository.findVisibleById(user.id, id);
+    const workout = await this.workoutTemplateRepository.findVisibleById(
+      user.id,
+      id,
+    );
 
     if (!workout) {
       throw new NotFoundException();
