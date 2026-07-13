@@ -30,4 +30,8 @@ export class WorkoutSessionService {
 
     return this.workoutSessionRepository.save(session);
   }
+
+  async remove(id: string, user: TCurrentUser) {
+    return this.workoutSessionRepository.deleteVisible(user.id, id);
+  }
 }

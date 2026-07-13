@@ -13,4 +13,8 @@ export class WorkoutSessionRepository {
   async save(workoutSession: WorkoutSessionEntity) {
     return this.repository.save(workoutSession);
   }
+
+  async deleteVisible(userId: string, id: string) {
+    return this.repository.delete({ id: id, createdBy: { id: userId } });
+  }
 }
