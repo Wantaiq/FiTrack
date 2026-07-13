@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
@@ -41,5 +42,13 @@ export class ExerciseController {
     @CurrentUser() currentUser: TCurrentUser,
   ) {
     return this.exerciseService.view(currentUser, id);
+  }
+
+  @Delete('/:id')
+  async remove(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() currentUser: TCurrentUser,
+  ) {
+    return this.exerciseService.remove(id, currentUser);
   }
 }

@@ -36,4 +36,8 @@ export class ExerciseService {
 
     return exercise;
   }
+
+  async remove(id: string, user: TCurrentUser) {
+    return this.exerciseRepository.deleteVisible(user.id, id);
+  }
 }
