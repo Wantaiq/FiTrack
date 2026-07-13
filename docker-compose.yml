@@ -10,10 +10,21 @@ services:
     env_file:
       - ./backend/.env.development
     ports:
-      - '3000:3000'
+      - '127.0.0.1:3000:3000'
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
+
+  frontend-dev:
+    container_name: just-lift-development-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - '127.0.0.1:5173:5173'
+    volumes:
+      - ./frontend:/usr/src/frontend
+      - /usr/src/frontend/node_modules
 
   db:
     container_name: pg-db
@@ -35,7 +46,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - '127.0.0.1:8080:8080'
     depends_on:
       - db
 
