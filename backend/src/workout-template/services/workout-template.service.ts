@@ -44,4 +44,8 @@ export class WorkoutTemplateService {
 
     return workout;
   }
+
+  async remove(id: string, user: TCurrentUser) {
+    return this.workoutTemplateRepository.deleteVisible(user.id, id);
+  }
 }

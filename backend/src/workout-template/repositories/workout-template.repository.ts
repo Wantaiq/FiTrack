@@ -44,4 +44,8 @@ export class WorkoutTemplateRepository {
       },
     });
   }
+
+  async deleteVisible(userId: string, id: string) {
+    return this.repository.delete({ id: id, createdBy: { id: userId } });
+  }
 }
