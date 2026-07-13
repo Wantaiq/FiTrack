@@ -26,8 +26,12 @@ export class WorkoutTemplateExerciseEntity {
 
   @Column({
     nullable: true,
+    type: 'text',
   })
   note?: string;
+
+  @Column()
+  order!: number;
 
   @OneToMany(
     () => WorkoutTemplateSetEntity,

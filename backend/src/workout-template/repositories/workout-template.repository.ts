@@ -36,6 +36,12 @@ export class WorkoutTemplateRepository {
   async findVisibleById(userId: string, id: string) {
     return this.repository.findOne({
       where: { id, createdBy: { id: userId } },
+      relations: {
+        exercises: {
+          exercise: true,
+          sets: true,
+        },
+      },
     });
   }
 }

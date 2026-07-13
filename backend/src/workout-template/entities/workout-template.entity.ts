@@ -16,7 +16,7 @@ export class WorkoutTemplateEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column()
+  @Column({ type: 'text' })
   name!: string;
 
   @ManyToOne(() => UserEntity, {

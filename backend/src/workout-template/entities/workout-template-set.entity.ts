@@ -15,12 +15,11 @@ export class WorkoutTemplateSetEntity {
   )
   workoutTemplateExercise!: WorkoutTemplateExerciseEntity;
 
-  @Column()
+  @Column({ type: 'integer' })
   order!: number;
 
-  @Column()
+  @Column({
+    type: 'integer',
+  })
   targetReps!: number;
-
-  @Column()
-  targetSets!: number;
 }

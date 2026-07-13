@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsOptional, IsPositive } from 'class-validator';
+import { IsNumber, IsPositive } from 'class-validator';
 
 export class CreateWorkoutTemplateExerciseSetDto {
   @IsNumber()

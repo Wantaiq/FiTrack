@@ -1,8 +1,6 @@
 import {
   ArrayNotEmpty,
   IsArray,
-  IsEnum,
-  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
