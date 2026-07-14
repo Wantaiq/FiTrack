@@ -10,6 +10,7 @@ export const envSchema = object({
   POSTGRES_PORT: string().required(),
   ACCESS_TOKEN_SECRET: string().required(),
   ACCESS_TOKEN_EXPIRY_MINUTES: string().required(),
+  FRONTEND_URL: string().required(),
 });
 
 export type Env = InferType<typeof envSchema>;
