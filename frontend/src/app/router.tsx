@@ -1,5 +1,6 @@
 import { DashboardPage } from '@/common/pages';
 import { LoginPage, RegisterPage, LogoutPage } from '@/features/auth';
+import NewExercisePage from '@/features/exercises/pages/NewExercisePage';
 import { AuthLayout, DashboardLayout } from '@/layouts';
 import { createBrowserRouter } from 'react-router';
 
@@ -26,6 +27,15 @@ const router = createBrowserRouter([
           {
             path: '/',
             element: <DashboardPage />,
+          },
+        ],
+      },
+      {
+        path: '/exercises',
+        children: [
+          {
+            path: 'new',
+            element: <NewExercisePage />,
           },
         ],
       },

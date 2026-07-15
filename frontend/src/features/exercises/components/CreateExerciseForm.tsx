@@ -1,0 +1,105 @@
+import {
+  AppForm,
+  AppInput,
+  AppTextarea,
+  AppSelect,
+  AppFieldArray,
+} from '@/common/components/form';
+import {
+  createExerciseSchema,
+  type CreateExerciseFormValues,
+  type Difficulty,
+  type ExerciseType,
+  type Mechanic,
+} from '../schemas/create-exercise.schema';
+import { Button } from '@chakra-ui/react';
+
+type Props = {
+  onSubmit: (values: CreateExerciseFormValues) => Promise<void> | void;
+  isSubmitting: boolean;
+  error: Error | null;
+};
+
+function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
+  return (
+    <AppForm
+      schema={createExerciseSchema}
+      onSubmit={onSubmit}
+      defaultValues={{
+        instructions: [{ title: '', text: '', order: 1 }],
+        difficulty: 'beginner',
+        type: 'strength',
+        mechanic: 'compound',
+      }}
+    >
+      <AppInput<CreateExerciseFormValues>
+        name="name"
+        type="text"
+        label="Name"
+        placeholder="Bench Press"
+      />
+      <AppTextarea<CreateExerciseFormValues>
+        name="description"
+        label="Description"
+      />
+      <AppFieldArray<CreateExerciseFormValues>
+        name="instructions"
+        appendValues={(length) => {
+          return { order: length + 1, title: '', text: '' };
+        }}
+        renderItem={(idx) => {
+          return (
+            <>
+              <AppInput<CreateExerciseFormValues>
+                name={`instructions.${idx}.title`}
+                label="Title"
+              />
+              <AppInput name={`instructions.${idx}.text`} label="Instruction" />
+            </>
+          );
+        }}
+      />
+
+      <AppSelect<CreateExerciseFormValues, Difficulty>
+        label="Difficulty"
+        name="difficulty"
+        options={
+          [
+            { value: 'beginner', label: 'Beginner' },
+            { value: 'intermediate', label: 'Intermediate' },
+            { value: 'advanced', label: 'Advanced' },
+          ] as const
+        }
+      />
+
+      <AppSelect<CreateExerciseFormValues, Mechanic>
+        label="Mechanic"
+        name="mechanic"
+        options={
+          [
+            { value: 'compound', label: 'Compound' },
+            { value: 'isolation', label: 'Isolation' },
+          ] as const
+        }
+      />
+      <AppSelect<CreateExerciseFormValues, ExerciseType>
+        label="Type"
+        name="type"
+        options={
+          [
+            { value: 'strength', label: 'Strength' },
+            { value: 'cardio', label: 'Cardio' },
+            { value: 'stretch', label: 'Stretch' },
+            { value: 'plyometric', label: 'Plyometric' },
+            { value: 'isometric', label: 'Isometric' },
+          ] as const
+        }
+      />
+      <Button type="submit" loading={isSubmitting}>
+        Create
+      </Button>
+    </AppForm>
+  );
+}
+
+export default CreateExerciseForm;
