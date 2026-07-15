@@ -3,7 +3,6 @@ export enum ExerciseType {
   CARDIO = 'cardio',
   STRETCH = 'stretch',
   PLYOMETRIC = 'plyometric',
-  OLYMPIC = 'olympic',
   ISOMETRIC = 'isometric',
 }
 
