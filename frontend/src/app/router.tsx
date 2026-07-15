@@ -1,5 +1,6 @@
 import { DashboardPage } from '@/common/pages';
-import { LoginPage, RegisterPage } from '@/features/auth';
+import { LoginPage, RegisterPage, LogoutPage } from '@/features/auth';
+import { AuthLayout, DashboardLayout } from '@/layouts';
 import { createBrowserRouter } from 'react-router';
 
 const router = createBrowserRouter([
@@ -12,11 +13,21 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
+    path: 'logout',
+    element: <LogoutPage />,
+  },
+  {
     path: '/',
+    element: <AuthLayout />,
     children: [
       {
-        index: true,
-        element: <DashboardPage />,
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: '/',
+            element: <DashboardPage />,
+          },
+        ],
       },
     ],
   },
