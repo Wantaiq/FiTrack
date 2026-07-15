@@ -10,10 +10,4 @@ export class CreateUserDto {
   @IsString()
   @MinLength(4)
   username!: string;
-
-  @IsString()
-  firstName!: string;
-
-  @IsString()
-  lastName!: string;
 }

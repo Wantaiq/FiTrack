@@ -21,12 +21,6 @@ export class UserEntity {
   @Column()
   password!: string;
 
-  @Column()
-  firstName!: string;
-
-  @Column()
-  lastName!: string;
-
   @CreateDateColumn()
   createdAt!: Date;
 

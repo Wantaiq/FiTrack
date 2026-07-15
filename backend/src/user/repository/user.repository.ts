@@ -22,13 +22,7 @@ export class UserRepository {
     });
   }
 
-  save(user: {
-    email: string;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-  }) {
+  save(user: { email: string; username: string; password: string }) {
     return this.repository.save(user);
   }
 }

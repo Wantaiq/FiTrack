@@ -20,8 +20,6 @@ export class AuthService {
     const user = await this.userService.save({
       email: dto.email,
       username: dto.username,
-      firstName: dto.firstName,
-      lastName: dto.lastName,
       passwordHash,
     });
 

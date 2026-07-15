@@ -19,8 +19,6 @@ export class UserService {
       email: dto.email,
       username: dto.username,
       password: dto.passwordHash,
-      firstName: dto.firstName,
-      lastName: dto.lastName,
     });
 
     return UserMapper.toResponse(user);
