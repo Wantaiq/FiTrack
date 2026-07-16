@@ -4,7 +4,7 @@ import {
   type FilterExercises,
 } from '../schemas/filter-exercise.schema';
 
-export function useExerciseFilters() {
+function useExerciseFilters() {
   const [params, setParams] = useSearchParams();
 
   const filters = filterExercisesSchema.parse({
@@ -37,3 +37,5 @@ export function useExerciseFilters() {
     updateFilters,
   };
 }
+
+export default useExerciseFilters;

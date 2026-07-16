@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import createExercise from '../api/create-exercise';
 import exerciseQueryKeys from '../query-keys';
 
-export function useCreateExercise() {
+function useCreateExercise() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -15,3 +15,5 @@ export function useCreateExercise() {
     },
   });
 }
+
+export default useCreateExercise;

@@ -1,5 +1,5 @@
 import { Loader } from '@/common/components';
-import { useExerciseFilters } from '../hooks/useExerciseFilters';
+import useExerciseFilters from '../hooks/useExerciseFilters';
 import useExercises from '../hooks/useExercises';
 import { ExerciseFilters } from '../components/ExerciseFilters';
 import { Button } from '@chakra-ui/react';

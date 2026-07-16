@@ -1,5 +1,5 @@
 import CreateExerciseForm from '../components/CreateExerciseForm';
-import { useCreateExercise } from '../hooks/useCreateExercise';
+import useCreateExercise from '../hooks/useCreateExercise';
 import type { CreateExerciseFormValues } from '../schemas/create-exercise.schema';
 
 function NewExercisePage() {
