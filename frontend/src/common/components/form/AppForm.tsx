@@ -8,14 +8,14 @@ import {
 } from 'react-hook-form';
 import type { z } from 'zod';
 
-type AppFormProps<T extends z.ZodObject<any>> = {
+type AppFormProps<T extends z.ZodObject> = {
   schema: T;
   defaultValues?: DefaultValues<z.input<T>>;
   onSubmit: SubmitHandler<z.output<T>>;
   children: ReactNode;
 };
 
-function AppForm<T extends z.ZodObject<any>>({
+function AppForm<T extends z.ZodObject>({
   schema,
   defaultValues,
   onSubmit,
