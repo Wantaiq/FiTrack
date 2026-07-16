@@ -1,5 +1,6 @@
 import { DashboardPage } from '@/common/pages';
 import { LoginPage, RegisterPage, LogoutPage } from '@/features/auth';
+import ExercisesPage from '@/features/exercises/pages/ExercisesPage';
 import NewExercisePage from '@/features/exercises/pages/NewExercisePage';
 import { AuthLayout, DashboardLayout } from '@/layouts';
 import { createBrowserRouter } from 'react-router';
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/exercises',
         children: [
+          {
+            index: true,
+            element: <ExercisesPage />,
+          },
           {
             path: 'new',
             element: <NewExercisePage />,

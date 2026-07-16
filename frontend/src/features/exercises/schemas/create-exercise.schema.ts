@@ -1,16 +1,9 @@
 import z from 'zod';
-
-const difficultySchema = z.enum(['beginner', 'intermediate', 'advanced']);
-
-const mechanicSchema = z.enum(['compound', 'isolation']);
-
-const exerciseTypeSchema = z.enum([
-  'strength',
-  'cardio',
-  'stretch',
-  'plyometric',
-  'isometric',
-]);
+import {
+  difficultySchema,
+  exerciseTypeSchema,
+  mechanicSchema,
+} from './exercise.schema';
 
 const createInstructionSchema = z.object({
   title: z.string().max(100),
@@ -28,6 +21,3 @@ export const createExerciseSchema = z.object({
 });
 
 export type CreateExerciseFormValues = z.infer<typeof createExerciseSchema>;
-export type Difficulty = z.infer<typeof difficultySchema>;
-export type Mechanic = z.infer<typeof mechanicSchema>;
-export type ExerciseType = z.infer<typeof exerciseTypeSchema>;
