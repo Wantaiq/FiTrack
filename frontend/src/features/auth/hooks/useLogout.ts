@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import authQueryKeys from '../query-keys';
 import logout from '../api/logout';
 
 export function useLogout() {
@@ -8,10 +7,8 @@ export function useLogout() {
   return useMutation({
     mutationFn: logout,
 
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: authQueryKeys.me,
-      });
+    onSuccess: () => {
+      queryClient.clear();
     },
   });
 }
