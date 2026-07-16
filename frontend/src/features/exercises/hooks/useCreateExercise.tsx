@@ -10,7 +10,7 @@ export function useCreateExercise() {
 
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: exerciseQueryKeys.list,
+        queryKey: exerciseQueryKeys.all,
       });
     },
   });
