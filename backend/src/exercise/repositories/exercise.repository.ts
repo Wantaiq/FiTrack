@@ -43,10 +43,20 @@ export class ExerciseRepository {
       });
     }
 
-    qb.skip((filters.page - 1) * filters.limit);
-    qb.take(filters.limit);
+    const [exercises, totalExercises] = await qb
+      .skip((filters.page - 1) * filters.limit)
+      .take(filters.limit)
+      .getManyAndCount();
 
-    return qb.getMany();
+    return {
+      items: exercises,
+      meta: {
+        page: filters.page,
+        limit: filters.limit,
+        totalItems: totalExercises,
+        totalPages: Math.ceil(totalExercises / filters.limit),
+      },
+    };
   }
 
   async save(exercise: CreateExerciseInput) {
