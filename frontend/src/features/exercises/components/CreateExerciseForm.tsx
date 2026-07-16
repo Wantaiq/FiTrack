@@ -6,13 +6,15 @@ import {
   AppFieldArray,
 } from '@/common/components/form';
 import {
-  createExerciseSchema,
-  type CreateExerciseFormValues,
   type Difficulty,
   type ExerciseType,
   type Mechanic,
-} from '../schemas/create-exercise.schema';
+} from '../schemas/exercise.schema';
 import { Button } from '@chakra-ui/react';
+import {
+  createExerciseSchema,
+  type CreateExerciseFormValues,
+} from '../schemas/create-exercise.schema';
 
 type Props = {
   onSubmit: (values: CreateExerciseFormValues) => Promise<void> | void;

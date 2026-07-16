@@ -1,5 +1,5 @@
 import { Button, Input, NativeSelect } from '@chakra-ui/react';
-import { useExerciseFilters } from '../hooks/useExerciseFilters';
+import useExerciseFilters from '../hooks/useExerciseFilters';
 import type {
   Difficulty,
   ExerciseType,
