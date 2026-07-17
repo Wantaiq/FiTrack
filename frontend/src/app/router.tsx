@@ -1,8 +1,10 @@
 import { DashboardPage } from '@/common/pages';
 import { LoginPage, RegisterPage, LogoutPage } from '@/features/auth';
-import ExerciseDetailsPage from '@/features/exercises/pages/ExerciseDetailsPage';
-import ExercisesPage from '@/features/exercises/pages/ExercisesPage';
-import NewExercisePage from '@/features/exercises/pages/NewExercisePage';
+import {
+  ExerciseDetailsPage,
+  ExercisesPage,
+  NewExercisePage,
+} from '@/features/exercises';
 import { AuthLayout, DashboardLayout } from '@/layouts';
 import { createBrowserRouter } from 'react-router';
 
