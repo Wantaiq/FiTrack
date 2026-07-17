@@ -16,6 +16,7 @@ import { LoginDto } from '../dto/login.dto';
 import { RegisterDto } from '../dto/register.dto';
 import { CurrentUser } from '../../shared/decorators/current-user.decorator';
 import { type TCurrentUser } from '../../user/types/current-user.types';
+import { AuthResponseDto } from '../dto/auth-response.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -48,7 +49,7 @@ export class AuthController {
   async login(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) response: Response,
-  ) {
+  ): Promise<AuthResponseDto> {
     const { accessToken, user } = await this.authService.login(dto);
 
     this.sendAuthCookies(accessToken, response);
@@ -61,7 +62,7 @@ export class AuthController {
   async register(
     @Body() dto: RegisterDto,
     @Res({ passthrough: true }) response: Response,
-  ) {
+  ): Promise<AuthResponseDto> {
     const { accessToken, user } = await this.authService.register(dto);
 
     this.sendAuthCookies(accessToken, response);
@@ -70,7 +71,7 @@ export class AuthController {
   }
 
   @Get('/me')
-  async me(@CurrentUser() currentUser: TCurrentUser) {
+  async me(@CurrentUser() currentUser: TCurrentUser): Promise<AuthResponseDto> {
     return currentUser;
   }
 

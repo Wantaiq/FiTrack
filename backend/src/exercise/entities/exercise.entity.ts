@@ -23,8 +23,8 @@ export class ExerciseEntity {
   @Column({ length: 100 })
   name!: string;
 
-  @Column('text', { nullable: true })
-  description?: string;
+  @Column('text')
+  description!: string;
 
   @OneToMany(
     () => ExerciseInstructionEntity,
@@ -46,17 +46,15 @@ export class ExerciseEntity {
   @Column({
     type: 'enum',
     enum: Difficulty,
-    nullable: true,
   })
-  difficulty?: Difficulty;
+  difficulty!: Difficulty;
 
   @Index()
   @Column({
     type: 'enum',
     enum: MechanicType,
-    nullable: true,
   })
-  mechanic?: MechanicType;
+  mechanic!: MechanicType;
 
   @ManyToOne(() => UserEntity, { nullable: true, onDelete: 'SET NULL' })
   createdBy!: UserEntity | null;

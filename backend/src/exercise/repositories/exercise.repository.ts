@@ -69,10 +69,21 @@ export class ExerciseRepository {
         { id, createdBy: IsNull() },
         { id, createdBy: { id: userId } },
       ],
+      relations: {
+        instructions: true,
+      },
+      order: {
+        instructions: {
+          order: 'ASC',
+        },
+      },
     });
   }
 
   async deleteVisible(userId: string, id: string) {
-    return this.repository.delete({ id: id, createdBy: { id: userId } });
+    return this.repository.delete({
+      id: id,
+      createdBy: { id: userId },
+    });
   }
 }

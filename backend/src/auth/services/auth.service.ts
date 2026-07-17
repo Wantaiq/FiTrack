@@ -14,7 +14,7 @@ export class AuthService {
     private readonly tokensService: TokensService,
   ) {}
 
-  async register(dto: RegisterDto): Promise<AuthResponseDto> {
+  async register(dto: RegisterDto) {
     const passwordHash = await this.hashService.hash(dto.password);
 
     const user = await this.userService.save({
@@ -31,7 +31,7 @@ export class AuthService {
     };
   }
 
-  async login(dto: LoginDto): Promise<AuthResponseDto> {
+  async login(dto: LoginDto) {
     const user = await this.validateUser(dto);
 
     const token = await this.tokensService.sign(user.id, user.username);

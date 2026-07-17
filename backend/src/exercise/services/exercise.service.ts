@@ -38,6 +38,10 @@ export class ExerciseService {
   }
 
   async remove(id: string, user: TCurrentUser) {
-    return this.exerciseRepository.deleteVisible(user.id, id);
+    const result = await this.exerciseRepository.deleteVisible(user.id, id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException();
+    }
   }
 }

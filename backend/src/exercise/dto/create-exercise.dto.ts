@@ -19,24 +19,21 @@ export class CreateExerciseDto {
   @MaxLength(100)
   name!: string;
 
-  @IsOptional()
   @IsString()
   @MinLength(20)
-  description?: string;
+  description!: string;
 
   @IsString()
   @IsEnum(ExerciseType)
   type!: ExerciseType;
 
-  @IsOptional()
   @IsString()
   @IsEnum(Difficulty)
-  difficulty?: Difficulty;
+  difficulty!: Difficulty;
 
-  @IsOptional()
   @IsString()
   @IsEnum(MechanicType)
-  mechanic?: MechanicType;
+  mechanic!: MechanicType;
 
   @IsOptional()
   @ValidateNested({ each: true })
