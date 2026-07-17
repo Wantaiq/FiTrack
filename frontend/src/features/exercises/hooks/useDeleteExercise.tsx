@@ -1,21 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import createExercise from '../api/create-exercise';
+import deleteExercise from '../api/delete-exercise';
 import exerciseQueryKeys from '../query-keys';
 
-function useCreateExercise() {
+export function useDeleteExercise() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createExercise,
+    mutationFn: deleteExercise,
 
-    onSuccess(exercise) {
+    onSuccess() {
       queryClient.invalidateQueries({
         queryKey: exerciseQueryKeys.lists(),
       });
-
-      queryClient.setQueryData(exerciseQueryKeys.detail(exercise.id), exercise);
     },
   });
 }
-
-export default useCreateExercise;

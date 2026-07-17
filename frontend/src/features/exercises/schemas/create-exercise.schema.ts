@@ -2,14 +2,9 @@ import z from 'zod';
 import {
   difficultySchema,
   exerciseTypeSchema,
+  instructionSchema,
   mechanicSchema,
 } from './exercise.schema';
-
-const createInstructionSchema = z.object({
-  title: z.string().max(100),
-  text: z.string(),
-  order: z.number(),
-});
 
 export const createExerciseSchema = z.object({
   name: z.string(),
@@ -17,7 +12,7 @@ export const createExerciseSchema = z.object({
   type: exerciseTypeSchema,
   difficulty: difficultySchema,
   mechanic: mechanicSchema,
-  instructions: z.array(createInstructionSchema).min(1),
+  instructions: z.array(instructionSchema.omit({ id: true })).min(1),
 });
 
 export type CreateExerciseFormValues = z.infer<typeof createExerciseSchema>;

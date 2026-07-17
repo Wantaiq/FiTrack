@@ -26,7 +26,7 @@ function ExercisesPage() {
       </Button>
       <ExerciseFilters />
       {data.items.map((exercise: any) => (
-        <div>
+        <div key={exercise.id}>
           {exercise.name} <Link to={`${exercise.id}`}> Details</Link>
         </div>
       ))}

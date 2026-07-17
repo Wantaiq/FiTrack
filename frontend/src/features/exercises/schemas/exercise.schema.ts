@@ -16,9 +16,17 @@ export const exerciseTypeSchema = z.enum([
   'isometric',
 ]);
 
+export const instructionSchema = z.object({
+  id: z.uuid(),
+  title: z.string().max(100),
+  text: z.string(),
+  order: z.number(),
+});
+
 export type Difficulty = z.infer<typeof difficultySchema>;
 export type Mechanic = z.infer<typeof mechanicSchema>;
 export type ExerciseType = z.infer<typeof exerciseTypeSchema>;
+export type Instruction = z.infer<typeof instructionSchema>;
 
 export type Exercise = {
   id: string;
@@ -28,3 +36,5 @@ export type Exercise = {
   difficulty: Difficulty;
   mechanic: Mechanic;
 };
+
+export type ExerciseDetail = Exercise & { instructions: Instruction[] };

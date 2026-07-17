@@ -1,5 +1,6 @@
 import { DashboardPage } from '@/common/pages';
 import { LoginPage, RegisterPage, LogoutPage } from '@/features/auth';
+import ExerciseDetailsPage from '@/features/exercises/pages/ExerciseDetailsPage';
 import ExercisesPage from '@/features/exercises/pages/ExercisesPage';
 import NewExercisePage from '@/features/exercises/pages/NewExercisePage';
 import { AuthLayout, DashboardLayout } from '@/layouts';
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <NewExercisePage />,
+          },
+          {
+            path: ':id',
+            element: <ExerciseDetailsPage />,
           },
         ],
       },
