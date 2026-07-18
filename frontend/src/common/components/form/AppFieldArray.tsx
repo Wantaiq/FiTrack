@@ -2,25 +2,38 @@ import type { ReactNode } from 'react';
 import {
   useFieldArray,
   useFormContext,
-  type Path,
   type FieldValues,
-  type FieldArray,
+  type UseFieldArrayAppend,
+  type FieldArrayPath,
+  type FieldArrayWithId,
 } from 'react-hook-form';
 
-type AppFieldArrayProps<T extends FieldValues> = {
-  name: Path<T>;
-  appendValues: (length: number) => FieldArray<FieldValues, Path<T>>;
-  renderItem: (idx: number) => ReactNode;
+type AppFieldArrayProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldArrayPath<TFieldValues>,
+> = {
+  name: TName;
+  renderAppendButton: (
+    addItem: UseFieldArrayAppend<TFieldValues, TName>,
+    length: number,
+  ) => ReactNode;
+  renderItem: (
+    idx: number,
+    field: FieldArrayWithId<TFieldValues, TName>,
+  ) => ReactNode;
 };
 
-function AppFieldArray<T extends FieldValues>({
+function AppFieldArray<
+  TFieldValues extends FieldValues,
+  TName extends FieldArrayPath<TFieldValues>,
+>({
   name,
-  appendValues,
+  renderAppendButton,
   renderItem,
-}: AppFieldArrayProps<T>) {
-  const { control } = useFormContext();
+}: AppFieldArrayProps<TFieldValues, TName>) {
+  const { control } = useFormContext<TFieldValues>();
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray<TFieldValues, TName>({
     control,
     name,
   });
@@ -30,12 +43,14 @@ function AppFieldArray<T extends FieldValues>({
       <ul>
         {fields.map((item, idx) => (
           <div key={item.id}>
-            <li>{renderItem(idx)}</li>
-            <button onClick={() => remove(idx)}>Remove</button>
+            <li>{renderItem(idx, item)}</li>
+            <button onClick={() => remove(idx)} type="button">
+              Remove
+            </button>
           </div>
         ))}
       </ul>
-      <button onClick={() => append(appendValues(fields.length))}>Add</button>
+      {renderAppendButton(append, fields.length)}
     </>
   );
 }
