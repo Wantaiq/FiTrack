@@ -5,6 +5,7 @@ import {
   ExercisesPage,
   NewExercisePage,
 } from '@/features/exercises';
+import { NewWorkoutTemplatePage } from '@/features/workout-templates';
 import { AuthLayout, DashboardLayout } from '@/layouts';
 import { createBrowserRouter } from 'react-router';
 
@@ -48,6 +49,15 @@ const router = createBrowserRouter([
           {
             path: ':id',
             element: <ExerciseDetailsPage />,
+          },
+        ],
+      },
+      {
+        path: '/workout-templates',
+        children: [
+          {
+            path: 'new',
+            element: <NewWorkoutTemplatePage />,
           },
         ],
       },
