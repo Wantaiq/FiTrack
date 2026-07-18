@@ -22,7 +22,7 @@ export class ListExercisesQueryDto {
   @IsInt()
   @Min(1)
   @Max(50)
-  limit: number = 10;
+  limit: number = 20;
 
   @IsOptional()
   @IsString()

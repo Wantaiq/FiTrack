@@ -14,6 +14,7 @@ import { CurrentUser } from '../../shared/decorators/current-user.decorator';
 import { type TCurrentUser } from '../../user/types/current-user.types';
 import { WorkoutTemplateService } from '../services/workout-template.service';
 import { ListWorkoutsQueryDto } from '../dto/list-workout-template-query.dto';
+import { WorkoutTemplateResponseDto } from '../dto/workout-template-response.dto';
 
 @Controller('workout-templates')
 export class WorkoutTemplateController {
@@ -26,8 +27,8 @@ export class WorkoutTemplateController {
   async create(
     @Body() dto: CreateWorkoutTemplateDto,
     @CurrentUser() currentUser: TCurrentUser,
-  ) {
-    await this.workoutTemplateService.save(dto, currentUser);
+  ): Promise<WorkoutTemplateResponseDto> {
+    return this.workoutTemplateService.save(dto, currentUser);
   }
 
   @Get('/')

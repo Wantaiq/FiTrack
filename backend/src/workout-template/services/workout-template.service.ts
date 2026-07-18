@@ -11,7 +11,7 @@ export class WorkoutTemplateService {
   ) {}
 
   async save(dto: CreateWorkoutTemplateDto, user: TCurrentUser) {
-    return this.workoutTemplateRepository.save({
+    const workoutTemplate = await this.workoutTemplateRepository.save({
       ...dto,
       exercises: dto.exercises.map((exercise) => {
         return {
@@ -22,6 +22,11 @@ export class WorkoutTemplateService {
       }),
       createdBy: { id: user.id },
     });
+
+    return {
+      id: workoutTemplate.id,
+      name: workoutTemplate.name,
+    };
   }
 
   async list(query: ListWorkoutsQueryDto, user: TCurrentUser) {

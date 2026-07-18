@@ -22,9 +22,6 @@ export class WorkoutSessionExerciseEntity {
   @ManyToOne(() => ExerciseEntity)
   exercise!: ExerciseEntity;
 
-  @Column()
-  order!: number;
-
   @Column({
     type: 'text',
     nullable: true,

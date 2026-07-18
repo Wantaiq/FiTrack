@@ -30,9 +30,6 @@ export class WorkoutTemplateExerciseEntity {
   })
   note?: string;
 
-  @Column()
-  order!: number;
-
   @OneToMany(
     () => WorkoutTemplateSetEntity,
     (set) => set.workoutTemplateExercise,

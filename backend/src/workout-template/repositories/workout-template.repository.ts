@@ -12,8 +12,8 @@ export class WorkoutTemplateRepository {
     private readonly repository: Repository<WorkoutTemplateEntity>,
   ) {}
 
-  async save(workout: CreateWorkoutTemplateInput) {
-    return this.repository.save(workout);
+  async save(workoutTemplate: CreateWorkoutTemplateInput) {
+    return this.repository.save(workoutTemplate);
   }
 
   async findVisible(userId: string, filters: WorkoutTemplateFilters) {

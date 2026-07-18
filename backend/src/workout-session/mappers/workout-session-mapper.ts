@@ -33,8 +33,6 @@ export class WorkoutSessionMapper {
 
     sessionExercise.session = session;
     sessionExercise.exercise = templateExercise.exercise;
-
-    sessionExercise.order = templateExercise.order;
     sessionExercise.note = templateExercise.note;
 
     sessionExercise.sets = templateExercise.sets.map((templateSet) =>
