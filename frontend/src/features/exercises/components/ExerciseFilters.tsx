@@ -7,30 +7,27 @@ import type {
 } from '../schemas/exercise.schema';
 
 export function ExerciseFilters() {
-  const { filters, updateFilters } = useExerciseFilters();
+  const {
+    filters,
+    setName,
+    setDifficulty,
+    setType,
+    clearFilters,
+    setMechanic,
+  } = useExerciseFilters();
 
   return (
     <>
       <Input
         placeholder="bench press"
         value={filters.name}
-        onChange={(e) =>
-          updateFilters({
-            name: e.target.value,
-            page: 1,
-          })
-        }
+        onChange={(e) => setName(e.target.value)}
       />
 
       <NativeSelect.Root>
         <NativeSelect.Field
           value={filters.difficulty || ''}
-          onChange={(e) =>
-            updateFilters({
-              difficulty: (e.target.value as Difficulty) || undefined,
-              page: 1,
-            })
-          }
+          onChange={(e) => setDifficulty(e.target.value as Difficulty)}
         >
           <option value="">Difficulty</option>
           <option value="beginner">Beginner</option>
@@ -42,12 +39,7 @@ export function ExerciseFilters() {
       <NativeSelect.Root>
         <NativeSelect.Field
           value={filters.type || ''}
-          onChange={(e) =>
-            updateFilters({
-              type: (e.target.value as ExerciseType) || undefined,
-              page: 1,
-            })
-          }
+          onChange={(e) => setType(e.target.value as ExerciseType)}
         >
           <option value="">Type</option>
           <option value="strength">Strength</option>
@@ -61,31 +53,14 @@ export function ExerciseFilters() {
       <NativeSelect.Root>
         <NativeSelect.Field
           value={filters.mechanic || ''}
-          onChange={(e) =>
-            updateFilters({
-              mechanic: (e.target.value as Mechanic) || undefined,
-              page: 1,
-            })
-          }
+          onChange={(e) => setMechanic(e.target.value as Mechanic)}
         >
           <option value="">Mechanic</option>
           <option value="compound">Compound</option>
           <option value="isolation">Isolation</option>
         </NativeSelect.Field>
       </NativeSelect.Root>
-      <Button
-        onClick={() =>
-          updateFilters({
-            page: 1,
-            difficulty: undefined,
-            name: '',
-            mechanic: undefined,
-            type: undefined,
-          })
-        }
-      >
-        Clear all
-      </Button>
+      <Button onClick={() => clearFilters()}>Clear all</Button>
     </>
   );
 }

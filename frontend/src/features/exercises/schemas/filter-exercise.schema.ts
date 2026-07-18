@@ -10,7 +10,7 @@ export const filterExercisesSchema = z.object({
   difficulty: difficultySchema.optional().catch(undefined),
   type: exerciseTypeSchema.optional().catch(undefined),
   mechanic: mechanicSchema.optional().catch(undefined),
-  page: z.coerce.number().int().positive().default(1).catch(1),
+  page: z.coerce.number().int().positive().default(1).optional().catch(1),
 });
 
 export type FilterExercises = z.infer<typeof filterExercisesSchema>;

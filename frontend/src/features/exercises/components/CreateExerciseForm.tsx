@@ -44,11 +44,16 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
         name="description"
         label="Description"
       />
-      <AppFieldArray<CreateExerciseFormValues>
+      <AppFieldArray<CreateExerciseFormValues, 'instructions'>
         name="instructions"
-        appendValues={(length) => {
-          return { order: length + 1, title: '', text: '' };
-        }}
+        renderAppendButton={(addItem, length) => (
+          <button
+            type="button"
+            onClick={() => addItem({ order: length + 1, title: '', text: '' })}
+          >
+            Add
+          </button>
+        )}
         renderItem={(idx) => {
           return (
             <>
