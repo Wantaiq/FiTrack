@@ -45,11 +45,12 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
 
     addItem({
       exerciseId: itemId,
+      note: '',
       sets: [
         {
           order: 1,
           targetReps: 10,
-          targetSets: 3,
+          targetWeight: 30,
         },
       ],
     });
@@ -106,7 +107,7 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
                       addItem({
                         order: length + 1,
                         targetReps: 8,
-                        targetSets: 3,
+                        targetWeight: 3,
                       })
                     }
                   >
@@ -117,12 +118,12 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
                   return (
                     <>
                       <AppInput<CreateWorkoutTemplateFormValues>
-                        label="Target Sets"
+                        label="Target Reps"
                         name={`exercises.${idx}.sets.${setIndex}.targetReps`}
                       />
                       <AppInput<CreateWorkoutTemplateFormValues>
-                        label="Target Reps"
-                        name={`exercises.${idx}.sets.${setIndex}.targetSets`}
+                        label="Target Weight"
+                        name={`exercises.${idx}.sets.${setIndex}.targetWeight`}
                       />
                     </>
                   );

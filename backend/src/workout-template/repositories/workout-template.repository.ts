@@ -18,19 +18,31 @@ export class WorkoutTemplateRepository {
 
   async findVisible(userId: string, filters: WorkoutTemplateFilters) {
     const qb = this.repository
-      .createQueryBuilder('workout')
-      .where('workout.createdBy = :userId', { userId: userId });
+      .createQueryBuilder('workout_template')
+      .where('workout_template.createdBy = :userId', { userId: userId })
+      .leftJoinAndSelect('workout_template.exercises', 'exercises')
+      .leftJoinAndSelect('exercises.exercise', 'exercise');
 
     if (filters.name) {
-      qb.andWhere(`workout.name ILIKE :name`, {
+      qb.andWhere(`workout_template.name ILIKE :name`, {
         name: `${filters.name}%`,
       });
     }
 
-    qb.skip((filters.page - 1) * filters.limit);
-    qb.take(filters.limit);
+    const [workoutTemplates, totalWorkoutTemplates] = await qb
+      .skip((filters.page - 1) * filters.limit)
+      .take(filters.limit)
+      .getManyAndCount();
 
-    return qb.getMany();
+    return {
+      items: workoutTemplates,
+      meta: {
+        page: filters.page,
+        limit: filters.limit,
+        totalItems: totalWorkoutTemplates,
+        totalPages: Math.ceil(totalWorkoutTemplates / filters.limit),
+      },
+    };
   }
 
   async findVisibleById(userId: string, id: string) {

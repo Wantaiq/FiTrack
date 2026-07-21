@@ -11,5 +11,5 @@ export class CreateWorkoutTemplateExerciseSetDto {
 
   @IsNumber()
   @IsPositive()
-  targetSets!: number;
+  targetWeight!: number;
 }

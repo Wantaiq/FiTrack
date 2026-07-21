@@ -1,23 +1,32 @@
-import { exerciseSchema } from '@/features/exercises/schemas/exercise.schema';
+import { exercisePartialSchema } from '@/features/exercises';
 import z from 'zod';
 
-export const workoutTemplateExerciseSetSchema = z.object({
+export const workoutTemplateSetFullSchema = z.object({
   id: z.uuid(),
-  order: z.number().int().positive(),
-  targetReps: z.coerce.number().int().positive(),
-  targetSets: z.coerce.number().int().positive(),
+  order: z.number().positive().int(),
+  targetReps: z.number().positive().int(),
+  targetWeight: z.number().positive().int(),
 });
 
-export const workoutTemplateExerciseSchema = z.object({
+export const workoutTemplateExerciseFullSchema = z.object({
   id: z.uuid(),
-  note: z.string().optional(),
-  exercise: exerciseSchema,
+  note: z.string(),
+  exercise: exercisePartialSchema,
+  sets: z.array(workoutTemplateSetFullSchema).min(1),
 });
 
-export const workoutTemplateSchema = z.object({
+export const workoutTemplateFullSchema = z.object({
   id: z.uuid(),
   name: z.string(),
-  exercises: z.array(workoutTemplateExerciseSchema).min(1),
+  exercises: z.array(workoutTemplateExerciseFullSchema).min(1),
 });
 
-export type WorkoutTemplate = z.infer<typeof workoutTemplateSchema>;
+export const workoutTemplateExercisePartialSchema =
+  workoutTemplateFullSchema.extend({
+    exercises: z.array(workoutTemplateExerciseFullSchema.omit({ sets: true })),
+  });
+
+export type WorkoutTemplateFull = z.infer<typeof workoutTemplateFullSchema>;
+export type WorkoutTemplatePartial = z.infer<
+  typeof workoutTemplateExercisePartialSchema
+>;

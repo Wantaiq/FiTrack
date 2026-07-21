@@ -22,4 +22,9 @@ export class WorkoutTemplateSetEntity {
     type: 'integer',
   })
   targetReps!: number;
+
+  @Column({
+    type: 'integer',
+  })
+  targetWeight!: number;
 }

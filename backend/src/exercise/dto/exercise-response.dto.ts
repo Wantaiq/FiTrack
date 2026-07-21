@@ -15,6 +15,6 @@ export class ExerciseResponseDto {
 }
 
 export class ExercisesListResponseDto {
-  items!: ExerciseResponseDto[];
+  items!: Omit<ExerciseResponseDto, 'instructions'>[];
   meta!: { page: number; limit: number; totalItems: number };
 }

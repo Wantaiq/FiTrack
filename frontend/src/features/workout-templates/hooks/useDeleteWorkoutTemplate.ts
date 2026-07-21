@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import createWorkoutTemplate from '../api/create-workout-template';
+import deleteWorkoutTemplate from '../api/delete-workout-template';
 import workoutTemplateQueryKeys from '../query-keys';
 
-function useCreateWorkoutTemplate() {
+export function useDeleteExercise() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createWorkoutTemplate,
+    mutationFn: deleteWorkoutTemplate,
+
     onSuccess() {
       queryClient.invalidateQueries({
         queryKey: workoutTemplateQueryKeys.lists(),
@@ -14,5 +15,3 @@ function useCreateWorkoutTemplate() {
     },
   });
 }
-
-export default useCreateWorkoutTemplate;

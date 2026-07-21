@@ -1,24 +1,25 @@
 import z from 'zod';
 import {
-  workoutTemplateExerciseSchema,
-  workoutTemplateExerciseSetSchema,
-  workoutTemplateSchema,
+  workoutTemplateExerciseFullSchema,
+  workoutTemplateSetFullSchema,
+  workoutTemplateFullSchema,
 } from './workout-template.schema';
 
-const createWorkoutTemplateExerciseSetSChema =
-  workoutTemplateExerciseSetSchema.omit({ id: true });
+const createWorkoutTemplateSetFullSchema = workoutTemplateSetFullSchema.omit({
+  id: true,
+});
 
-const createWorkoutTemplateExerciseSchema = workoutTemplateExerciseSchema
+const createWorkoutTemplateExerciseSchema = workoutTemplateExerciseFullSchema
   .omit({
     id: true,
     exercise: true,
   })
   .extend({
-    sets: z.array(createWorkoutTemplateExerciseSetSChema).min(1),
+    sets: z.array(createWorkoutTemplateSetFullSchema).min(1),
     exerciseId: z.string(),
   });
 
-export const createWorkoutTemplateSchema = workoutTemplateSchema
+export const createWorkoutTemplateSchema = workoutTemplateFullSchema
   .omit({
     id: true,
   })
