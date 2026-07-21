@@ -1,3 +1,4 @@
+import { exerciseSchema } from '@/features/exercises/schemas/exercise.schema';
 import z from 'zod';
 
 export const workoutTemplateExerciseSetSchema = z.object({
@@ -10,8 +11,7 @@ export const workoutTemplateExerciseSetSchema = z.object({
 export const workoutTemplateExerciseSchema = z.object({
   id: z.uuid(),
   note: z.string().optional(),
-  exerciseId: z.string(),
-  sets: z.array(workoutTemplateExerciseSetSchema).min(1),
+  exercise: exerciseSchema,
 });
 
 export const workoutTemplateSchema = z.object({

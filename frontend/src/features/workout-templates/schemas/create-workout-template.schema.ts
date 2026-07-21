@@ -11,9 +11,11 @@ const createWorkoutTemplateExerciseSetSChema =
 const createWorkoutTemplateExerciseSchema = workoutTemplateExerciseSchema
   .omit({
     id: true,
+    exercise: true,
   })
   .extend({
     sets: z.array(createWorkoutTemplateExerciseSetSChema).min(1),
+    exerciseId: z.string(),
   });
 
 export const createWorkoutTemplateSchema = workoutTemplateSchema
