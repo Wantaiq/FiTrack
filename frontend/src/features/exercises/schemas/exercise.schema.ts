@@ -23,7 +23,7 @@ export const instructionSchema = z.object({
   order: z.number(),
 });
 
-export const exerciseDetailSchema = z.object({
+export const exerciseFullSchema = z.object({
   id: z.uuid(),
   name: z.string(),
   description: z.string().min(20),
@@ -33,11 +33,13 @@ export const exerciseDetailSchema = z.object({
   instructions: z.array(instructionSchema).min(1),
 });
 
-export const exerciseSchema = exerciseDetailSchema.omit({ instructions: true });
+export const exercisePartialSchema = exerciseFullSchema.omit({
+  instructions: true,
+});
 
 export type Difficulty = z.infer<typeof difficultySchema>;
 export type Mechanic = z.infer<typeof mechanicSchema>;
 export type ExerciseType = z.infer<typeof exerciseTypeSchema>;
 export type Instruction = z.infer<typeof instructionSchema>;
-export type Exercise = z.infer<typeof exerciseSchema>;
-export type ExerciseDetail = z.infer<typeof exerciseDetailSchema>;
+export type ExercisePartial = z.infer<typeof exercisePartialSchema>;
+export type ExerciseFull = z.infer<typeof exerciseFullSchema>;

@@ -1,9 +1,9 @@
 import z from 'zod';
-import { exerciseDetailSchema, instructionSchema } from './exercise.schema';
+import { exerciseFullSchema, instructionSchema } from './exercise.schema';
 
 const createInstructionSchema = instructionSchema.omit({ id: true });
 
-export const createExerciseSchema = exerciseDetailSchema
+export const createExerciseSchema = exerciseFullSchema
   .omit({ id: true })
   .extend({
     instructions: z.array(createInstructionSchema).min(1),

@@ -15,6 +15,7 @@ function ExerciseDetailsPage() {
     await mutateAsync(id!);
     navigate('/exercises', { replace: true });
   }
+
   if (!id) {
     return <Navigate to="/" replace />;
   }

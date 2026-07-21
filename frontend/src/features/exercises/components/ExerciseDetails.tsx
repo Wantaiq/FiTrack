@@ -1,7 +1,7 @@
-import type { ExerciseDetail } from '../schemas/exercise.schema';
+import type { ExerciseFull } from '../schemas/exercise.schema';
 
 type Props = {
-  exercise: ExerciseDetail;
+  exercise: ExerciseFull;
 };
 
 function ExerciseDetails({ exercise }: Props) {
