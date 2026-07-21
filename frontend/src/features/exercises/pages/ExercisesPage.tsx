@@ -4,8 +4,8 @@ import useExercises from '../hooks/useExercises';
 import { ExerciseFilters } from '../components/ExerciseFilters';
 import { Button } from '@chakra-ui/react';
 import { Link } from 'react-router';
-import ExercisesPagination from '../components/ExercisePagination';
 import useDebounce from '@/common/hooks/useDebounce';
+import AppPagination from '@/common/components/AppPagination';
 
 function ExercisesPage() {
   const { filters, setPage } = useExerciseFilters();
@@ -36,7 +36,7 @@ function ExercisesPage() {
           {exercise.name} <Link to={`${exercise.id}`}> Details</Link>
         </div>
       ))}
-      <ExercisesPagination
+      <AppPagination
         onPageChange={(e) => setPage(e.page)}
         totalItems={data.meta.totalItems}
         limit={data.meta.limit}

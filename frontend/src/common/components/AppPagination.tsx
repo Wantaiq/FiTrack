@@ -11,7 +11,7 @@ type Props = {
   currentPage: number;
   onPageChange: (page: PaginationPageChangeDetails) => void;
 };
-function ExercisesPagination({
+function AppPagination({
   totalItems,
   limit,
   currentPage,
@@ -49,4 +49,4 @@ function ExercisesPagination({
   );
 }
 
-export default ExercisesPagination;
+export default AppPagination;
