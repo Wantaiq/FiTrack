@@ -7,6 +7,7 @@ import {
 } from '@/features/exercises';
 import {
   NewWorkoutTemplatePage,
+  WorkoutTemplateDetailsPage,
   WorkoutTemplatesPage,
 } from '@/features/workout-templates';
 import { AuthLayout, DashboardLayout } from '@/layouts';
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <NewWorkoutTemplatePage />,
+          },
+          {
+            path: ':id',
+            element: <WorkoutTemplateDetailsPage />,
           },
         ],
       },

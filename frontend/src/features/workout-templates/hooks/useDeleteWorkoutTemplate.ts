@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import deleteWorkoutTemplate from '../api/delete-workout-template';
 import workoutTemplateQueryKeys from '../query-keys';
 
-export function useDeleteExercise() {
+export function useDeleteWorkoutTemplate() {
   const queryClient = useQueryClient();
 
   return useMutation({

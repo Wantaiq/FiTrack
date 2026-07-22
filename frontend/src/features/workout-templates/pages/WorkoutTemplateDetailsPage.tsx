@@ -2,7 +2,7 @@ import { Navigate, useNavigate, useParams } from 'react-router';
 import useWorkoutTemplateDetails from '../hooks/useWorkoutTemplateDetails';
 import { Button, Loader } from '@chakra-ui/react';
 import WorkoutTemplateDetails from '../components/WorkoutTemplateDetails';
-import { useDeleteExercise } from '../hooks/useDeleteWorkoutTemplate';
+import { useDeleteWorkoutTemplate } from '../hooks/useDeleteWorkoutTemplate';
 
 function WorkoutTemplateDetailsPage() {
   const { id } = useParams();
@@ -12,7 +12,7 @@ function WorkoutTemplateDetailsPage() {
     isPending,
     error,
   } = useWorkoutTemplateDetails(id!);
-  const { mutateAsync } = useDeleteExercise();
+  const { mutateAsync } = useDeleteWorkoutTemplate();
 
   async function handleDelete() {
     await mutateAsync(id!);
