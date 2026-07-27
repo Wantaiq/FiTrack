@@ -3,8 +3,8 @@ import { ScheduleWorkoutSessionDto } from '../dto/schedule-workout-session.dto';
 import { TCurrentUser } from '../../user/types/current-user.types';
 import { WorkoutSessionRepository } from '../repositories/workout-session.repository';
 import { WorkoutTemplateRepository } from '../../workout-template/repositories/workout-template.repository';
-import { WorkoutSessionEntity } from '../entities/workout-session.entity';
 import { WorkoutSessionMapper } from '../mappers/workout-session-mapper';
+import { ListWorkoutSessionQueryDto } from '../dto/list-workout-session-query.dto';
 
 @Injectable()
 export class WorkoutSessionService {
@@ -33,5 +33,12 @@ export class WorkoutSessionService {
 
   async remove(id: string, user: TCurrentUser) {
     return this.workoutSessionRepository.deleteVisible(user.id, id);
+  }
+
+  async list(user: TCurrentUser, query: ListWorkoutSessionQueryDto) {
+    const from = new Date(query.year, query.month - 1, 1);
+    const to = new Date(query.year, query.month, 1);
+
+    return this.workoutSessionRepository.findVisible(user.id, { from, to });
   }
 }

@@ -23,9 +23,9 @@ export class WorkoutSessionEntity {
   template!: WorkoutTemplateEntity | null;
 
   @Column({
-    type: 'timestamp',
+    type: 'date',
   })
-  scheduledAt!: Date;
+  scheduledAt!: string;
 
   @OneToMany(
     () => WorkoutSessionExerciseEntity,

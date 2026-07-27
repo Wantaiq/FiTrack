@@ -10,16 +10,16 @@ export class WorkoutSessionMapper {
   static fromTemplate(
     template: WorkoutTemplateEntity,
     userId: string,
-    scheduledAt: Date,
+    scheduledAt: string,
   ): WorkoutSessionEntity {
     const session = new WorkoutSessionEntity();
 
     session.createdBy = { id: userId } as UserEntity;
     session.template = template;
-    session.scheduledAt = new Date(scheduledAt);
+    session.scheduledAt = scheduledAt;
 
     session.exercises = template.exercises.map((templateExercise) =>
-      this.mapExercise(templateExercise, session),
+      this.mapExercise(templateExercise),
     );
 
     return session;
@@ -27,16 +27,14 @@ export class WorkoutSessionMapper {
 
   private static mapExercise(
     templateExercise: WorkoutTemplateExerciseEntity,
-    session: WorkoutSessionEntity,
   ): WorkoutSessionExerciseEntity {
     const sessionExercise = new WorkoutSessionExerciseEntity();
 
-    sessionExercise.session = session;
     sessionExercise.exercise = templateExercise.exercise;
     sessionExercise.note = templateExercise.note;
 
     sessionExercise.sets = templateExercise.sets.map((templateSet) =>
-      this.mapSet(templateSet, sessionExercise),
+      this.mapSet(templateSet),
     );
 
     return sessionExercise;
@@ -44,11 +42,9 @@ export class WorkoutSessionMapper {
 
   private static mapSet(
     templateSet: WorkoutTemplateSetEntity,
-    sessionExercise: WorkoutSessionExerciseEntity,
   ): WorkoutSessionSetEntity {
     const sessionSet = new WorkoutSessionSetEntity();
 
-    sessionSet.exercise = sessionExercise;
     sessionSet.order = templateSet.order;
     sessionSet.weight = null;
     sessionSet.reps = null;
