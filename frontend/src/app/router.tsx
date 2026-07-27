@@ -5,6 +5,7 @@ import {
   ExercisesPage,
   NewExercisePage,
 } from '@/features/exercises';
+import { SchedulePage } from '@/features/schedule';
 import {
   NewWorkoutTemplatePage,
   WorkoutTemplateDetailsPage,
@@ -70,6 +71,15 @@ const router = createBrowserRouter([
           {
             path: ':id',
             element: <WorkoutTemplateDetailsPage />,
+          },
+        ],
+      },
+      {
+        path: '/schedule',
+        children: [
+          {
+            index: true,
+            element: <SchedulePage />,
           },
         ],
       },

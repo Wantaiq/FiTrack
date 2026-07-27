@@ -6,10 +6,10 @@ import {
 } from '../schemas/create-workout-template.schema';
 import { Button } from '@chakra-ui/react';
 import { useState } from 'react';
-import type { Exercise } from '@/features/exercises/schemas/exercise.schema';
 import ExercisePicker from '../components/ExercisePicker';
 import useDebounce from '@/common/hooks/useDebounce';
 import { Loader } from '@/common/components';
+import type { ExercisePartial } from '@/features/exercises/schemas/exercise.schema';
 
 type Props = {
   onSubmit: (values: CreateWorkoutTemplateFormValues) => Promise<void> | void;
@@ -19,7 +19,9 @@ type Props = {
 
 function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
   const [nameSearch, setNameSearch] = useState('');
-  const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
+  const [selectedExercises, setSelectedExercises] = useState<ExercisePartial[]>(
+    [],
+  );
   const debouncedSearch = useDebounce(nameSearch, 300);
   const {
     data: exercises,
@@ -33,7 +35,7 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
     ) => void,
     itemId: string,
   ) {
-    setNameSearch('');
+    setTimeout(() => setNameSearch(''), 0);
     if (!itemId) return;
 
     const exercise = exercises?.items.find(
@@ -75,6 +77,7 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
         name="exercises"
         renderAppendButton={(addItem) => (
           <ExercisePicker
+            selectedExercises={selectedExercises}
             onSelect={(value: string) => handleSelect(addItem, value)}
             exercises={exercises.items}
             inputValue={nameSearch}
