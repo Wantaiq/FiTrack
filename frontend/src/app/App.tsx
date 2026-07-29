@@ -3,11 +3,11 @@ import { queryClient } from './query-client';
 import { RouterProvider } from 'react-router';
 import router from './router';
 import { ChakraProvider } from '@chakra-ui/react';
-import config from './chakra-system';
+import theme from './theme';
 
 function App() {
   return (
-    <ChakraProvider value={config}>
+    <ChakraProvider value={theme}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
