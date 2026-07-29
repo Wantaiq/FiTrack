@@ -23,8 +23,8 @@ function AppInput<T extends FieldValues>({
   const { error } = getFieldState(name, formState);
 
   return (
-    <Field.Root invalid={!!error} required={required}>
-      <Field.Label htmlFor={id}>
+    <Field.Root invalid={!!error} required={required} gap="2">
+      <Field.Label htmlFor={id} fontWeight="semibold">
         {label}
         <Field.RequiredIndicator />
       </Field.Label>
@@ -34,7 +34,15 @@ function AppInput<T extends FieldValues>({
         type={type}
         placeholder={placeholder}
       />
-      <Field.ErrorText>{error?.message}</Field.ErrorText>
+      <Field.ErrorText
+        fontWeight="semibold"
+        as="div"
+        bg="bg.error"
+        p="2"
+        w="full"
+      >
+        {error?.message}
+      </Field.ErrorText>
     </Field.Root>
   );
 }

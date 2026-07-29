@@ -20,6 +20,13 @@ function SchedulePage() {
 
   const year = selectedDates[0].year;
   const month = selectedDates[0].month;
+  const formattedToday = new Date(
+    selectedDates[0].toString(),
+  ).toLocaleDateString('at-DE', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
 
   const {
     data: sessions,

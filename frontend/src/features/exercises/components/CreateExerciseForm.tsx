@@ -10,7 +10,7 @@ import {
   type ExerciseType,
   type Mechanic,
 } from '../schemas/exercise.schema';
-import { Button } from '@chakra-ui/react';
+import { Alert, Button } from '@chakra-ui/react';
 import {
   createExerciseSchema,
   type CreateExerciseFormValues,
@@ -105,6 +105,14 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
       <Button type="submit" loading={isSubmitting}>
         Create
       </Button>
+      {error && (
+        <Alert.Root status="error">
+          <Alert.Indicator />
+          <Alert.Content>
+            <Alert.Title>{error.message}</Alert.Title>
+          </Alert.Content>
+        </Alert.Root>
+      )}
     </AppForm>
   );
 }
