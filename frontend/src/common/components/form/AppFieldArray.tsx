@@ -1,3 +1,4 @@
+import { Box, HStack, IconButton, Stack } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 import {
   useFieldArray,
@@ -7,6 +8,7 @@ import {
   type FieldArrayPath,
   type FieldArrayWithId,
 } from 'react-hook-form';
+import { RxTrash } from 'react-icons/rx';
 
 type AppFieldArrayProps<
   TFieldValues extends FieldValues,
@@ -40,16 +42,32 @@ function AppFieldArray<
 
   return (
     <>
-      <ul>
+      <Stack gap={8} as={'ul'}>
         {fields.map((item, idx) => (
-          <div key={item.id}>
-            <li>{renderItem(idx, item)}</li>
-            <button onClick={() => remove(idx)} type="button">
-              Remove
-            </button>
-          </div>
+          <HStack
+            key={item.id}
+            as={'li'}
+            gap={4}
+            align={'start'}
+            _notLast={{
+              borderBottomWidth: '1px',
+              paddingBottom: 8,
+              borderColor: 'gray.muted',
+            }}
+          >
+            <Box flex={1}>{renderItem(idx, item)}</Box>
+            <IconButton
+              colorPalette={'red'}
+              variant={'ghost'}
+              onClick={() => remove(idx)}
+              type="button"
+              aria-label="Remove"
+            >
+              <RxTrash />
+            </IconButton>
+          </HStack>
         ))}
-      </ul>
+      </Stack>
       {renderAppendButton(append, fields.length)}
     </>
   );
