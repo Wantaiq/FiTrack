@@ -44,7 +44,13 @@ function AppFieldArray<
     <>
       <Stack gap={8} as={'ul'} separator={<StackSeparator />}>
         {fields.map((item, idx) => (
-          <Stack key={item.id} as={'li'} gap={4} align={'start'}>
+          <Stack
+            key={item.id}
+            as={'li'}
+            gap={4}
+            align={'start'}
+            direction="row"
+          >
             <Box flex={1}>{renderItem(idx, item)}</Box>
             <IconButton
               disabled={fields.length === 1}
