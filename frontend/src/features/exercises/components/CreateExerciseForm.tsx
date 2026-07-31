@@ -10,16 +10,7 @@ import {
   type ExerciseType,
   type Mechanic,
 } from '../schemas/exercise.schema';
-import {
-  Alert,
-  Badge,
-  Box,
-  Button,
-  Card,
-  Flex,
-  HStack,
-  Stack,
-} from '@chakra-ui/react';
+import { Alert, Badge, Box, Button, Card, Flex, Stack } from '@chakra-ui/react';
 import {
   createExerciseSchema,
   type CreateExerciseFormValues,
@@ -109,7 +100,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
         </Card.Root>
 
         <Card.Root w="full">
-          <Card.Header borderBottom={'white'}>
+          <Card.Header>
             <Card.Title as={'h2'}>Instructions</Card.Title>
             <Card.Description>Provide steps for exercise</Card.Description>
           </Card.Header>
@@ -122,7 +113,8 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
                     w={'full'}
                     fontWeight={'semibold'}
                     type="button"
-                    variant={'outline'}
+                    variant={'subtle'}
+                    size={'lg'}
                     onClick={() =>
                       addItem({ order: length + 1, title: '', text: '' })
                     }
@@ -169,7 +161,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
             </Alert.Content>
           </Alert.Root>
         )}
-        <HStack gap={4}>
+        <Stack direction="row" alignItems="center" gap={4}>
           <Button
             type="submit"
             size={'lg'}
@@ -188,7 +180,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
           >
             <Link to={'/exercises'}>Cancel</Link>
           </Button>
-        </HStack>
+        </Stack>
       </Stack>
     </AppForm>
   );
