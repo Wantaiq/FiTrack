@@ -1,10 +1,10 @@
 import {
   Button,
   CloseButton,
-  HStack,
   Input,
   InputGroup,
   NativeSelect,
+  Stack,
 } from '@chakra-ui/react';
 import useExerciseFilters from '../hooks/useExerciseFilters';
 import type {
@@ -24,9 +24,9 @@ export function ExerciseFilters() {
   } = useExerciseFilters();
 
   return (
-    <HStack>
+    <Stack direction="row" alignItems="center">
       <InputGroup
-        flex={4}
+        flex={3}
         endElement={
           filters.name && (
             <CloseButton
@@ -38,7 +38,7 @@ export function ExerciseFilters() {
         }
       >
         <Input
-          placeholder="Search"
+          placeholder="Search exercises"
           value={filters.name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -86,10 +86,11 @@ export function ExerciseFilters() {
       <Button
         onClick={() => clearFilters()}
         boxSizing={'content-box'}
-        variant="outline"
+        variant={'outline'}
+        size={'lg'}
       >
         Reset filters
       </Button>
-    </HStack>
+    </Stack>
   );
 }
