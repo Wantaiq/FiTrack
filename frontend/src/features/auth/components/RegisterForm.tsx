@@ -3,7 +3,7 @@ import {
   registerSchema,
   type RegisterFormValues,
 } from '../schemas/register.schema';
-import { Alert, Button, Flex } from '@chakra-ui/react';
+import { Alert, Button, Stack, StackSeparator } from '@chakra-ui/react';
 
 type Props = {
   onSubmit: (values: RegisterFormValues) => Promise<void> | void;
@@ -14,28 +14,30 @@ type Props = {
 function RegisterForm({ onSubmit, isSubmitting, error }: Props) {
   return (
     <AppForm onSubmit={onSubmit} schema={registerSchema}>
-      <Flex direction="column" gap="4">
-        <AppInput<RegisterFormValues>
-          name="email"
-          type="email"
-          label="Email"
-          placeholder="john.doe@email.com"
-        />
-        <AppInput<RegisterFormValues>
-          name="username"
-          label="Username"
-          placeholder="john.doe"
-        />
-        <AppInput<RegisterFormValues>
-          name="password"
-          type="password"
-          label="Password"
-          placeholder="*******"
-        />
+      <Stack gap={8} separator={<StackSeparator />}>
+        <Stack gap={4}>
+          <AppInput<RegisterFormValues>
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="john.doe@email.com"
+          />
+          <AppInput<RegisterFormValues>
+            name="username"
+            label="Username"
+            placeholder="john.doe"
+          />
+          <AppInput<RegisterFormValues>
+            name="password"
+            type="password"
+            label="Password"
+            placeholder="*******"
+          />
+        </Stack>
         <Button
           type="submit"
-          size="lg"
-          fontWeight="semibold"
+          size={'lg'}
+          fontWeight={'semibold'}
           loading={isSubmitting}
         >
           Register
@@ -48,7 +50,7 @@ function RegisterForm({ onSubmit, isSubmitting, error }: Props) {
             </Alert.Content>
           </Alert.Root>
         )}
-      </Flex>
+      </Stack>
     </AppForm>
   );
 }

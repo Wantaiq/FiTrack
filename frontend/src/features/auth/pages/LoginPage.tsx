@@ -18,7 +18,7 @@ function LoginPage() {
     <AbsoluteCenter as="main">
       <Card.Root>
         <Card.Header>
-          <Card.Title as="h1" fontSize="xl">
+          <Card.Title as={'h1'} fontSize={'2xl'}>
             Login
           </Card.Title>
         </Card.Header>
@@ -29,10 +29,10 @@ function LoginPage() {
             error={error}
           />
         </Card.Body>
-        <Card.Footer justifyContent="center">
-          <Text fontSize="sm">
+        <Card.Footer justifyContent={'center'}>
+          <Text>
             Don't have an account?
-            <Link asChild ml="1">
+            <Link asChild ml={'1'} variant="underline">
               <RouterLink to="/register">Register</RouterLink>
             </Link>
           </Text>

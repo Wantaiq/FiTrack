@@ -1,6 +1,6 @@
 import { AppForm, AppInput } from '@/common/components/form';
 import { loginSchema, type LoginFormValues } from '../schemas/login.schema';
-import { Alert, Button, Flex } from '@chakra-ui/react';
+import { Alert, Button, Stack, StackSeparator } from '@chakra-ui/react';
 import type ApiError from '@/common/api/ApiError';
 
 type Props = {
@@ -12,24 +12,26 @@ type Props = {
 function LoginForm({ onSubmit, isSubmitting, error }: Props) {
   return (
     <AppForm onSubmit={onSubmit} schema={loginSchema}>
-      <Flex direction="column" gap="4">
-        <AppInput<LoginFormValues>
-          name="email"
-          type="email"
-          label="Email"
-          placeholder="john.doe@email.com"
-        />
-        <AppInput<LoginFormValues>
-          name="password"
-          type="password"
-          label="Password"
-          placeholder="*******"
-        />
+      <Stack gap={8} separator={<StackSeparator />}>
+        <Stack gap={4}>
+          <AppInput<LoginFormValues>
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="john.doe@email.com"
+          />
+          <AppInput<LoginFormValues>
+            name="password"
+            type="password"
+            label="Password"
+            placeholder="*******"
+          />
+        </Stack>
         <Button
           type="submit"
           loading={isSubmitting}
-          size="lg"
-          fontWeight="semibold"
+          size={'lg'}
+          fontWeight={'semibold'}
         >
           Login
         </Button>
@@ -41,7 +43,7 @@ function LoginForm({ onSubmit, isSubmitting, error }: Props) {
             </Alert.Content>
           </Alert.Root>
         )}
-      </Flex>
+      </Stack>
     </AppForm>
   );
 }
