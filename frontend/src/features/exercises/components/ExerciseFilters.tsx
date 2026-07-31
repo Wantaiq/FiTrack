@@ -1,4 +1,11 @@
-import { Button, Input, NativeSelect } from '@chakra-ui/react';
+import {
+  Button,
+  CloseButton,
+  HStack,
+  Input,
+  InputGroup,
+  NativeSelect,
+} from '@chakra-ui/react';
 import useExerciseFilters from '../hooks/useExerciseFilters';
 import type {
   Difficulty,
@@ -17,31 +24,46 @@ export function ExerciseFilters() {
   } = useExerciseFilters();
 
   return (
-    <>
-      <Input
-        placeholder="bench press"
-        value={filters.name}
-        onChange={(e) => setName(e.target.value)}
-      />
+    <HStack>
+      <InputGroup
+        flex={4}
+        endElement={
+          filters.name && (
+            <CloseButton
+              aria-label="Clear search"
+              size={'xs'}
+              onClick={() => setName('')}
+            />
+          )
+        }
+      >
+        <Input
+          placeholder="Search"
+          value={filters.name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </InputGroup>
 
-      <NativeSelect.Root>
+      <NativeSelect.Root flex={1}>
+        <NativeSelect.Indicator />
         <NativeSelect.Field
           value={filters.difficulty || ''}
           onChange={(e) => setDifficulty(e.target.value as Difficulty)}
         >
-          <option value="">Difficulty</option>
+          <option value="">All difficulties</option>
           <option value="beginner">Beginner</option>
           <option value="intermediate">Intermediate</option>
           <option value="advanced">Advanced</option>
         </NativeSelect.Field>
       </NativeSelect.Root>
 
-      <NativeSelect.Root>
+      <NativeSelect.Root flex={1}>
+        <NativeSelect.Indicator />
         <NativeSelect.Field
           value={filters.type || ''}
           onChange={(e) => setType(e.target.value as ExerciseType)}
         >
-          <option value="">Type</option>
+          <option value="">All types</option>
           <option value="strength">Strength</option>
           <option value="cardio">Cardio</option>
           <option value="stretch">Stretch</option>
@@ -50,17 +72,24 @@ export function ExerciseFilters() {
         </NativeSelect.Field>
       </NativeSelect.Root>
 
-      <NativeSelect.Root>
+      <NativeSelect.Root flex={1}>
+        <NativeSelect.Indicator />
         <NativeSelect.Field
           value={filters.mechanic || ''}
           onChange={(e) => setMechanic(e.target.value as Mechanic)}
         >
-          <option value="">Mechanic</option>
+          <option value="">All mechanics</option>
           <option value="compound">Compound</option>
           <option value="isolation">Isolation</option>
         </NativeSelect.Field>
       </NativeSelect.Root>
-      <Button onClick={() => clearFilters()}>Clear all</Button>
-    </>
+      <Button
+        onClick={() => clearFilters()}
+        boxSizing={'content-box'}
+        variant="outline"
+      >
+        Reset filters
+      </Button>
+    </HStack>
   );
 }
