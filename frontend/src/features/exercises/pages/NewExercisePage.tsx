@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router';
 import CreateExerciseForm from '../components/CreateExerciseForm';
 import useCreateExercise from '../hooks/useCreateExercise';
 import type { CreateExerciseFormValues } from '../schemas/create-exercise.schema';
-import { Heading, HStack, IconButton, VStack } from '@chakra-ui/react';
+import { Heading, IconButton, Stack } from '@chakra-ui/react';
 import { RxChevronLeft } from 'react-icons/rx';
 
 function NewExercisePage() {
@@ -18,9 +18,9 @@ function NewExercisePage() {
   }
 
   return (
-    <VStack align="stretch" px={12} gap={8}>
-      <HStack gap={4}>
-        <IconButton variant="outline" size={'lg'} aria-label="Go back" asChild>
+    <Stack gap={8}>
+      <Stack direction="row" alignItems="center" gap={4}>
+        <IconButton variant="subtle" size={'md'} aria-label="Go back" asChild>
           <Link to="/exercises">
             <RxChevronLeft />
           </Link>
@@ -28,13 +28,13 @@ function NewExercisePage() {
         <Heading as="h1" fontSize="2xl">
           New Exercise
         </Heading>
-      </HStack>
+      </Stack>
       <CreateExerciseForm
         onSubmit={handleSubmit}
         isSubmitting={isPending}
         error={error}
       />
-    </VStack>
+    </Stack>
   );
 }
 
