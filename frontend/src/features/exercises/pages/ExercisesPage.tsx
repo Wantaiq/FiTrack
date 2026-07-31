@@ -1,11 +1,13 @@
 import { Loader } from '@/common/components';
 import useExerciseFilters from '../hooks/useExerciseFilters';
 import useExercises from '../hooks/useExercises';
-import { ExerciseFilters } from '../components/ExerciseFilters';
-import { Button } from '@chakra-ui/react';
-import { Link } from 'react-router';
 import useDebounce from '@/common/hooks/useDebounce';
+import ExercisesList from '../components/ExercisesList';
 import AppPagination from '@/common/components/AppPagination';
+import { Button, Heading, Stack } from '@chakra-ui/react';
+import { Link } from 'react-router';
+import { RxPlus } from 'react-icons/rx';
+import { ExerciseFilters } from '../components/ExerciseFilters';
 
 function ExercisesPage() {
   const { filters, setPage } = useExerciseFilters();
@@ -26,23 +28,31 @@ function ExercisesPage() {
   }
 
   return (
-    <>
-      <Button asChild>
-        <Link to="new">Create new</Link>
-      </Button>
+    <Stack gap={8}>
+      <Stack
+        direction="row"
+        gap={4}
+        justifyContent={'space-between'}
+        alignItems="center"
+      >
+        <Heading as={'h1'} fontSize={'2xl'}>
+          Exercises Library
+        </Heading>
+        <Button asChild fontWeight={'semibold'} colorPalette={'brand'}>
+          <Link to="new">
+            <RxPlus aria-hidden="true" /> New Exercise
+          </Link>
+        </Button>
+      </Stack>
       <ExerciseFilters />
-      {data.items.map((exercise) => (
-        <div key={exercise.id}>
-          {exercise.name} <Link to={`${exercise.id}`}> Details</Link>
-        </div>
-      ))}
+      <ExercisesList exercises={data.items} />
       <AppPagination
         onPageChange={(e) => setPage(e.page)}
         totalItems={data.meta.totalItems}
         limit={data.meta.limit}
         currentPage={data.meta.page}
       />
-    </>
+    </Stack>
   );
 }
 
