@@ -24,7 +24,7 @@ function AppInput<T extends FieldValues>({
 
   return (
     <Field.Root invalid={!!error} required={required} gap="2">
-      <Field.Label htmlFor={id} fontWeight="semibold">
+      <Field.Label htmlFor={id}>
         {label}
         <Field.RequiredIndicator />
       </Field.Label>

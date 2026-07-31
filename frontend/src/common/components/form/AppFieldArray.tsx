@@ -1,4 +1,4 @@
-import { Box, HStack, IconButton, Stack } from '@chakra-ui/react';
+import { Box, IconButton, Stack, StackSeparator } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 import {
   useFieldArray,
@@ -42,30 +42,22 @@ function AppFieldArray<
 
   return (
     <>
-      <Stack gap={8} as={'ul'}>
+      <Stack gap={8} as={'ul'} separator={<StackSeparator />}>
         {fields.map((item, idx) => (
-          <HStack
-            key={item.id}
-            as={'li'}
-            gap={4}
-            align={'start'}
-            _notLast={{
-              borderBottomWidth: '1px',
-              paddingBottom: 8,
-              borderColor: 'gray.muted',
-            }}
-          >
+          <Stack key={item.id} as={'li'} gap={4} align={'start'}>
             <Box flex={1}>{renderItem(idx, item)}</Box>
             <IconButton
+              disabled={fields.length === 1}
               colorPalette={'red'}
               variant={'ghost'}
+              size={'lg'}
               onClick={() => remove(idx)}
               type="button"
               aria-label="Remove"
             >
               <RxTrash />
             </IconButton>
-          </HStack>
+          </Stack>
         ))}
       </Stack>
       {renderAppendButton(append, fields.length)}

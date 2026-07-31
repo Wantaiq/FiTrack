@@ -4,6 +4,7 @@ import {
   Pagination,
   type PaginationPageChangeDetails,
 } from '@chakra-ui/react';
+import { RxChevronLeft, RxChevronRight } from 'react-icons/rx';
 
 type Props = {
   totalItems: number;
@@ -24,10 +25,10 @@ function AppPagination({
       page={currentPage}
       onPageChange={(e) => onPageChange(e)}
     >
-      <ButtonGroup variant="ghost" size="sm">
+      <ButtonGroup variant={'subtle'} size={'md'}>
         <Pagination.PrevTrigger asChild>
-          <IconButton>
-            <p>{'<'}</p>
+          <IconButton aria-label="Go to previous page">
+            <RxChevronLeft />
           </IconButton>
         </Pagination.PrevTrigger>
 
@@ -40,8 +41,8 @@ function AppPagination({
         />
 
         <Pagination.NextTrigger asChild>
-          <IconButton>
-            <p>{'>'}</p>
+          <IconButton aria-label="Go to next page">
+            <RxChevronRight />
           </IconButton>
         </Pagination.NextTrigger>
       </ButtonGroup>
