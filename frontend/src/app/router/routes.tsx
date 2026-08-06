@@ -13,6 +13,7 @@ import {
 } from '@/features/workout-templates';
 import { AuthLayout, DashboardLayout } from '@/layouts';
 import type { AppRouteObject } from './types';
+import EditExercisePage from '@/features/exercises/pages/EditExercisePage';
 
 const routes: AppRouteObject[] = [
   {
@@ -62,6 +63,10 @@ const routes: AppRouteObject[] = [
               {
                 path: ':id',
                 element: <ExerciseDetailsPage />,
+              },
+              {
+                path: ':id/edit',
+                element: <EditExercisePage />,
               },
             ],
           },
