@@ -56,7 +56,7 @@ function Sidebar() {
                 bg={isActive ? 'blue.500' : 'transparent'}
                 color={isActive ? 'white' : 'inherit'}
                 _hover={{
-                  bg: isActive ? 'blue.600' : 'gray.100',
+                  bg: isActive ? 'blue.600' : 'blue.400',
                 }}
               >
                 <Text>{route.label}</Text>

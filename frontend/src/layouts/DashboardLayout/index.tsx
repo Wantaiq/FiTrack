@@ -7,7 +7,7 @@ function DashboardLayout() {
     <Flex h="100vh" overflow="hidden">
       <Sidebar />
 
-      <Box flex="1" overflowY="auto" p={6}>
+      <Box flex="1" overflowY="auto" py={8} px={48}>
         <Outlet />
       </Box>
     </Flex>
