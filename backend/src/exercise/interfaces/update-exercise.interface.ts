@@ -4,18 +4,17 @@ import {
   MechanicType,
 } from '../enums/exercise.types';
 
-export interface CreateInstructionInput {
+interface UpdateInstructionInput {
   title: string;
   text: string;
   order: number;
 }
 
-export interface CreateExerciseInput {
+export interface UpdateExerciseInput {
   name: string;
   description?: string;
   type: ExerciseType;
   difficulty?: Difficulty;
   mechanic?: MechanicType;
-  instructions: CreateInstructionInput[];
-  createdBy: { id: string } | null;
+  instructions: UpdateInstructionInput[];
 }

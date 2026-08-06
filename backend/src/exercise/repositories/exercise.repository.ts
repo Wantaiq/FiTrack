@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ExerciseEntity } from '../entities/exercise.entity';
 import { CreateExerciseInput } from '../interfaces/create-exercise.interface';
 import { ExerciseFilters } from '../interfaces/list-exercise-query.interface';
+import { UpdateExerciseInput } from '../interfaces/update-exercise.interface';
 
 @Injectable()
 export class ExerciseRepository {
@@ -85,5 +86,12 @@ export class ExerciseRepository {
       id: id,
       createdBy: { id: userId },
     });
+  }
+
+  merge(
+    exercise: ExerciseEntity,
+    updateExercise: Omit<UpdateExerciseInput, 'instructions'>,
+  ) {
+    return this.repository.merge(exercise, updateExercise);
   }
 }

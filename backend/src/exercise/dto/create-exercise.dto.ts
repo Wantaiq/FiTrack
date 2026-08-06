@@ -1,8 +1,8 @@
 import {
   IsEnum,
-  IsOptional,
   IsString,
   MaxLength,
+  Min,
   MinLength,
   ValidateNested,
 } from 'class-validator';
@@ -35,8 +35,8 @@ export class CreateExerciseDto {
   @IsEnum(MechanicType)
   mechanic!: MechanicType;
 
-  @IsOptional()
   @ValidateNested({ each: true })
+  @Min(1)
   @Type(() => CreateExerciseInstructionDto)
   instructions!: CreateExerciseInstructionDto[];
 }

@@ -7,6 +7,7 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { ExerciseService } from '../services/exercise.service';
@@ -18,6 +19,7 @@ import {
   ExerciseResponseDto,
   ExercisesListResponseDto,
 } from '../dto/exercise-response.dto';
+import { UpdateExerciseDto } from '../dto/update-exercise.dto';
 
 @Controller('exercises')
 export class ExerciseController {
@@ -51,6 +53,15 @@ export class ExerciseController {
     @CurrentUser() currentUser: TCurrentUser,
   ): Promise<ExerciseResponseDto> {
     return this.exerciseService.view(currentUser, id);
+  }
+
+  @Put('/:id')
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() currentUser: TCurrentUser,
+    @Body() dto: UpdateExerciseDto,
+  ) {
+    return this.exerciseService.update(id, currentUser, dto);
   }
 
   @Delete('/:id')

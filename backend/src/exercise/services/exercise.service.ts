@@ -4,10 +4,15 @@ import { TCurrentUser } from '../../user/types/current-user.types';
 import { UserEntity } from '../../user/entities/user.entity';
 import { CreateExerciseDto } from '../dto/create-exercise.dto';
 import { ListExercisesQueryDto } from '../dto/list-exercise-query.dto';
+import { UpdateExerciseDto } from '../dto/update-exercise.dto';
+import { ExerciseInstructionRepository } from '../repositories/exercise-instruction.repository';
 
 @Injectable()
 export class ExerciseService {
-  constructor(private readonly exerciseRepository: ExerciseRepository) {}
+  constructor(
+    private readonly exerciseRepository: ExerciseRepository,
+    private readonly exerciseInstructionRepository: ExerciseInstructionRepository,
+  ) {}
 
   async save(dto: CreateExerciseDto, user?: TCurrentUser) {
     return this.exerciseRepository.save({
@@ -43,5 +48,22 @@ export class ExerciseService {
     if (result.affected === 0) {
       throw new NotFoundException();
     }
+  }
+
+  async update(id: string, user: TCurrentUser, dto: UpdateExerciseDto) {
+    const exercise = await this.exerciseRepository.findVisibleById(user.id, id);
+
+    if (!exercise) {
+      throw new NotFoundException();
+    }
+
+    const { instructions, ...rest } = dto;
+    this.exerciseRepository.merge(exercise, rest);
+
+    exercise.instructions = instructions.map((instruction) =>
+      this.exerciseInstructionRepository.create(instruction),
+    );
+
+    return this.exerciseRepository.save(exercise);
   }
 }

@@ -5,12 +5,17 @@ import { ExerciseEntity } from './entities/exercise.entity';
 import { ExerciseInstructionEntity } from './entities/exercise-instruction.entity';
 import { ExerciseRepository } from './repositories/exercise.repository';
 import { ExerciseController } from './controllers/exercise.controller';
+import { ExerciseInstructionRepository } from './repositories/exercise-instruction.repository';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([ExerciseEntity, ExerciseInstructionEntity]),
   ],
-  providers: [ExerciseService, ExerciseRepository],
+  providers: [
+    ExerciseService,
+    ExerciseRepository,
+    ExerciseInstructionRepository,
+  ],
   controllers: [ExerciseController],
 })
 export class ExerciseModule {}

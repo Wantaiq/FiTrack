@@ -30,6 +30,7 @@ export class ExerciseEntity {
     () => ExerciseInstructionEntity,
     (instruction) => instruction.exercise,
     {
+      orphanedRowAction: 'delete',
       cascade: true,
     },
   )
