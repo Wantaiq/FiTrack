@@ -1,8 +1,8 @@
 import {
+  ArrayMinSize,
   IsEnum,
   IsString,
   MaxLength,
-  Min,
   MinLength,
   ValidateNested,
 } from 'class-validator';
@@ -36,7 +36,7 @@ export class CreateExerciseDto {
   mechanic!: MechanicType;
 
   @ValidateNested({ each: true })
-  @Min(1)
+  @ArrayMinSize(1)
   @Type(() => CreateExerciseInstructionDto)
   instructions!: CreateExerciseInstructionDto[];
 }
