@@ -12,40 +12,42 @@ import {
 } from '../schemas/exercise.schema';
 import { Alert, Badge, Box, Button, Card, Flex, Stack } from '@chakra-ui/react';
 import {
-  createExerciseSchema,
-  type CreateExerciseFormValues,
+  exerciseFormSchema,
+  type ExerciseFormValues,
 } from '../schemas/create-exercise.schema';
-import { Link } from 'react-router';
 
 type Props = {
-  onSubmit: (values: CreateExerciseFormValues) => Promise<void> | void;
+  onSubmit: (values: ExerciseFormValues) => Promise<void> | void;
   isSubmitting: boolean;
   error: Error | null;
+  initialValues?: ExerciseFormValues;
 };
 
-function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
+function ExerciseForm({ onSubmit, isSubmitting, error, initialValues }: Props) {
   return (
     <AppForm
-      schema={createExerciseSchema}
+      schema={exerciseFormSchema}
       onSubmit={onSubmit}
-      defaultValues={{
-        instructions: [{ title: '', text: '', order: 1 }],
-        difficulty: 'beginner',
-        type: 'strength',
-        mechanic: 'compound',
-      }}
+      defaultValues={
+        initialValues || {
+          instructions: [{ title: '', text: '', order: 1 }],
+          difficulty: 'beginner',
+          type: 'strength',
+          mechanic: 'compound',
+        }
+      }
     >
       <Stack gap={'8'}>
         <Card.Root w="full">
           <Card.Body>
             <Flex direction="column" gap="6">
-              <AppInput<CreateExerciseFormValues>
+              <AppInput<ExerciseFormValues>
                 name="name"
                 type="text"
                 label="Exercise name"
                 placeholder="e.g. Bench Press"
               />
-              <AppTextarea<CreateExerciseFormValues>
+              <AppTextarea<ExerciseFormValues>
                 name="description"
                 label="Description"
                 placeholder="Brief overview of exercise"
@@ -60,7 +62,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
           </Card.Header>
           <Card.Body>
             <Flex gap="4">
-              <AppSelect<CreateExerciseFormValues, Difficulty>
+              <AppSelect<ExerciseFormValues, Difficulty>
                 label="Difficulty"
                 name="difficulty"
                 options={
@@ -72,7 +74,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
                 }
               />
 
-              <AppSelect<CreateExerciseFormValues, Mechanic>
+              <AppSelect<ExerciseFormValues, Mechanic>
                 label="Mechanic"
                 name="mechanic"
                 options={
@@ -82,7 +84,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
                   ] as const
                 }
               />
-              <AppSelect<CreateExerciseFormValues, ExerciseType>
+              <AppSelect<ExerciseFormValues, ExerciseType>
                 label="Type"
                 name="type"
                 options={
@@ -105,7 +107,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
             <Card.Description>Provide steps for exercise</Card.Description>
           </Card.Header>
           <Card.Body>
-            <AppFieldArray<CreateExerciseFormValues, 'instructions'>
+            <AppFieldArray<ExerciseFormValues, 'instructions'>
               name="instructions"
               renderAppendButton={(addItem, length) => (
                 <Box borderTopWidth={'1px'} mt={8} py={8}>
@@ -135,12 +137,12 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
                       {idx + 1}
                     </Badge>
                     <Stack gap={4} flex={1}>
-                      <AppInput<CreateExerciseFormValues>
+                      <AppInput<ExerciseFormValues>
                         name={`instructions.${idx}.title`}
                         label="Title"
                         placeholder={`Step title (e.g. "Setup")`}
                       />
-                      <AppTextarea<CreateExerciseFormValues>
+                      <AppTextarea<ExerciseFormValues>
                         name={`instructions.${idx}.text`}
                         label="Instruction"
                         placeholder="Describe what to do in this step"
@@ -161,7 +163,7 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
             </Alert.Content>
           </Alert.Root>
         )}
-        <Stack direction="row" alignItems="center" gap={4}>
+        <Box>
           <Button
             type="submit"
             size={'lg'}
@@ -169,21 +171,12 @@ function CreateExerciseForm({ onSubmit, isSubmitting, error }: Props) {
             loading={isSubmitting}
             colorPalette={'brand'}
           >
-            Create exercise
+            Submit
           </Button>
-          <Button
-            type="button"
-            asChild
-            size={'lg'}
-            variant="outline"
-            colorPalette={'brand'}
-          >
-            <Link to={'/exercises'}>Cancel</Link>
-          </Button>
-        </Stack>
+        </Box>
       </Stack>
     </AppForm>
   );
 }
 
-export default CreateExerciseForm;
+export default ExerciseForm;

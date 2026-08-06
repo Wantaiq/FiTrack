@@ -1,15 +1,15 @@
 import { Link, useNavigate } from 'react-router';
-import CreateExerciseForm from '../components/CreateExerciseForm';
 import useCreateExercise from '../hooks/useCreateExercise';
-import type { CreateExerciseFormValues } from '../schemas/create-exercise.schema';
+import type { ExerciseFormValues } from '../schemas/create-exercise.schema';
 import { Heading, IconButton, Stack } from '@chakra-ui/react';
 import { RxChevronLeft } from 'react-icons/rx';
+import ExerciseForm from '../components/ExerciseForm';
 
 function NewExercisePage() {
   const { mutate, isPending, error } = useCreateExercise();
   const navigate = useNavigate();
 
-  async function handleSubmit(values: CreateExerciseFormValues) {
+  async function handleSubmit(values: ExerciseFormValues) {
     mutate(values, {
       onSuccess: (exercise) => {
         navigate(`/exercises/${exercise.id}`);
@@ -29,7 +29,7 @@ function NewExercisePage() {
           New Exercise
         </Heading>
       </Stack>
-      <CreateExerciseForm
+      <ExerciseForm
         onSubmit={handleSubmit}
         isSubmitting={isPending}
         error={error}

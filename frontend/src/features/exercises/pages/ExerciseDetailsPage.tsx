@@ -2,7 +2,6 @@ import { Navigate, useNavigate, useParams } from 'react-router';
 import useExerciseDetails from '../hooks/useExerciseDetails';
 import { Loader } from '@/common/components';
 import { useDeleteExercise } from '../hooks/useDeleteExercise';
-import { Button } from '@chakra-ui/react';
 import ExerciseDetails from '../components/ExerciseDetails';
 
 function ExerciseDetailsPage() {
@@ -29,12 +28,7 @@ function ExerciseDetailsPage() {
   }
 
   return (
-    <>
-      <Button onClick={handleDelete} loading={isPending}>
-        Remove
-      </Button>
-      <ExerciseDetails exercise={exercise} />
-    </>
+    <ExerciseDetails exercise={exercise} onDelete={() => handleDelete()} />
   );
 }
 

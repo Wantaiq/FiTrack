@@ -9,13 +9,14 @@ import {
 } from '@chakra-ui/react';
 import type { ExerciseFull } from '../schemas/exercise.schema';
 import { Link } from 'react-router';
-import { RxChevronLeft } from 'react-icons/rx';
+import { RxChevronLeft, RxPencil1, RxTrash } from 'react-icons/rx';
 
 type Props = {
   exercise: ExerciseFull;
+  onDelete: () => void;
 };
 
-function ExerciseDetails({ exercise }: Props) {
+function ExerciseDetails({ exercise, onDelete }: Props) {
   return (
     <Stack gap={8}>
       <Stack direction="row" alignItems="center" gap={4}>
@@ -24,20 +25,45 @@ function ExerciseDetails({ exercise }: Props) {
             <RxChevronLeft />
           </Link>
         </IconButton>
-        <Stack alignItems={'start'}>
-          <Heading as="h1" fontSize="2xl">
-            {exercise.name}
-          </Heading>
-          <Stack direction="row" alignItems="center" gap={2}>
-            <Badge colorPalette="cyan" size="sm">
-              {exercise.difficulty}
-            </Badge>
-            <Badge colorPalette="cyan" size="sm">
-              {exercise.type}
-            </Badge>
-            <Badge colorPalette="cyan" size="sm">
-              {exercise.mechanic}
-            </Badge>
+        <Stack
+          direction="row"
+          alignItems={'center'}
+          flex={1}
+          justifyContent={'space-between'}
+        >
+          <Stack alignItems={'start'}>
+            <Heading as="h1" fontSize="2xl">
+              {exercise.name}
+            </Heading>
+            <Stack direction="row" alignItems="center" gap={2}>
+              <Badge colorPalette="cyan" size="sm">
+                {exercise.difficulty}
+              </Badge>
+              <Badge colorPalette="cyan" size="sm">
+                {exercise.type}
+              </Badge>
+              <Badge colorPalette="cyan" size="sm">
+                {exercise.mechanic}
+              </Badge>
+            </Stack>
+          </Stack>
+
+          <Stack direction={'row'} gap={4} alignItems={'center'}>
+            <IconButton asChild aria-label="Edit exercise" variant={'outline'}>
+              <Link to={'edit'}>
+                <RxPencil1 />
+              </Link>
+            </IconButton>
+            <IconButton
+              onClick={onDelete}
+              colorPalette={'red'}
+              variant={'ghost'}
+              size={'lg'}
+              type="button"
+              aria-label="Delete exercise"
+            >
+              <RxTrash />
+            </IconButton>
           </Stack>
         </Stack>
       </Stack>
