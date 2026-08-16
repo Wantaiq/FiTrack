@@ -5,6 +5,8 @@ import fieldRecipe from './recipes/field';
 import inputRecipe from './recipes/input';
 import textareaRecipe from './recipes/textarea';
 import nativeSelectRecipe from './recipes/nativeSelect';
+import comboboxRecipe from './recipes/combobox';
+import numberInput from './recipes/numberInput';
 
 const theme = createSystem(
   defaultConfig,
@@ -15,10 +17,12 @@ const theme = createSystem(
         textarea: textareaRecipe,
       },
       slotRecipes: {
+        numberInput: numberInput,
         card: cardRecipe,
         alert: alertRecipe,
         field: fieldRecipe,
         nativeSelect: nativeSelectRecipe,
+        combobox: comboboxRecipe,
       },
     },
   }),
