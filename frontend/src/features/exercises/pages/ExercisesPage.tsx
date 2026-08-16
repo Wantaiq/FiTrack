@@ -30,10 +30,10 @@ function ExercisesPage() {
   return (
     <Stack gap={8}>
       <Stack
-        direction="row"
+        direction={'row'}
         gap={4}
         justifyContent={'space-between'}
-        alignItems="center"
+        alignItems={'center'}
       >
         <Heading as={'h1'} fontSize={'2xl'}>
           Exercises Library
@@ -46,12 +46,14 @@ function ExercisesPage() {
       </Stack>
       <ExerciseFilters />
       <ExercisesList exercises={data.items} />
-      <AppPagination
-        onPageChange={(e) => setPage(e.page)}
-        totalItems={data.meta.totalItems}
-        limit={data.meta.limit}
-        currentPage={data.meta.page}
-      />
+      {data.items.length ? (
+        <AppPagination
+          onPageChange={(e) => setPage(e.page)}
+          totalItems={data.meta.totalItems}
+          limit={data.meta.limit}
+          currentPage={data.meta.page}
+        />
+      ) : null}
     </Stack>
   );
 }

@@ -37,10 +37,10 @@ function ExerciseForm({ onSubmit, isSubmitting, error, initialValues }: Props) {
         }
       }
     >
-      <Stack gap={'8'}>
-        <Card.Root w="full">
+      <Stack gap={8}>
+        <Card.Root w={'full'}>
           <Card.Body>
-            <Flex direction="column" gap="6">
+            <Flex direction={'column'} gap={6}>
               <AppInput<ExerciseFormValues>
                 name="name"
                 type="text"
@@ -56,12 +56,12 @@ function ExerciseForm({ onSubmit, isSubmitting, error, initialValues }: Props) {
           </Card.Body>
         </Card.Root>
 
-        <Card.Root w="full">
+        <Card.Root w={'full'}>
           <Card.Header>
             <Card.Title as={'h2'}>Classification</Card.Title>
           </Card.Header>
           <Card.Body>
-            <Flex gap="4">
+            <Flex gap={4}>
               <AppSelect<ExerciseFormValues, Difficulty>
                 label="Difficulty"
                 name="difficulty"
@@ -127,7 +127,7 @@ function ExerciseForm({ onSubmit, isSubmitting, error, initialValues }: Props) {
               )}
               renderItem={(idx) => {
                 return (
-                  <Flex align={'start'} gap={4}>
+                  <Stack align={'start'} direction={'row'} gap={4}>
                     <Badge
                       colorPalette={'brand'}
                       size={'lg'}
@@ -148,7 +148,7 @@ function ExerciseForm({ onSubmit, isSubmitting, error, initialValues }: Props) {
                         placeholder="Describe what to do in this step"
                       />
                     </Stack>
-                  </Flex>
+                  </Stack>
                 );
               }}
             />

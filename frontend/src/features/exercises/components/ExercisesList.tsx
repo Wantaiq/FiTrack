@@ -10,7 +10,7 @@ type Props = {
 function ExercisesList({ exercises }: Props) {
   return (
     <>
-      <Grid templateColumns="repeat(2, 1fr)" gap="4">
+      <Grid templateColumns="repeat(2, 1fr)" gap={2}>
         {exercises.map((exercise) => (
           <Card.Root key={exercise.id} className="group" gap={2}>
             <Card.Header>
