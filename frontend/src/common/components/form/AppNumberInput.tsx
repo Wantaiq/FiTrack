@@ -11,7 +11,6 @@ type AppNumberInputProps<T extends FieldValues> = {
   name: Path<T>;
   label: string;
   required?: boolean;
-  placeholder?: string;
 };
 
 function AppNumberInput<T extends FieldValues>({
