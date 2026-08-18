@@ -1,14 +1,19 @@
 import { exercisePartialSchema } from '@/features/exercises';
 import z from 'zod';
 
+const numOrNullSchema = z.preprocess(
+  (val) => (val === '' || val === undefined ? null : val),
+  z.union([z.coerce.number().positive(), z.null()]),
+);
+
 export const workoutTemplateSetFullSchema = z.object({
   id: z.uuid(),
-  order: z.number().positive().int(),
-  targetReps: z.number().positive().int().nullable(),
-  targetWeight: z.number().positive().int().nullable(),
-  rir: z.number().positive().int().nullable(),
-  rm: z.number().positive().int().nullable(),
-  rest: z.number().positive().int().nullable(),
+  order: z.coerce.number().positive().int(),
+  reps: numOrNullSchema,
+  weight: numOrNullSchema,
+  rir: numOrNullSchema,
+  rm: numOrNullSchema,
+  rest: numOrNullSchema,
 });
 
 export const workoutTemplateExerciseFullSchema = z.object({

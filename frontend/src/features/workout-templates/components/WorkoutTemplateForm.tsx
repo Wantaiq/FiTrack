@@ -57,8 +57,8 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
       sets: [
         {
           order: 1,
-          targetReps: null,
-          targetWeight: null,
+          reps: null,
+          weight: null,
           rir: null,
           rm: null,
           rest: null,
@@ -147,8 +147,8 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
                           onClick={() =>
                             addItem({
                               order: length + 1,
-                              targetReps: null,
-                              targetWeight: null,
+                              reps: null,
+                              weight: null,
                               rir: null,
                               rm: null,
                               rest: null,
@@ -178,27 +178,27 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
                             <AppNumberInput<CreateWorkoutTemplateFormValues>
                               label="Target Reps"
                               required={false}
-                              name={`exercises.${idx}.sets.${setIndex}.targetReps`}
+                              name={`exercises.${idx}.sets.${setIndex}.reps`}
                             />
                             <AppNumberInput<CreateWorkoutTemplateFormValues>
                               label="Target Weight"
                               required={false}
-                              name={`exercises.${idx}.sets.${setIndex}.targetWeight`}
+                              name={`exercises.${idx}.sets.${setIndex}.weight`}
                             />
                             <AppNumberInput<CreateWorkoutTemplateFormValues>
-                              label="RIR"
+                              label="Target RIR"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.rir`}
                             />
                             <AppNumberInput<CreateWorkoutTemplateFormValues>
-                              label="RM"
+                              label="Target RM%"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.rm`}
                             />
                             <AppNumberInput<CreateWorkoutTemplateFormValues>
                               label="Rest"
                               required={false}
-                              name={`exercises.${idx}.sets.${setIndex}.rir`}
+                              name={`exercises.${idx}.sets.${setIndex}.rest`}
                             />
                           </Stack>
                         </Stack>
