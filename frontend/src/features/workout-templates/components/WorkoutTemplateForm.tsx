@@ -57,8 +57,11 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
       sets: [
         {
           order: 1,
-          targetReps: 10,
-          targetWeight: 30,
+          targetReps: null,
+          targetWeight: null,
+          rir: null,
+          rm: null,
+          rest: null,
         },
       ],
     });
@@ -144,8 +147,11 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
                           onClick={() =>
                             addItem({
                               order: length + 1,
-                              targetReps: 8,
-                              targetWeight: 3,
+                              targetReps: null,
+                              targetWeight: null,
+                              rir: null,
+                              rm: null,
+                              rest: null,
                             })
                           }
                         >
@@ -155,15 +161,46 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
                     )}
                     renderItem={(setIndex) => {
                       return (
-                        <Stack direction={'row'} alignItems={'center'} gap={8}>
-                          <AppNumberInput<CreateWorkoutTemplateFormValues>
-                            label="Target Reps"
-                            name={`exercises.${idx}.sets.${setIndex}.targetReps`}
-                          />
-                          <AppNumberInput<CreateWorkoutTemplateFormValues>
-                            label="Target Weight"
-                            name={`exercises.${idx}.sets.${setIndex}.targetWeight`}
-                          />
+                        <Stack direction={'row'} alignItems={'start'} gap={8}>
+                          <Badge
+                            colorPalette={'brand'}
+                            size={'sm'}
+                            variant={'solid'}
+                            fontWeight={'semibold'}
+                          >
+                            {setIndex + 1}. Set
+                          </Badge>
+                          <Stack
+                            direction={'row'}
+                            alignItems={'center'}
+                            gap={8}
+                          >
+                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                              label="Target Reps"
+                              required={false}
+                              name={`exercises.${idx}.sets.${setIndex}.targetReps`}
+                            />
+                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                              label="Target Weight"
+                              required={false}
+                              name={`exercises.${idx}.sets.${setIndex}.targetWeight`}
+                            />
+                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                              label="RIR"
+                              required={false}
+                              name={`exercises.${idx}.sets.${setIndex}.rir`}
+                            />
+                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                              label="RM"
+                              required={false}
+                              name={`exercises.${idx}.sets.${setIndex}.rm`}
+                            />
+                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                              label="Rest"
+                              required={false}
+                              name={`exercises.${idx}.sets.${setIndex}.rir`}
+                            />
+                          </Stack>
                         </Stack>
                       );
                     }}
