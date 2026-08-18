@@ -1,6 +1,6 @@
 import {
   Button,
-  CloseButton,
+  IconButton,
   Input,
   InputGroup,
   NativeSelect,
@@ -12,6 +12,8 @@ import type {
   ExerciseType,
   Mechanic,
 } from '../schemas/exercise.schema';
+import { RxMagnifyingGlass } from 'react-icons/rx';
+import { useState } from 'react';
 
 export function ExerciseFilters() {
   const {
@@ -23,24 +25,33 @@ export function ExerciseFilters() {
     setMechanic,
   } = useExerciseFilters();
 
+  const [searchInput, setSearchInput] = useState(filters.name);
+
   return (
     <Stack direction="row" alignItems="center">
       <InputGroup
         flex={3}
         endElement={
-          filters.name && (
-            <CloseButton
-              aria-label="Clear search"
-              size={'xs'}
-              onClick={() => setName('')}
-            />
+          searchInput && (
+            <Stack direction={'row'} justifyContent={'start'} align={'center'}>
+              <IconButton
+                aria-label="Search"
+                variant="subtle"
+                onClick={() => {
+                  setName(searchInput);
+                }}
+              >
+                <RxMagnifyingGlass />
+              </IconButton>
+            </Stack>
           )
         }
       >
         <Input
-          placeholder="Search exercises"
-          value={filters.name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Search exercises..."
+          value={searchInput}
+          type="search"
+          onChange={(e) => setSearchInput(e.target.value)}
         />
       </InputGroup>
 
@@ -84,7 +95,10 @@ export function ExerciseFilters() {
         </NativeSelect.Field>
       </NativeSelect.Root>
       <Button
-        onClick={() => clearFilters()}
+        onClick={() => {
+          setSearchInput('');
+          clearFilters();
+        }}
         boxSizing={'content-box'}
         variant={'outline'}
         size={'lg'}

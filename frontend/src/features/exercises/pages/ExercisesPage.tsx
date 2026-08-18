@@ -1,7 +1,6 @@
 import { Loader } from '@/common/components';
 import useExerciseFilters from '../hooks/useExerciseFilters';
 import useExercises from '../hooks/useExercises';
-import useDebounce from '@/common/hooks/useDebounce';
 import ExercisesList from '../components/ExercisesList';
 import AppPagination from '@/common/components/AppPagination';
 import { Button, Heading, Stack } from '@chakra-ui/react';
@@ -12,11 +11,8 @@ import { ExerciseFilters } from '../components/ExerciseFilters';
 function ExercisesPage() {
   const { filters, setPage } = useExerciseFilters();
 
-  const debouncedNameSearch = useDebounce(filters.name, 300);
-
   const { data, isPending, error } = useExercises({
     ...filters,
-    name: debouncedNameSearch,
   });
 
   if (isPending) {
