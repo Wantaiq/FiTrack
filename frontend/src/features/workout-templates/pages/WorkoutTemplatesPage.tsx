@@ -1,18 +1,19 @@
 import { Loader } from '@/common/components';
 import useWorkoutTemplates from '../hooks/useWorkoutTemplates';
 import useWorkoutTemplatesFilters from '../hooks/useWorkoutTemplatesFilters';
-import useDebounce from '@/common/hooks/useDebounce';
 import AppPagination from '@/common/components/AppPagination';
-import { Button, Input } from '@chakra-ui/react';
+import { Button, Heading, Stack } from '@chakra-ui/react';
 import { Link } from 'react-router';
+import { RxPlus } from 'react-icons/rx';
+import { WorkoutTemplateFilters } from '../components/WorkoutTemplateFilters';
+import WorkoutTemplatesList from '../components/WorkoutTemplatesList';
 
 function WorkoutTemplatesPage() {
-  const { filters, setPage, setName } = useWorkoutTemplatesFilters();
-  const debouncedNameSearch = useDebounce(filters.name, 300);
+  const { filters, setPage } = useWorkoutTemplatesFilters();
 
   const { data, isPending, error } = useWorkoutTemplates({
     page: filters.page,
-    name: debouncedNameSearch,
+    name: filters.name,
   });
 
   if (isPending) {
@@ -24,30 +25,33 @@ function WorkoutTemplatesPage() {
   }
 
   return (
-    <>
-      <Button asChild>
-        <Link to="new">Create new</Link>
-      </Button>
-      <Input
-        placeholder="bench press"
-        value={filters.name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      {data.items.map((template) => {
-        return (
-          <div>
-            {template.name}
-            <Link to={`${template.id}`}>Details</Link>
-          </div>
-        );
-      })}
-      <AppPagination
-        onPageChange={(e) => setPage(e.page)}
-        totalItems={data.meta.totalItems}
-        limit={data.meta.limit}
-        currentPage={data.meta.page}
-      />
-    </>
+    <Stack gap={8}>
+      <Stack
+        direction={'row'}
+        gap={4}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+      >
+        <Heading as={'h1'} fontSize={'2xl'}>
+          Workout Templates Library
+        </Heading>
+        <Button asChild fontWeight={'semibold'} colorPalette={'brand'}>
+          <Link to="new">
+            <RxPlus aria-hidden="true" /> New Template
+          </Link>
+        </Button>
+      </Stack>
+      <WorkoutTemplateFilters />
+      <WorkoutTemplatesList workoutTemplates={data.items} />
+      {data.items.length ? (
+        <AppPagination
+          onPageChange={(e) => setPage(e.page)}
+          totalItems={data.meta.totalItems}
+          limit={data.meta.limit}
+          currentPage={data.meta.page}
+        />
+      ) : null}
+    </Stack>
   );
 }
 

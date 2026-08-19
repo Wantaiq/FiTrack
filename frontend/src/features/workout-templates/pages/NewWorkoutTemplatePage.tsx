@@ -26,7 +26,7 @@ function NewWorkoutTemplatePage() {
           </Link>
         </IconButton>
         <Heading as="h1" fontSize="2xl">
-          New Workout Template
+          Save Template
         </Heading>
       </Stack>
       <WorkoutTemplateForm
