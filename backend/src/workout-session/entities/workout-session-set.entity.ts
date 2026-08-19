@@ -15,16 +15,38 @@ export class WorkoutSessionSetEntity {
   order!: number;
 
   @Column({
-    type: 'decimal',
-    precision: 6,
-    scale: 2,
+    type: 'float',
     nullable: true,
+    default: null,
   })
   weight!: number | null;
 
   @Column({
+    type: 'float',
+    nullable: true,
+    default: null,
+  })
+  rir!: number | null;
+
+  @Column({
+    type: 'float',
+    nullable: true,
+    default: null,
+  })
+  rm!: number | null;
+
+  @Column({
+    type: 'float',
+
+    nullable: true,
+    default: null,
+  })
+  rest!: number | null;
+
+  @Column({
     type: 'integer',
     nullable: true,
+    default: null,
   })
   reps!: number | null;
 

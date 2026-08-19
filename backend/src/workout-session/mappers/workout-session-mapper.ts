@@ -46,8 +46,12 @@ export class WorkoutSessionMapper {
     const sessionSet = new WorkoutSessionSetEntity();
 
     sessionSet.order = templateSet.order;
-    sessionSet.weight = null;
-    sessionSet.reps = null;
+    sessionSet.weight = templateSet.weight;
+    sessionSet.reps = templateSet.reps;
+    sessionSet.rir = templateSet.rir;
+    sessionSet.rm = templateSet.rm;
+    sessionSet.rest = templateSet.rest;
+
     sessionSet.completed = false;
 
     return sessionSet;

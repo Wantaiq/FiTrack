@@ -1,4 +1,4 @@
-import { IsNumber, IsPositive } from 'class-validator';
+import { IsNumber, IsOptional, IsPositive } from 'class-validator';
 
 export class CreateWorkoutTemplateExerciseSetDto {
   @IsNumber()
@@ -7,9 +7,26 @@ export class CreateWorkoutTemplateExerciseSetDto {
 
   @IsNumber()
   @IsPositive()
-  targetReps!: number;
+  @IsOptional()
+  reps!: number;
 
   @IsNumber()
   @IsPositive()
-  targetWeight!: number;
+  @IsOptional()
+  weight!: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  rir!: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  rm!: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  rest!: number;
 }

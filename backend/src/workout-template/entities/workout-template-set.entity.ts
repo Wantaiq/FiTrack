@@ -20,11 +20,36 @@ export class WorkoutTemplateSetEntity {
 
   @Column({
     type: 'integer',
+    nullable: true,
+    default: null,
   })
-  targetReps!: number;
+  reps!: number;
 
   @Column({
-    type: 'integer',
+    type: 'float',
+    nullable: true,
+    default: null,
   })
-  targetWeight!: number;
+  weight!: number | null;
+
+  @Column({
+    type: 'float',
+    nullable: true,
+    default: null,
+  })
+  rir!: number | null;
+
+  @Column({
+    type: 'float',
+    nullable: true,
+    default: null,
+  })
+  rm!: number | null;
+
+  @Column({
+    type: 'float',
+    nullable: true,
+    default: null,
+  })
+  rest!: number | null;
 }
