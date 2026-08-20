@@ -227,7 +227,7 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
             loading={isSubmitting}
             colorPalette={'brand'}
           >
-            Submit
+            Save Template
           </Button>
         </Box>
       </Stack>

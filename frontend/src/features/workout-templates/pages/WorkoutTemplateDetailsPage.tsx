@@ -1,6 +1,6 @@
 import { Navigate, useNavigate, useParams } from 'react-router';
 import useWorkoutTemplateDetails from '../hooks/useWorkoutTemplateDetails';
-import { Button, Loader } from '@chakra-ui/react';
+import { Loader } from '@chakra-ui/react';
 import WorkoutTemplateDetails from '../components/WorkoutTemplateDetails';
 import { useDeleteWorkoutTemplate } from '../hooks/useDeleteWorkoutTemplate';
 
@@ -32,10 +32,10 @@ function WorkoutTemplateDetailsPage() {
   }
 
   return (
-    <>
-      <Button onClick={handleDelete}>Delete</Button>
-      <WorkoutTemplateDetails workoutTemplate={workoutTemplate} />
-    </>
+    <WorkoutTemplateDetails
+      workoutTemplate={workoutTemplate}
+      onDelete={() => handleDelete()}
+    />
   );
 }
 
