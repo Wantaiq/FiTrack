@@ -7,9 +7,9 @@ export const envSchema = object({
   POSTGRES_PASSWORD: string().required(),
   POSTGRES_DB: string().required(),
   POSTGRES_HOST: string().required(),
-  POSTGRES_PORT: string().required(),
+  POSTGRES_PORT: number().required(),
   ACCESS_TOKEN_SECRET: string().required(),
-  ACCESS_TOKEN_EXPIRY_MINUTES: string().required(),
+  ACCESS_TOKEN_EXPIRY_MINUTES: number().required(),
   FRONTEND_URL: string().required(),
 });
 
