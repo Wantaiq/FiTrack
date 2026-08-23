@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { HashService } from './hash.service';
 import { RegisterDto } from '../dto/register.dto';
-import { AuthResponseDto } from '../dto/auth-response.dto';
 import { LoginDto } from '../dto/login.dto';
 import { TokensService } from './tokens.service';
 import { UserService } from '../../user/services/user.service';
+import { UserRepository } from '../../user/repository/user.repository';
 
 @Injectable()
 export class AuthService {
@@ -12,13 +12,13 @@ export class AuthService {
     private readonly hashService: HashService,
     private readonly userService: UserService,
     private readonly tokensService: TokensService,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async register(dto: RegisterDto) {
     const passwordHash = await this.hashService.hash(dto.password);
 
     const user = await this.userService.save({
-      email: dto.email,
       username: dto.username,
       passwordHash,
     });
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   async validateUser(dto: LoginDto) {
-    const user = await this.userService.findByEmail(dto.email);
+    const user = await this.userRepository.findByUsername(dto.username);
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');

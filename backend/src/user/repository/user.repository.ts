@@ -10,9 +10,9 @@ export class UserRepository {
     private readonly repository: Repository<User>,
   ) {}
 
-  findByEmail(email: string) {
+  findByUsername(username: string) {
     return this.repository.findOne({
-      where: { email },
+      where: { username },
     });
   }
 
@@ -22,7 +22,7 @@ export class UserRepository {
     });
   }
 
-  save(user: { email: string; username: string; password: string }) {
+  save(user: { username: string; password: string }) {
     return this.repository.save(user);
   }
 }

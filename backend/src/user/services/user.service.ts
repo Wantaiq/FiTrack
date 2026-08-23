@@ -9,24 +9,17 @@ export class UserService {
   constructor(private readonly repository: UserRepository) {}
 
   async save(dto: CreateUserDto): Promise<UserResponseDto> {
-    const existing = await this.repository.findByEmail(dto.email);
+    const existing = await this.repository.findByUsername(dto.username);
 
     if (existing) {
       throw new ConflictException('Email already in use');
     }
 
     const user = await this.repository.save({
-      email: dto.email,
       username: dto.username,
       password: dto.passwordHash,
     });
 
     return UserMapper.toResponse(user);
-  }
-
-  async findByEmail(email: string) {
-    const user = await this.repository.findByEmail(email);
-
-    return user;
   }
 }

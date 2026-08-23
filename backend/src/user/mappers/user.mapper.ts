@@ -5,7 +5,6 @@ export class UserMapper {
   static toResponse(user: User): UserResponseDto {
     return {
       id: user.id,
-      email: user.email,
       username: user.username,
     };
   }
