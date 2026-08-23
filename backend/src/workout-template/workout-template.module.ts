@@ -3,16 +3,16 @@ import { WorkoutTemplateService } from './services/workout-template.service';
 import { WorkoutTemplateController } from './controllers/workout-template.controller';
 import { WorkoutTemplateRepository } from './repositories/workout-template.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { WorkoutTemplateSetEntity } from './entities/workout-template-set.entity';
-import { WorkoutTemplateExerciseEntity } from './entities/workout-template-exercise.entity';
-import { WorkoutTemplateEntity } from './entities/workout-template.entity';
+import { WorkoutTemplateSet } from './entities/workout-template-set.entity';
+import { WorkoutTemplateExercise } from './entities/workout-template-exercise.entity';
+import { WorkoutTemplate } from './entities/workout-template.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      WorkoutTemplateEntity,
-      WorkoutTemplateExerciseEntity,
-      WorkoutTemplateSetEntity,
+      WorkoutTemplate,
+      WorkoutTemplateExercise,
+      WorkoutTemplateSet,
     ]),
   ],
   providers: [WorkoutTemplateService, WorkoutTemplateRepository],

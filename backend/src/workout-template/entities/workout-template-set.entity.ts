@@ -1,19 +1,19 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { WorkoutTemplateExerciseEntity } from './workout-template-exercise.entity';
+import { WorkoutTemplateExercise } from './workout-template-exercise.entity';
 
 @Entity('workout_template_sets')
-export class WorkoutTemplateSetEntity {
+export class WorkoutTemplateSet {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @ManyToOne(
-    () => WorkoutTemplateExerciseEntity,
+    () => WorkoutTemplateExercise,
     (workoutExercise) => workoutExercise.sets,
     {
       onDelete: 'CASCADE',
     },
   )
-  workoutTemplateExercise!: WorkoutTemplateExerciseEntity;
+  workoutTemplateExercise!: WorkoutTemplateExercise;
 
   @Column({ type: 'integer' })
   order!: number;

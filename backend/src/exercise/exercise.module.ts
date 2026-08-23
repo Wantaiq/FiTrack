@@ -1,21 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ExerciseService } from './services/exercise.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ExerciseEntity } from './entities/exercise.entity';
-import { ExerciseInstructionEntity } from './entities/exercise-instruction.entity';
+import { Exercise } from './entities/exercise.entity';
+import { ExerciseInstruction } from './entities/exercise-instruction.entity';
 import { ExerciseRepository } from './repositories/exercise.repository';
 import { ExerciseController } from './controllers/exercise.controller';
-import { ExerciseInstructionRepository } from './repositories/exercise-instruction.repository';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ExerciseEntity, ExerciseInstructionEntity]),
-  ],
-  providers: [
-    ExerciseService,
-    ExerciseRepository,
-    ExerciseInstructionRepository,
-  ],
+  imports: [TypeOrmModule.forFeature([Exercise, ExerciseInstruction])],
+  providers: [ExerciseService, ExerciseRepository],
   controllers: [ExerciseController],
 })
 export class ExerciseModule {}

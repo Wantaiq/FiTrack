@@ -6,16 +6,16 @@ import { UserMapper } from '../mappers/user.mapper';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly repository: UserRepository) {}
 
   async save(dto: CreateUserDto): Promise<UserResponseDto> {
-    const existing = await this.userRepository.findByEmail(dto.email);
+    const existing = await this.repository.findByEmail(dto.email);
 
     if (existing) {
       throw new ConflictException('Email already in use');
     }
 
-    const user = await this.userRepository.save({
+    const user = await this.repository.save({
       email: dto.email,
       username: dto.username,
       password: dto.passwordHash,
@@ -25,7 +25,7 @@ export class UserService {
   }
 
   async findByEmail(email: string) {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.repository.findByEmail(email);
 
     return user;
   }

@@ -11,11 +11,11 @@ import {
   ExerciseType,
   MechanicType,
 } from '../enums/exercise.types';
-import { ExerciseInstructionEntity } from './exercise-instruction.entity';
-import { UserEntity } from '../../user/entities/user.entity';
+import { ExerciseInstruction } from './exercise-instruction.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity('exercises')
-export class ExerciseEntity {
+export class Exercise {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -26,15 +26,11 @@ export class ExerciseEntity {
   @Column('text')
   description!: string;
 
-  @OneToMany(
-    () => ExerciseInstructionEntity,
-    (instruction) => instruction.exercise,
-    {
-      orphanedRowAction: 'delete',
-      cascade: true,
-    },
-  )
-  instructions!: ExerciseInstructionEntity[];
+  @OneToMany(() => ExerciseInstruction, (instruction) => instruction.exercise, {
+    orphanedRowAction: 'delete',
+    cascade: true,
+  })
+  instructions!: ExerciseInstruction[];
 
   @Index()
   @Column({
@@ -57,6 +53,6 @@ export class ExerciseEntity {
   })
   mechanic!: MechanicType;
 
-  @ManyToOne(() => UserEntity, { nullable: true, onDelete: 'SET NULL' })
-  createdBy!: UserEntity | null;
+  @ManyToOne(() => User, { nullable: true, onDelete: 'SET NULL' })
+  createdBy!: User | null;
 }

@@ -5,34 +5,30 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserEntity } from '../../user/entities/user.entity';
-import { WorkoutTemplateEntity } from '../../workout-template/entities/workout-template.entity';
-import { WorkoutSessionExerciseEntity } from './workout-session-exercise.entity';
+import { User } from '../../user/entities/user.entity';
+import { WorkoutTemplate } from '../../workout-template/entities/workout-template.entity';
+import { WorkoutSessionExercise } from './workout-session-exercise.entity';
 
 @Entity('workout_sessions')
-export class WorkoutSessionEntity {
+export class WorkoutSession {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => UserEntity)
-  createdBy!: UserEntity;
+  @ManyToOne(() => User)
+  createdBy!: User;
 
-  @ManyToOne(() => WorkoutTemplateEntity, {
+  @ManyToOne(() => WorkoutTemplate, {
     nullable: true,
   })
-  template!: WorkoutTemplateEntity | null;
+  template!: WorkoutTemplate | null;
 
   @Column({
     type: 'date',
   })
   scheduledAt!: string;
 
-  @OneToMany(
-    () => WorkoutSessionExerciseEntity,
-    (exercise) => exercise.session,
-    {
-      cascade: true,
-    },
-  )
-  exercises!: WorkoutSessionExerciseEntity[];
+  @OneToMany(() => WorkoutSessionExercise, (exercise) => exercise.session, {
+    cascade: true,
+  })
+  exercises!: WorkoutSessionExercise[];
 }

@@ -1,16 +1,16 @@
 import { IsNull, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ExerciseEntity } from '../entities/exercise.entity';
 import { CreateExerciseInput } from '../interfaces/create-exercise.interface';
 import { ExerciseFilters } from '../interfaces/list-exercise-query.interface';
 import { UpdateExerciseInput } from '../interfaces/update-exercise.interface';
+import { Exercise } from '../entities/exercise.entity';
 
 @Injectable()
 export class ExerciseRepository {
   constructor(
-    @InjectRepository(ExerciseEntity)
-    private readonly repository: Repository<ExerciseEntity>,
+    @InjectRepository(Exercise)
+    private readonly repository: Repository<Exercise>,
   ) {}
 
   async findVisible(userId: string, filters: ExerciseFilters) {
@@ -89,7 +89,7 @@ export class ExerciseRepository {
   }
 
   merge(
-    exercise: ExerciseEntity,
+    exercise: Exercise,
     updateExercise: Omit<UpdateExerciseInput, 'instructions'>,
   ) {
     return this.repository.merge(exercise, updateExercise);

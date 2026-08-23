@@ -1,15 +1,15 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { ExerciseEntity } from './exercise.entity';
+import { Exercise } from './exercise.entity';
 
 @Entity('exercise_instruction')
-export class ExerciseInstructionEntity {
+export class ExerciseInstruction {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => ExerciseEntity, (exercise) => exercise.instructions, {
+  @ManyToOne(() => Exercise, (exercise) => exercise.instructions, {
     onDelete: 'CASCADE',
   })
-  exercise!: ExerciseEntity;
+  exercise!: Exercise;
 
   @Column()
   order!: number;

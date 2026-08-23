@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { WorkoutSessionEntity } from '../entities/workout-session.entity';
+import { WorkoutSession } from '../entities/workout-session.entity';
 import { Repository } from 'typeorm';
 import { ExerciseFilters } from '../interfaces/list-workout-session-query.interface';
 
 @Injectable()
 export class WorkoutSessionRepository {
   constructor(
-    @InjectRepository(WorkoutSessionEntity)
-    private readonly repository: Repository<WorkoutSessionEntity>,
+    @InjectRepository(WorkoutSession)
+    private readonly repository: Repository<WorkoutSession>,
   ) {}
 
-  async save(workoutSession: WorkoutSessionEntity) {
+  async save(workoutSession: WorkoutSession) {
     return this.repository.save(workoutSession);
   }
 

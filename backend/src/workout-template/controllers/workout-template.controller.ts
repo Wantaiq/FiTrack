@@ -7,6 +7,7 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { CreateWorkoutTemplateDto } from '../dto/create-workout-template.dto';
@@ -14,6 +15,7 @@ import { CurrentUser } from '../../shared/decorators/current-user.decorator';
 import { type TCurrentUser } from '../../user/types/current-user.types';
 import { WorkoutTemplateService } from '../services/workout-template.service';
 import { ListWorkoutsQueryDto } from '../dto/list-workout-template-query.dto';
+import { UpdateWorkoutTemplateDto } from '../dto/update-workout-template.dto';
 
 @Controller('workout-templates')
 export class WorkoutTemplateController {
@@ -52,5 +54,14 @@ export class WorkoutTemplateController {
     @CurrentUser() currentUser: TCurrentUser,
   ) {
     return this.workoutTemplateService.remove(id, currentUser);
+  }
+
+  @Put('/:id')
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() currentUser: TCurrentUser,
+    @Body() dto: UpdateWorkoutTemplateDto,
+  ) {
+    return this.workoutTemplateService.update(id, currentUser, dto);
   }
 }

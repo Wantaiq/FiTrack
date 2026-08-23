@@ -1,20 +1,20 @@
-import { WorkoutSessionEntity } from '../entities/workout-session.entity';
-import { WorkoutSessionExerciseEntity } from '../entities/workout-session-exercise.entity';
-import { WorkoutSessionSetEntity } from '../entities/workout-session-set.entity';
-import { WorkoutTemplateEntity } from '../../workout-template/entities/workout-template.entity';
-import { UserEntity } from '../../user/entities/user.entity';
-import { WorkoutTemplateExerciseEntity } from '../../workout-template/entities/workout-template-exercise.entity';
-import { WorkoutTemplateSetEntity } from '../../workout-template/entities/workout-template-set.entity';
+import { WorkoutSession } from '../entities/workout-session.entity';
+import { WorkoutSessionExercise } from '../entities/workout-session-exercise.entity';
+import { WorkoutSessionSet } from '../entities/workout-session-set.entity';
+import { WorkoutTemplate } from '../../workout-template/entities/workout-template.entity';
+import { User } from '../../user/entities/user.entity';
+import { WorkoutTemplateExercise } from '../../workout-template/entities/workout-template-exercise.entity';
+import { WorkoutTemplateSet } from '../../workout-template/entities/workout-template-set.entity';
 
 export class WorkoutSessionMapper {
   static fromTemplate(
-    template: WorkoutTemplateEntity,
+    template: WorkoutTemplate,
     userId: string,
     scheduledAt: string,
-  ): WorkoutSessionEntity {
-    const session = new WorkoutSessionEntity();
+  ): WorkoutSession {
+    const session = new WorkoutSession();
 
-    session.createdBy = { id: userId } as UserEntity;
+    session.createdBy = { id: userId } as User;
     session.template = template;
     session.scheduledAt = scheduledAt;
 
@@ -26,9 +26,9 @@ export class WorkoutSessionMapper {
   }
 
   private static mapExercise(
-    templateExercise: WorkoutTemplateExerciseEntity,
-  ): WorkoutSessionExerciseEntity {
-    const sessionExercise = new WorkoutSessionExerciseEntity();
+    templateExercise: WorkoutTemplateExercise,
+  ): WorkoutSessionExercise {
+    const sessionExercise = new WorkoutSessionExercise();
 
     sessionExercise.exercise = templateExercise.exercise;
     sessionExercise.note = templateExercise.note;
@@ -40,10 +40,8 @@ export class WorkoutSessionMapper {
     return sessionExercise;
   }
 
-  private static mapSet(
-    templateSet: WorkoutTemplateSetEntity,
-  ): WorkoutSessionSetEntity {
-    const sessionSet = new WorkoutSessionSetEntity();
+  private static mapSet(templateSet: WorkoutTemplateSet): WorkoutSessionSet {
+    const sessionSet = new WorkoutSessionSet();
 
     sessionSet.order = templateSet.order;
     sessionSet.weight = templateSet.weight;

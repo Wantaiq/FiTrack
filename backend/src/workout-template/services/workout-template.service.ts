@@ -3,15 +3,14 @@ import { WorkoutTemplateRepository } from '../repositories/workout-template.repo
 import { CreateWorkoutTemplateDto } from '../dto/create-workout-template.dto';
 import { TCurrentUser } from '../../user/types/current-user.types';
 import { ListWorkoutsQueryDto } from '../dto/list-workout-template-query.dto';
+import { UpdateWorkoutTemplateDto } from '../dto/update-workout-template.dto';
 
 @Injectable()
 export class WorkoutTemplateService {
-  constructor(
-    private readonly workoutTemplateRepository: WorkoutTemplateRepository,
-  ) {}
+  constructor(private readonly repository: WorkoutTemplateRepository) {}
 
   async save(dto: CreateWorkoutTemplateDto, user: TCurrentUser) {
-    const workoutTemplate = await this.workoutTemplateRepository.save({
+    const workoutTemplate = await this.repository.save({
       ...dto,
       exercises: dto.exercises.map((exercise) => {
         return {
@@ -30,7 +29,7 @@ export class WorkoutTemplateService {
   }
 
   async list(query: ListWorkoutsQueryDto, user: TCurrentUser) {
-    return this.workoutTemplateRepository.findVisible(user.id, {
+    return this.repository.findVisible(user.id, {
       name: query.name,
       page: query.page,
       limit: query.limit,
@@ -38,10 +37,7 @@ export class WorkoutTemplateService {
   }
 
   async view(id: string, user: TCurrentUser) {
-    const workout = await this.workoutTemplateRepository.findVisibleById(
-      user.id,
-      id,
-    );
+    const workout = await this.repository.findVisibleById(user.id, id);
 
     if (!workout) {
       throw new NotFoundException();
@@ -51,6 +47,10 @@ export class WorkoutTemplateService {
   }
 
   async remove(id: string, user: TCurrentUser) {
-    return this.workoutTemplateRepository.deleteVisible(user.id, id);
+    return this.repository.deleteVisible(user.id, id);
+  }
+
+  async update(id: string, user: TCurrentUser, dto: UpdateWorkoutTemplateDto) {
+    return;
   }
 }

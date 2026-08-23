@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { WorkoutTemplateEntity } from '../entities/workout-template.entity';
+import { WorkoutTemplate } from '../entities/workout-template.entity';
 import { Repository } from 'typeorm';
 import { CreateWorkoutTemplateInput } from '../interfaces/create-workout-template.interface';
 import { WorkoutTemplateFilters } from '../interfaces/list-workout-template-query.interface';
@@ -8,8 +8,8 @@ import { WorkoutTemplateFilters } from '../interfaces/list-workout-template-quer
 @Injectable()
 export class WorkoutTemplateRepository {
   constructor(
-    @InjectRepository(WorkoutTemplateEntity)
-    private readonly repository: Repository<WorkoutTemplateEntity>,
+    @InjectRepository(WorkoutTemplate)
+    private readonly repository: Repository<WorkoutTemplate>,
   ) {}
 
   async save(workoutTemplate: CreateWorkoutTemplateInput) {

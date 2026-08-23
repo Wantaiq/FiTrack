@@ -5,24 +5,24 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { WorkoutTemplateEntity } from './workout-template.entity';
-import { ExerciseEntity } from '../../exercise/entities/exercise.entity';
-import { WorkoutTemplateSetEntity } from './workout-template-set.entity';
+import { WorkoutTemplate } from './workout-template.entity';
+import { Exercise } from '../../exercise/entities/exercise.entity';
+import { WorkoutTemplateSet } from './workout-template-set.entity';
 
 @Entity('workout_template_exercises')
-export class WorkoutTemplateExerciseEntity {
+export class WorkoutTemplateExercise {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => WorkoutTemplateEntity, (workout) => workout.exercises, {
+  @ManyToOne(() => WorkoutTemplate, (workout) => workout.exercises, {
     onDelete: 'CASCADE',
   })
-  workout!: WorkoutTemplateEntity;
+  workout!: WorkoutTemplate;
 
-  @ManyToOne(() => ExerciseEntity, {
+  @ManyToOne(() => Exercise, {
     nullable: false,
   })
-  exercise!: ExerciseEntity;
+  exercise!: Exercise;
 
   @Column({
     nullable: true,
@@ -30,12 +30,9 @@ export class WorkoutTemplateExerciseEntity {
   })
   note?: string;
 
-  @OneToMany(
-    () => WorkoutTemplateSetEntity,
-    (set) => set.workoutTemplateExercise,
-    {
-      cascade: true,
-    },
-  )
-  sets!: WorkoutTemplateSetEntity[];
+  @OneToMany(() => WorkoutTemplateSet, (set) => set.workoutTemplateExercise, {
+    cascade: true,
+    orphanedRowAction: 'delete',
+  })
+  sets!: WorkoutTemplateSet[];
 }

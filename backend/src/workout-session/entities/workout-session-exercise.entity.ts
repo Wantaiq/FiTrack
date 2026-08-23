@@ -5,22 +5,22 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { WorkoutSessionEntity } from './workout-session.entity';
-import { ExerciseEntity } from '../../exercise/entities/exercise.entity';
-import { WorkoutSessionSetEntity } from './workout-session-set.entity';
+import { WorkoutSession } from './workout-session.entity';
+import { Exercise } from '../../exercise/entities/exercise.entity';
+import { WorkoutSessionSet } from './workout-session-set.entity';
 
 @Entity('workout_session_exercises')
-export class WorkoutSessionExerciseEntity {
+export class WorkoutSessionExercise {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => WorkoutSessionEntity, (session) => session.exercises, {
+  @ManyToOne(() => WorkoutSession, (session) => session.exercises, {
     onDelete: 'CASCADE',
   })
-  session!: WorkoutSessionEntity;
+  session!: WorkoutSession;
 
-  @ManyToOne(() => ExerciseEntity)
-  exercise!: ExerciseEntity;
+  @ManyToOne(() => Exercise)
+  exercise!: Exercise;
 
   @Column({
     type: 'text',
@@ -28,8 +28,8 @@ export class WorkoutSessionExerciseEntity {
   })
   note?: string;
 
-  @OneToMany(() => WorkoutSessionSetEntity, (set) => set.exercise, {
+  @OneToMany(() => WorkoutSessionSet, (set) => set.exercise, {
     cascade: true,
   })
-  sets!: WorkoutSessionSetEntity[];
+  sets!: WorkoutSessionSet[];
 }

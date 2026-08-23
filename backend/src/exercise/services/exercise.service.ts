@@ -1,28 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ExerciseRepository } from '../repositories/exercise.repository';
 import { TCurrentUser } from '../../user/types/current-user.types';
-import { UserEntity } from '../../user/entities/user.entity';
+import { User } from '../../user/entities/user.entity';
 import { CreateExerciseDto } from '../dto/create-exercise.dto';
 import { ListExercisesQueryDto } from '../dto/list-exercise-query.dto';
 import { UpdateExerciseDto } from '../dto/update-exercise.dto';
-import { ExerciseInstructionRepository } from '../repositories/exercise-instruction.repository';
+import { ExerciseInstruction } from '../entities/exercise-instruction.entity';
+import { Exercise } from '../entities/exercise.entity';
 
 @Injectable()
 export class ExerciseService {
-  constructor(
-    private readonly exerciseRepository: ExerciseRepository,
-    private readonly exerciseInstructionRepository: ExerciseInstructionRepository,
-  ) {}
+  constructor(private readonly repository: ExerciseRepository) {}
 
   async save(dto: CreateExerciseDto, user?: TCurrentUser) {
-    return this.exerciseRepository.save({
+    const exercise = new Exercise();
+    return this.repository.save({
       ...dto,
-      createdBy: user ? ({ id: user.id } as UserEntity) : null,
+      createdBy: user ? ({ id: user.id } as User) : null,
     });
   }
 
   async list(user: TCurrentUser, query: ListExercisesQueryDto) {
-    return this.exerciseRepository.findVisible(user.id, {
+    return this.repository.findVisible(user.id, {
       name: query.name,
       type: query.type,
       difficulty: query.difficulty,
@@ -33,7 +32,7 @@ export class ExerciseService {
   }
 
   async view(user: TCurrentUser, id: string) {
-    const exercise = await this.exerciseRepository.findVisibleById(user.id, id);
+    const exercise = await this.repository.findVisibleById(user.id, id);
 
     if (!exercise) {
       throw new NotFoundException();
@@ -43,7 +42,7 @@ export class ExerciseService {
   }
 
   async remove(id: string, user: TCurrentUser) {
-    const result = await this.exerciseRepository.deleteVisible(user.id, id);
+    const result = await this.repository.deleteVisible(user.id, id);
 
     if (result.affected === 0) {
       throw new NotFoundException();
@@ -51,19 +50,25 @@ export class ExerciseService {
   }
 
   async update(id: string, user: TCurrentUser, dto: UpdateExerciseDto) {
-    const exercise = await this.exerciseRepository.findVisibleById(user.id, id);
+    const exercise = await this.repository.findVisibleById(user.id, id);
 
     if (!exercise) {
       throw new NotFoundException();
     }
 
     const { instructions, ...rest } = dto;
-    this.exerciseRepository.merge(exercise, rest);
+    this.repository.merge(exercise, rest);
 
-    exercise.instructions = instructions.map((instruction) =>
-      this.exerciseInstructionRepository.create(instruction),
-    );
+    exercise.instructions = instructions.map((instruction) => {
+      const exerciseInstruction = new ExerciseInstruction();
 
-    return this.exerciseRepository.save(exercise);
+      exerciseInstruction.order = instruction.order;
+      exerciseInstruction.title = instruction.title;
+      exerciseInstruction.text = instruction.text;
+
+      return exerciseInstruction;
+    });
+
+    return this.repository.save(exercise);
   }
 }
