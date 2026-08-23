@@ -1,15 +1,15 @@
 interface WorkoutTemplateExerciseSetInput {
   order: number;
-  reps?: number;
-  weight?: number;
-  rir?: number;
-  rm?: number;
-  rest?: number;
+  reps: number | null;
+  weight: number | null;
+  rir: number | null;
+  rm: number | null;
+  rest: number | null;
 }
 
 interface WorkoutTemplateExerciseInput {
   exercise: { id: string };
-  note?: string;
+  note: string | null;
   sets: WorkoutTemplateExerciseSetInput[];
 }
 

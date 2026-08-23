@@ -1,31 +1,41 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { WorkoutTemplateRepository } from '../repositories/workout-template.repository';
 import { CreateWorkoutTemplateDto } from '../dto/create-workout-template.dto';
 import { TCurrentUser } from '../../user/types/current-user.types';
 import { ListWorkoutsQueryDto } from '../dto/list-workout-template-query.dto';
 import { UpdateWorkoutTemplateDto } from '../dto/update-workout-template.dto';
+import { ExerciseRepository } from '../../exercise/repositories/exercise.repository';
+import { WorkoutTemplateMapper } from '../mappers/workout-template.mapper';
 
 @Injectable()
 export class WorkoutTemplateService {
-  constructor(private readonly repository: WorkoutTemplateRepository) {}
+  constructor(
+    private readonly repository: WorkoutTemplateRepository,
+    private readonly exerciseRepository: ExerciseRepository,
+  ) {}
 
   async save(dto: CreateWorkoutTemplateDto, user: TCurrentUser) {
-    const workoutTemplate = await this.repository.save({
-      ...dto,
-      exercises: dto.exercises.map((exercise) => {
-        return {
-          exercise: { id: exercise.exerciseId },
-          sets: exercise.sets,
-          note: exercise.note,
-        };
-      }),
-      createdBy: { id: user.id },
-    });
+    const exerciseIds = dto.exercises.map((e) => e.exerciseId);
+    const foundExercises = await this.exerciseRepository.findVisibleByIds(
+      user.id,
+      exerciseIds,
+    );
 
-    return {
-      id: workoutTemplate.id,
-      name: workoutTemplate.name,
-    };
+    if (foundExercises.length !== exerciseIds.length) {
+      throw new BadRequestException('Exercises not found');
+    }
+
+    const template = WorkoutTemplateMapper.toEntity(
+      user.id,
+      dto,
+      foundExercises,
+    );
+
+    return this.repository.save(template);
   }
 
   async list(query: ListWorkoutsQueryDto, user: TCurrentUser) {

@@ -23,33 +23,33 @@ export class WorkoutTemplateSet {
     nullable: true,
     default: null,
   })
-  reps!: number;
+  reps: number | null = null;
 
   @Column({
     type: 'float',
     nullable: true,
     default: null,
   })
-  weight!: number | null;
+  weight: number | null = null;
 
   @Column({
     type: 'float',
     nullable: true,
     default: null,
   })
-  rir!: number | null;
+  rir: number | null = null;
 
   @Column({
     type: 'float',
     nullable: true,
     default: null,
   })
-  rm!: number | null;
+  rm: number | null = null;
 
   @Column({
     type: 'float',
     nullable: true,
     default: null,
   })
-  rest!: number | null;
+  rest: number | null = null;
 }

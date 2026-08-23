@@ -27,8 +27,9 @@ export class WorkoutTemplateExercise {
   @Column({
     nullable: true,
     type: 'text',
+    default: null,
   })
-  note?: string;
+  note: string | null = null;
 
   @OneToMany(() => WorkoutTemplateSet, (set) => set.workoutTemplateExercise, {
     cascade: true,

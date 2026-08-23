@@ -20,7 +20,7 @@ export class WorkoutSession {
   @ManyToOne(() => WorkoutTemplate, {
     nullable: true,
   })
-  template!: WorkoutTemplate | null;
+  template: WorkoutTemplate | null = null;
 
   @Column({
     type: 'date',

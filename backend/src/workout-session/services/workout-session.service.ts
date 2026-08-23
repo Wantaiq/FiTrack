@@ -3,7 +3,7 @@ import { ScheduleWorkoutSessionDto } from '../dto/schedule-workout-session.dto';
 import { TCurrentUser } from '../../user/types/current-user.types';
 import { WorkoutSessionRepository } from '../repositories/workout-session.repository';
 import { WorkoutTemplateRepository } from '../../workout-template/repositories/workout-template.repository';
-import { WorkoutSessionMapper } from '../mappers/workout-session-mapper';
+import { WorkoutSessionMapper } from '../mappers/workout-session.mapper';
 import { ListWorkoutSessionQueryDto } from '../dto/list-workout-session-query.dto';
 
 @Injectable()

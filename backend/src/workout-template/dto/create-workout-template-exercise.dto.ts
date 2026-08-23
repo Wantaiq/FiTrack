@@ -13,7 +13,7 @@ import { CreateWorkoutTemplateExerciseSetDto } from './create-workout-template-e
 export class CreateWorkoutTemplateExerciseDto {
   @IsOptional()
   @IsString()
-  note?: string;
+  note: string | null = null;
 
   @IsArray()
   @ArrayNotEmpty()

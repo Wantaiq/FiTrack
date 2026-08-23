@@ -10,5 +10,6 @@ import { ExerciseController } from './controllers/exercise.controller';
   imports: [TypeOrmModule.forFeature([Exercise, ExerciseInstruction])],
   providers: [ExerciseService, ExerciseRepository],
   controllers: [ExerciseController],
+  exports: [ExerciseRepository],
 })
 export class ExerciseModule {}

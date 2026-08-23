@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { WorkoutTemplateSet } from './entities/workout-template-set.entity';
 import { WorkoutTemplateExercise } from './entities/workout-template-exercise.entity';
 import { WorkoutTemplate } from './entities/workout-template.entity';
+import { ExerciseModule } from '../exercise/exercise.module';
 
 @Module({
   imports: [
@@ -14,8 +15,10 @@ import { WorkoutTemplate } from './entities/workout-template.entity';
       WorkoutTemplateExercise,
       WorkoutTemplateSet,
     ]),
+    ExerciseModule,
   ],
   providers: [WorkoutTemplateService, WorkoutTemplateRepository],
   controllers: [WorkoutTemplateController],
+  exports: [WorkoutTemplateRepository],
 })
 export class WorkoutTemplateModule {}

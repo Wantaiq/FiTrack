@@ -25,8 +25,9 @@ export class WorkoutSessionExercise {
   @Column({
     type: 'text',
     nullable: true,
+    default: null,
   })
-  note?: string;
+  note: string | null = null;
 
   @OneToMany(() => WorkoutSessionSet, (set) => set.exercise, {
     cascade: true,

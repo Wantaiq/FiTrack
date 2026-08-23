@@ -8,25 +8,25 @@ export class CreateWorkoutTemplateExerciseSetDto {
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  reps!: number;
+  reps: number | null = null;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  weight!: number;
+  weight: number | null = null;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  rir!: number;
+  rir: number | null = null;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  rm!: number;
+  rm: number | null = null;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  rest!: number;
+  rest: number | null = null;
 }

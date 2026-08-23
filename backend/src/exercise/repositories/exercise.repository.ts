@@ -1,4 +1,4 @@
-import { IsNull, Repository } from 'typeorm';
+import { In, IsNull, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateExerciseInput } from '../interfaces/create-exercise.interface';
@@ -62,6 +62,15 @@ export class ExerciseRepository {
 
   async save(exercise: CreateExerciseInput) {
     return this.repository.save(exercise);
+  }
+
+  async findVisibleByIds(userId: string, ids: string[]) {
+    return this.repository.find({
+      where: [
+        { id: In(ids), createdBy: { id: userId } },
+        { id: In(ids), createdBy: IsNull() },
+      ],
+    });
   }
 
   async findVisibleById(userId: string, id: string) {

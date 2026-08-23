@@ -6,9 +6,7 @@ import { WorkoutSession } from './entities/workout-session.entity';
 import { WorkoutSessionExercise } from './entities/workout-session-exercise.entity';
 import { WorkoutSessionSet } from './entities/workout-session-set.entity';
 import { WorkoutSessionRepository } from './repositories/workout-session.repository';
-import { WorkoutTemplateRepository } from '../workout-template/repositories/workout-template.repository';
 import { WorkoutTemplateModule } from '../workout-template/workout-template.module';
-import { WorkoutTemplate } from '../workout-template/entities/workout-template.entity';
 
 @Module({
   imports: [
@@ -16,15 +14,10 @@ import { WorkoutTemplate } from '../workout-template/entities/workout-template.e
       WorkoutSession,
       WorkoutSessionExercise,
       WorkoutSessionSet,
-      WorkoutTemplate,
     ]),
     WorkoutTemplateModule,
   ],
-  providers: [
-    WorkoutSessionService,
-    WorkoutSessionRepository,
-    WorkoutTemplateRepository,
-  ],
+  providers: [WorkoutSessionService, WorkoutSessionRepository],
   controllers: [WorkoutSessionController],
 })
 export class WorkoutSessionModule {}
