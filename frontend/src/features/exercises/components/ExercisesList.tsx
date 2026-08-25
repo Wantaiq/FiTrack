@@ -1,7 +1,7 @@
-import { RxChevronRight } from 'react-icons/rx';
-import { Badge, Card, Grid, LinkOverlay, Stack, Text } from '@chakra-ui/react';
-import { Link } from 'react-router';
-import type { ExercisePartial } from '../schemas/exercise.schema';
+import { RxChevronRight } from "react-icons/rx";
+import { Badge, Card, Grid, LinkOverlay, Stack, Text } from "@chakra-ui/react";
+import { Link } from "react-router";
+import type { ExercisePartial } from "../schemas/exercise.schema";
 
 type Props = {
   exercises: ExercisePartial[];
@@ -12,15 +12,15 @@ function ExercisesList({ exercises }: Props) {
     <>
       <Grid templateColumns="repeat(2, 1fr)" gap={2}>
         {exercises.map((exercise) => (
-          <Card.Root key={exercise.id} className="group" gap={2}>
+          <Card.Root key={exercise.id} className="group" gap={6} w={"full"}>
             <Card.Header>
               <Stack
                 direction="row"
                 alignItems="center"
-                justify={'space-between'}
+                justify={"space-between"}
                 mb={1}
               >
-                <Card.Title asChild fontSize={'xl'}>
+                <Card.Title asChild fontSize={"xl"}>
                   <LinkOverlay asChild>
                     <Link to={exercise.id}>{exercise.name}</Link>
                   </LinkOverlay>
@@ -28,7 +28,7 @@ function ExercisesList({ exercises }: Props) {
                 <Stack
                   direction="row"
                   alignItems="center"
-                  pointerEvents={'none'}
+                  pointerEvents={"none"}
                   color="cyan.500"
                   fontWeight="semibold"
                   fontSize="sm"
@@ -36,7 +36,7 @@ function ExercisesList({ exercises }: Props) {
                   transform="translateY(4px)"
                   transition="all 0.2s ease-in-out"
                   _groupHover={{
-                    opacity: '1',
+                    opacity: "1",
                   }}
                 >
                   <Text>View</Text>

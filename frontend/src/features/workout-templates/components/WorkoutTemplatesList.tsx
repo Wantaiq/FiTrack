@@ -1,7 +1,7 @@
-import { Badge, Card, Grid, LinkOverlay, Stack, Text } from '@chakra-ui/react';
-import type { WorkoutTemplatePartial } from '../schemas/workout-template.schema';
-import { Link } from 'react-router';
-import { RxChevronRight } from 'react-icons/rx';
+import { Badge, Card, Grid, LinkOverlay, Stack, Text } from "@chakra-ui/react";
+import type { WorkoutTemplatePartial } from "../schemas/workout-template.schema";
+import { Link } from "react-router";
+import { RxChevronRight } from "react-icons/rx";
 
 type Props = {
   workoutTemplates: WorkoutTemplatePartial[];
@@ -9,17 +9,17 @@ type Props = {
 
 function WorkoutTemplatesList({ workoutTemplates }: Props) {
   return (
-    <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
       {workoutTemplates.map((template) => (
-        <Card.Root key={template.id} className="group" gap={2}>
+        <Card.Root key={template.id} className="group" gap={2} w={"full"}>
           <Card.Header>
             <Stack
               direction="row"
               alignItems="center"
-              justify={'space-between'}
+              justify={"space-between"}
               mb={1}
             >
-              <Card.Title asChild fontSize={'xl'}>
+              <Card.Title asChild fontSize={"xl"}>
                 <LinkOverlay asChild>
                   <Link to={template.id}>{template.name}</Link>
                 </LinkOverlay>
@@ -27,7 +27,7 @@ function WorkoutTemplatesList({ workoutTemplates }: Props) {
               <Stack
                 direction="row"
                 alignItems="center"
-                pointerEvents={'none'}
+                pointerEvents={"none"}
                 color="cyan.500"
                 fontWeight="semibold"
                 fontSize="sm"
@@ -35,7 +35,7 @@ function WorkoutTemplatesList({ workoutTemplates }: Props) {
                 transform="translateY(4px)"
                 transition="all 0.2s ease-in-out"
                 _groupHover={{
-                  opacity: '1',
+                  opacity: "1",
                 }}
               >
                 <Text>View</Text>
@@ -43,7 +43,7 @@ function WorkoutTemplatesList({ workoutTemplates }: Props) {
               </Stack>
             </Stack>
           </Card.Header>
-          <Card.Footer mt={'auto'} flexWrap={'wrap'}>
+          <Card.Footer mt={"auto"} flexWrap={"wrap"}>
             {template.exercises.map(({ exercise }) => {
               return (
                 <Badge colorPalette="cyan" size="md">
