@@ -1,9 +1,9 @@
-import { AppForm, AppInput } from '@/common/components/form';
+import { AppForm, AppInput } from "@/common/components/form";
 import {
   registerSchema,
   type RegisterFormValues,
-} from '../schemas/register.schema';
-import { Alert, Button, Stack, StackSeparator } from '@chakra-ui/react';
+} from "../schemas/register.schema";
+import { Alert, Button, Stack, StackSeparator } from "@chakra-ui/react";
 
 type Props = {
   onSubmit: (values: RegisterFormValues) => Promise<void> | void;
@@ -16,12 +16,6 @@ function RegisterForm({ onSubmit, isSubmitting, error }: Props) {
     <AppForm onSubmit={onSubmit} schema={registerSchema}>
       <Stack gap={8} separator={<StackSeparator />}>
         <Stack gap={4}>
-          <AppInput<RegisterFormValues>
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="john.doe@email.com"
-          />
           <AppInput<RegisterFormValues>
             name="username"
             label="Username"
@@ -36,8 +30,8 @@ function RegisterForm({ onSubmit, isSubmitting, error }: Props) {
         </Stack>
         <Button
           type="submit"
-          size={'lg'}
-          fontWeight={'semibold'}
+          size={"lg"}
+          fontWeight={"semibold"}
           loading={isSubmitting}
         >
           Register

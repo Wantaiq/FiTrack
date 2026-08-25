@@ -1,7 +1,7 @@
-import { AppForm, AppInput } from '@/common/components/form';
-import { loginSchema, type LoginFormValues } from '../schemas/login.schema';
-import { Alert, Button, Stack, StackSeparator } from '@chakra-ui/react';
-import type ApiError from '@/common/api/ApiError';
+import { AppForm, AppInput } from "@/common/components/form";
+import { loginSchema, type LoginFormValues } from "../schemas/login.schema";
+import { Alert, Button, Stack, StackSeparator } from "@chakra-ui/react";
+import type ApiError from "@/common/api/ApiError";
 
 type Props = {
   onSubmit: (values: LoginFormValues) => Promise<void> | void;
@@ -15,10 +15,9 @@ function LoginForm({ onSubmit, isSubmitting, error }: Props) {
       <Stack gap={8} separator={<StackSeparator />}>
         <Stack gap={4}>
           <AppInput<LoginFormValues>
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="john.doe@email.com"
+            name="username"
+            label="Username"
+            placeholder="john.doe"
           />
           <AppInput<LoginFormValues>
             name="password"
@@ -30,8 +29,8 @@ function LoginForm({ onSubmit, isSubmitting, error }: Props) {
         <Button
           type="submit"
           loading={isSubmitting}
-          size={'lg'}
-          fontWeight={'semibold'}
+          size={"lg"}
+          fontWeight={"semibold"}
         >
           Login
         </Button>
