@@ -13,7 +13,6 @@ export class ExerciseService {
   constructor(private readonly repository: ExerciseRepository) {}
 
   async save(dto: CreateExerciseDto, user?: TCurrentUser) {
-    const exercise = new Exercise();
     return this.repository.save({
       ...dto,
       createdBy: user ? ({ id: user.id } as User) : null,
