@@ -1,7 +1,6 @@
 interface WorkoutTemplateExerciseSetInput {
   order: number;
   reps: number | null;
-  weight: number | null;
   rir: number | null;
   rm: number | null;
   rest: number | null;

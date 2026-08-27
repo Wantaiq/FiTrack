@@ -1,8 +1,8 @@
-import { exercisePartialSchema } from '@/features/exercises';
-import z from 'zod';
+import { exercisePartialSchema } from "@/features/exercises";
+import z from "zod";
 
 const numOrNullSchema = z.preprocess(
-  (val) => (val === '' || val === undefined ? null : val),
+  (val) => (val === "" || val === undefined ? null : val),
   z.union([z.coerce.number().positive(), z.null()]),
 );
 
@@ -10,7 +10,6 @@ export const workoutTemplateSetFullSchema = z.object({
   id: z.uuid(),
   order: z.coerce.number().positive().int(),
   reps: numOrNullSchema,
-  weight: numOrNullSchema,
   rir: numOrNullSchema,
   rm: numOrNullSchema,
   rest: numOrNullSchema,

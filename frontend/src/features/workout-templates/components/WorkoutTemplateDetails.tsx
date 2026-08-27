@@ -133,9 +133,6 @@ function WorkoutTemplateDetails({ workoutTemplate, onDelete }: Props) {
                     Reps
                   </Table.ColumnHeader>
                   <Table.ColumnHeader color={"fg.muted"} textAlign={"center"}>
-                    Weight
-                  </Table.ColumnHeader>
-                  <Table.ColumnHeader color={"fg.muted"} textAlign={"center"}>
                     RIR
                   </Table.ColumnHeader>
                   <Table.ColumnHeader color={"fg.muted"} textAlign={"center"}>
@@ -158,13 +155,6 @@ function WorkoutTemplateDetails({ workoutTemplate, onDelete }: Props) {
                       fontSize={"md"}
                     >
                       {set.reps || "-"}
-                    </Table.Cell>
-                    <Table.Cell
-                      textAlign={"center"}
-                      fontWeight={"semibold"}
-                      fontSize={"md"}
-                    >
-                      {set.weight || "-"}
                     </Table.Cell>
                     <Table.Cell
                       textAlign={"center"}

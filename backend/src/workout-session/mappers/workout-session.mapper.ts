@@ -17,6 +17,7 @@ export class WorkoutSessionMapper {
     session.createdBy = { id: userId } as User;
     session.template = template;
     session.scheduledAt = scheduledAt;
+    session.completed = false;
 
     session.exercises = template.exercises.map((templateExercise) =>
       this.mapExercise(templateExercise),
@@ -44,7 +45,7 @@ export class WorkoutSessionMapper {
     const sessionSet = new WorkoutSessionSet();
 
     sessionSet.order = templateSet.order;
-    sessionSet.weight = templateSet.weight;
+    sessionSet.weight = null;
     sessionSet.reps = templateSet.reps;
     sessionSet.rir = templateSet.rir;
     sessionSet.rm = templateSet.rm;

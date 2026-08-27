@@ -59,7 +59,6 @@ export class WorkoutTemplateMapper {
     set.reps = dto.reps ?? null;
     set.rest = dto.rest ?? null;
     set.rm = dto.rm ?? null;
-    set.weight = dto.weight ?? null;
     set.rir = dto.rir ?? null;
 
     return set;

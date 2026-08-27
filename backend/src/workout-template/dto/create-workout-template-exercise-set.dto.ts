@@ -13,11 +13,6 @@ export class CreateWorkoutTemplateExerciseSetDto {
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  weight: number | null = null;
-
-  @IsNumber()
-  @IsPositive()
-  @IsOptional()
   rir: number | null = null;
 
   @IsNumber()

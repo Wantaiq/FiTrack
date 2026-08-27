@@ -30,13 +30,6 @@ export class WorkoutTemplateSet {
     nullable: true,
     default: null,
   })
-  weight: number | null = null;
-
-  @Column({
-    type: 'float',
-    nullable: true,
-    default: null,
-  })
   rir: number | null = null;
 
   @Column({

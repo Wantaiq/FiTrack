@@ -27,6 +27,11 @@ export class WorkoutSession {
   })
   scheduledAt!: string;
 
+  @Column({
+    default: false,
+  })
+  completed: boolean = false;
+
   @OneToMany(() => WorkoutSessionExercise, (exercise) => exercise.session, {
     cascade: true,
   })

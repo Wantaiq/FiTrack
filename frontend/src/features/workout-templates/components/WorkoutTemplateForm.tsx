@@ -63,7 +63,6 @@ function WorkoutTemplateForm({
         {
           order: 1,
           reps: null,
-          weight: null,
           rir: null,
           rm: null,
           rest: null,
@@ -157,7 +156,6 @@ function WorkoutTemplateForm({
                             addItem({
                               order: length + 1,
                               reps: null,
-                              weight: null,
                               rir: null,
                               rm: null,
                               rest: null,
@@ -188,11 +186,6 @@ function WorkoutTemplateForm({
                               label="Target Reps"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.reps`}
-                            />
-                            <AppNumberInput<WorkoutTemplateFormValues>
-                              label="Target Weight"
-                              required={false}
-                              name={`exercises.${idx}.sets.${setIndex}.weight`}
                             />
                             <AppNumberInput<WorkoutTemplateFormValues>
                               label="Target RIR"
