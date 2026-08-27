@@ -1,10 +1,10 @@
-import { Link, Navigate, useNavigate, useParams } from 'react-router';
-import type { ExerciseFormValues } from '../schemas/create-exercise.schema';
-import { Heading, IconButton, Loader, Stack } from '@chakra-ui/react';
-import { RxChevronLeft } from 'react-icons/rx';
-import ExerciseForm from '../components/ExerciseForm';
-import useExerciseDetails from '../hooks/useExerciseDetails';
-import useUpdateExercise from '../hooks/useUpdateExercise';
+import { Link, Navigate, useNavigate, useParams } from "react-router";
+import type { ExerciseFormValues } from "../schemas/create-exercise.schema";
+import { Heading, IconButton, Loader, Stack } from "@chakra-ui/react";
+import { RxChevronLeft } from "react-icons/rx";
+import ExerciseForm from "../components/ExerciseForm";
+import useExerciseDetails from "../hooks/useExerciseDetails";
+import useUpdateExercise from "../hooks/useUpdateExercise";
 
 function EditExercisePage() {
   const { id } = useParams();
@@ -32,8 +32,8 @@ function EditExercisePage() {
     mutate(
       { id: id!, dto: values },
       {
-        onSuccess: (exercise) => {
-          navigate(`/exercises/${exercise.id}`);
+        onSuccess: () => {
+          navigate(`/exercises/${id}`);
         },
       },
     );
@@ -42,7 +42,7 @@ function EditExercisePage() {
   return (
     <Stack gap={8}>
       <Stack direction="row" alignItems="center" gap={4}>
-        <IconButton variant="subtle" size={'md'} aria-label="Go back" asChild>
+        <IconButton variant="subtle" size={"md"} aria-label="Go back" asChild>
           <Link to={`/exercises/${exercise.id}`}>
             <RxChevronLeft />
           </Link>

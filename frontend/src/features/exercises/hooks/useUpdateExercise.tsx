@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import updateExercise from '../api/update-exercise';
-import exerciseQueryKeys from '../query-keys';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import updateExercise from "../api/update-exercise";
+import exerciseQueryKeys from "../query-keys";
 
 function useUpdateExercise() {
   const queryClient = useQueryClient();
@@ -8,12 +8,13 @@ function useUpdateExercise() {
   return useMutation({
     mutationFn: updateExercise,
 
-    onSuccess(exercise) {
+    onSuccess(_, variables) {
       queryClient.invalidateQueries({
         queryKey: exerciseQueryKeys.lists(),
       });
-
-      queryClient.setQueryData(exerciseQueryKeys.detail(exercise.id), exercise);
+      queryClient.invalidateQueries({
+        queryKey: exerciseQueryKeys.detail(variables.id),
+      });
     },
   });
 }

@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpStatus,
   Param,
   ParseUUIDPipe,
   Post,
@@ -56,12 +57,13 @@ export class ExerciseController {
   }
 
   @Put('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async update(
     @Param('id', ParseUUIDPipe) id: string,
     @CurrentUser() currentUser: TCurrentUser,
     @Body() dto: UpdateExerciseDto,
   ) {
-    return this.exerciseService.update(id, currentUser, dto);
+    await this.exerciseService.update(id, currentUser, dto);
   }
 
   @Delete('/:id')

@@ -36,8 +36,8 @@ function EditWorkoutTemplatePage() {
     mutate(
       { id: id!, dto: values },
       {
-        onSuccess: (workoutTemplate) => {
-          navigate(`/workout-templates/${workoutTemplate.id}`);
+        onSuccess: () => {
+          navigate(`/workout-templates/${id}`);
         },
       },
     );

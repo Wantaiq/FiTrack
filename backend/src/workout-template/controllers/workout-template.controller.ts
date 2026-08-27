@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpStatus,
   Param,
   ParseUUIDPipe,
   Post,
@@ -57,11 +58,12 @@ export class WorkoutTemplateController {
   }
 
   @Put('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async update(
     @Param('id', ParseUUIDPipe) id: string,
     @CurrentUser() currentUser: TCurrentUser,
     @Body() dto: UpdateWorkoutTemplateDto,
   ) {
-    return this.workoutTemplateService.update(id, currentUser, dto);
+    await this.workoutTemplateService.update(id, currentUser, dto);
   }
 }

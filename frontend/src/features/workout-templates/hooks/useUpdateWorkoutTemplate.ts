@@ -8,15 +8,13 @@ function useUpdateWorkoutTemplate() {
   return useMutation({
     mutationFn: updateWorkoutTemplate,
 
-    onSuccess(workoutTemplate) {
+    onSuccess(_, variables) {
+      queryClient.invalidateQueries({
+        queryKey: workoutTemplateQueryKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({
         queryKey: workoutTemplateQueryKeys.lists(),
       });
-
-      queryClient.setQueryData(
-        workoutTemplateQueryKeys.detail(workoutTemplate.id),
-        workoutTemplate,
-      );
     },
   });
 }
