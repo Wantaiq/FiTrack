@@ -6,10 +6,10 @@ import {
   Stack,
   StackSeparator,
   Text,
-} from '@chakra-ui/react';
-import type { ExerciseFull } from '../schemas/exercise.schema';
-import { Link } from 'react-router';
-import { RxChevronLeft, RxPencil1, RxTrash } from 'react-icons/rx';
+} from "@chakra-ui/react";
+import type { ExerciseFull } from "../schemas/exercise.schema";
+import { Link } from "react-router";
+import { RxChevronLeft, RxPencil1, RxTrash } from "react-icons/rx";
 
 type Props = {
   exercise: ExerciseFull;
@@ -20,18 +20,18 @@ function ExerciseDetails({ exercise, onDelete }: Props) {
   return (
     <Stack gap={8}>
       <Stack direction="row" alignItems="center" gap={4}>
-        <IconButton size={'md'} aria-label="Go back" variant={'subtle'} asChild>
+        <IconButton size={"md"} aria-label="Go back" variant={"subtle"} asChild>
           <Link to="/exercises">
             <RxChevronLeft />
           </Link>
         </IconButton>
         <Stack
           direction="row"
-          alignItems={'center'}
+          alignItems={"center"}
           flex={1}
-          justifyContent={'space-between'}
+          justifyContent={"space-between"}
         >
-          <Stack alignItems={'start'}>
+          <Stack alignItems={"start"}>
             <Heading as="h1" fontSize="2xl">
               {exercise.name}
             </Heading>
@@ -48,32 +48,38 @@ function ExerciseDetails({ exercise, onDelete }: Props) {
             </Stack>
           </Stack>
 
-          <Stack direction={'row'} gap={4} alignItems={'center'}>
-            <IconButton asChild aria-label="Edit exercise" variant={'outline'}>
-              <Link to={'edit'}>
-                <RxPencil1 />
-              </Link>
-            </IconButton>
-            <IconButton
-              onClick={onDelete}
-              colorPalette={'red'}
-              variant={'ghost'}
-              size={'lg'}
-              type="button"
-              aria-label="Delete exercise"
-            >
-              <RxTrash />
-            </IconButton>
-          </Stack>
+          {exercise.createdBy !== null ? (
+            <Stack direction={"row"} gap={4} alignItems={"center"}>
+              <IconButton
+                asChild
+                aria-label="Edit exercise"
+                variant={"outline"}
+              >
+                <Link to={"edit"}>
+                  <RxPencil1 />
+                </Link>
+              </IconButton>
+              <IconButton
+                onClick={onDelete}
+                colorPalette={"red"}
+                variant={"ghost"}
+                size={"lg"}
+                type="button"
+                aria-label="Delete exercise"
+              >
+                <RxTrash />
+              </IconButton>
+            </Stack>
+          ) : null}
         </Stack>
       </Stack>
       <Card.Root w="full">
         <Card.Header
           borderBottomWidth={1}
           paddingBlockEnd={4}
-          borderColor={'gray.muted'}
+          borderColor={"gray.muted"}
         >
-          <Card.Title fontSize={'xl'}>Description</Card.Title>
+          <Card.Title fontSize={"xl"}>Description</Card.Title>
         </Card.Header>
         <Card.Body>{exercise.description}</Card.Body>
       </Card.Root>
@@ -81,32 +87,32 @@ function ExerciseDetails({ exercise, onDelete }: Props) {
         <Card.Header
           borderBottomWidth={1}
           paddingBlockEnd={4}
-          borderColor={'gray.muted'}
+          borderColor={"gray.muted"}
         >
-          <Card.Title as={'h2'} fontSize={'xl'}>
+          <Card.Title as={"h2"} fontSize={"xl"}>
             Instructions
           </Card.Title>
         </Card.Header>
         <Card.Body>
-          <Stack as={'ul'} gap={4} separator={<StackSeparator />}>
-            {exercise.instructions.map((instruction, idx) => (
+          <Stack as={"ul"} gap={4} separator={<StackSeparator />}>
+            {exercise.instructions.map((instruction) => (
               <Stack
                 direction="row"
                 key={instruction.id}
-                as={'li'}
-                alignItems={'start'}
+                as={"li"}
+                alignItems={"start"}
                 gap={4}
               >
                 <Badge
-                  colorPalette={'brand'}
-                  size={'lg'}
-                  variant={'solid'}
-                  fontWeight={'semibold'}
+                  colorPalette={"brand"}
+                  size={"lg"}
+                  variant={"solid"}
+                  fontWeight={"semibold"}
                 >
-                  {idx + 1}
+                  {instruction.order}
                 </Badge>
                 <Stack gap={0}>
-                  <Heading as={'h3'} fontSize={'lg'}>
+                  <Heading as={"h3"} fontSize={"lg"}>
                     {instruction.title}
                   </Heading>
                   <Text>{instruction.text}</Text>

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ExerciseRepository } from '../repositories/exercise.repository';
 import { TCurrentUser } from '../../user/types/current-user.types';
 import { User } from '../../user/entities/user.entity';
@@ -6,7 +10,6 @@ import { CreateExerciseDto } from '../dto/create-exercise.dto';
 import { ListExercisesQueryDto } from '../dto/list-exercise-query.dto';
 import { UpdateExerciseDto } from '../dto/update-exercise.dto';
 import { ExerciseInstruction } from '../entities/exercise-instruction.entity';
-import { Exercise } from '../entities/exercise.entity';
 
 @Injectable()
 export class ExerciseService {
@@ -37,7 +40,15 @@ export class ExerciseService {
       throw new NotFoundException();
     }
 
-    return exercise;
+    return {
+      ...exercise,
+      ...(exercise.createdBy && {
+        createdBy: {
+          id: exercise.createdBy?.id,
+          username: exercise.createdBy?.username,
+        },
+      }),
+    };
   }
 
   async remove(id: string, user: TCurrentUser) {
@@ -55,6 +66,10 @@ export class ExerciseService {
       throw new NotFoundException();
     }
 
+    if (exercise.createdBy?.id !== user.id) {
+      throw new UnauthorizedException();
+    }
+
     const { instructions, ...rest } = dto;
     this.repository.merge(exercise, rest);
 
@@ -68,6 +83,14 @@ export class ExerciseService {
       return exerciseInstruction;
     });
 
-    return this.repository.save(exercise);
+    const updatedExercise = await this.repository.save(exercise);
+
+    return {
+      ...updatedExercise,
+      createdBy: {
+        id: updatedExercise.createdBy?.id,
+        username: updatedExercise.createdBy?.username,
+      },
+    };
   }
 }

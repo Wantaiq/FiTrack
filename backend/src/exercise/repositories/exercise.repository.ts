@@ -81,6 +81,13 @@ export class ExerciseRepository {
       ],
       relations: {
         instructions: true,
+        createdBy: true,
+      },
+      select: {
+        createdBy: {
+          id: true,
+          username: true,
+        },
       },
       order: {
         instructions: {

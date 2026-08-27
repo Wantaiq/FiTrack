@@ -1,19 +1,19 @@
-import z from 'zod';
+import z from "zod";
 
 export const difficultySchema = z.enum([
-  'beginner',
-  'intermediate',
-  'advanced',
+  "beginner",
+  "intermediate",
+  "advanced",
 ]);
 
-export const mechanicSchema = z.enum(['compound', 'isolation']);
+export const mechanicSchema = z.enum(["compound", "isolation"]);
 
 export const exerciseTypeSchema = z.enum([
-  'strength',
-  'cardio',
-  'stretch',
-  'plyometric',
-  'isometric',
+  "strength",
+  "cardio",
+  "stretch",
+  "plyometric",
+  "isometric",
 ]);
 
 export const instructionSchema = z.object({
@@ -31,6 +31,7 @@ export const exerciseFullSchema = z.object({
   difficulty: difficultySchema,
   mechanic: mechanicSchema,
   instructions: z.array(instructionSchema).min(1),
+  createdBy: z.object({ id: z.uuid() }).nullable(),
 });
 
 export const exercisePartialSchema = exerciseFullSchema.omit({
