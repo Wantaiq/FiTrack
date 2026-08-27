@@ -3,28 +3,35 @@ import {
   AppForm,
   AppInput,
   AppNumberInput,
-} from '@/common/components/form';
-import { useExercises } from '@/features/exercises';
+} from "@/common/components/form";
+import { useExercises } from "@/features/exercises";
 import {
   createWorkoutTemplateSchema,
-  type CreateWorkoutTemplateFormValues,
-} from '../schemas/create-workout-template.schema';
-import { Alert, Badge, Box, Button, Card, Stack, Text } from '@chakra-ui/react';
-import { useState } from 'react';
-import ExercisePicker from '../components/ExercisePicker';
-import useDebounce from '@/common/hooks/useDebounce';
-import { Loader } from '@/common/components';
-import type { ExercisePartial } from '@/features/exercises/schemas/exercise.schema';
-import { RxPlus } from 'react-icons/rx';
+  type WorkoutTemplateFormValues,
+  type WorkoutTemplateInitialFormValues,
+} from "../schemas/create-workout-template.schema";
+import { Alert, Badge, Box, Button, Card, Stack, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import ExercisePicker from "../components/ExercisePicker";
+import useDebounce from "@/common/hooks/useDebounce";
+import { Loader } from "@/common/components";
+import type { ExercisePartial } from "@/features/exercises/schemas/exercise.schema";
+import { RxPlus } from "react-icons/rx";
 
 type Props = {
-  onSubmit: (values: CreateWorkoutTemplateFormValues) => Promise<void> | void;
+  onSubmit: (values: WorkoutTemplateFormValues) => Promise<void> | void;
   isSubmitting: boolean;
   error: Error | null;
+  initialValues?: WorkoutTemplateInitialFormValues;
 };
 
-function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
-  const [nameSearch, setNameSearch] = useState('');
+function WorkoutTemplateForm({
+  onSubmit,
+  isSubmitting,
+  error,
+  initialValues,
+}: Props) {
+  const [nameSearch, setNameSearch] = useState("");
   const [selectedExercises, setSelectedExercises] = useState<ExercisePartial[]>(
     [],
   );
@@ -36,12 +43,10 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
   } = useExercises({ name: debouncedSearch });
 
   function handleSelect(
-    addItem: (
-      args: CreateWorkoutTemplateFormValues['exercises'][number],
-    ) => void,
+    addItem: (args: WorkoutTemplateFormValues["exercises"][number]) => void,
     itemId: string,
   ) {
-    setTimeout(() => setNameSearch(''), 0);
+    setTimeout(() => setNameSearch(""), 0);
     if (!itemId) return;
 
     const exercise = exercises?.items.find(
@@ -53,7 +58,7 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
 
     addItem({
       exerciseId: itemId,
-      note: '',
+      note: "",
       sets: [
         {
           order: 1,
@@ -80,18 +85,19 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
   }
 
   return (
-    <AppForm schema={createWorkoutTemplateSchema} onSubmit={onSubmit}>
+    <AppForm
+      schema={createWorkoutTemplateSchema}
+      onSubmit={onSubmit}
+      defaultValues={initialValues}
+    >
       <Stack gap={8}>
-        <Card.Root w={'full'}>
+        <Card.Root w={"full"}>
           <Card.Body>
-            <AppInput<CreateWorkoutTemplateFormValues>
-              name="name"
-              label="Name"
-            />
+            <AppInput<WorkoutTemplateFormValues> name="name" label="Name" />
           </Card.Body>
         </Card.Root>
 
-        <AppFieldArray<CreateWorkoutTemplateFormValues, 'exercises'>
+        <AppFieldArray<WorkoutTemplateFormValues, "exercises">
           name="exercises"
           renderAppendButton={(addItem) => (
             <ExercisePicker
@@ -107,43 +113,46 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
               return item.id === field.exerciseId;
             });
 
-            if (!exercise) return;
             return (
-              <Card.Root w={'full'}>
+              <Card.Root w={"full"}>
                 <Card.Header>
-                  <Stack align={'start'} direction={'row'} gap={4}>
+                  <Stack align={"start"} direction={"row"} gap={4}>
                     <Badge
-                      colorPalette={'brand'}
-                      size={'lg'}
-                      variant={'solid'}
-                      fontWeight={'semibold'}
+                      colorPalette={"brand"}
+                      size={"lg"}
+                      variant={"solid"}
+                      fontWeight={"semibold"}
                     >
                       {idx + 1}
                     </Badge>
-                    <Text fontWeight={'semibold'}>{exercise.name}</Text>
+                    <Text fontWeight={"semibold"}>
+                      {exercise?.name
+                        ? exercise.name
+                        : initialValues?.exercises[idx].name}
+                    </Text>
                   </Stack>
                 </Card.Header>
                 <Card.Body gap={4}>
                   <Stack gap={4}>
-                    <AppInput<CreateWorkoutTemplateFormValues>
+                    <AppInput<WorkoutTemplateFormValues>
                       name={`exercises.${idx}.note`}
                       label="Note"
                       required={false}
                     />
                   </Stack>
                   <AppFieldArray<
-                    CreateWorkoutTemplateFormValues,
+                    WorkoutTemplateFormValues,
                     `exercises.${number}.sets`
                   >
                     name={`exercises.${idx}.sets`}
                     renderAppendButton={(addItem, length) => (
-                      <Box borderTopWidth={'1px'} mt={8} py={8}>
+                      <Box borderTopWidth={"1px"} mt={8} py={8}>
                         <Button
-                          w={'full'}
-                          fontWeight={'semibold'}
+                          w={"full"}
+                          fontWeight={"semibold"}
                           type="button"
-                          variant={'subtle'}
-                          size={'lg'}
+                          variant={"subtle"}
+                          size={"lg"}
                           onClick={() =>
                             addItem({
                               order: length + 1,
@@ -161,41 +170,41 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
                     )}
                     renderItem={(setIndex) => {
                       return (
-                        <Stack direction={'row'} alignItems={'start'} gap={8}>
+                        <Stack direction={"row"} alignItems={"start"} gap={8}>
                           <Badge
-                            colorPalette={'brand'}
-                            size={'sm'}
-                            variant={'solid'}
-                            fontWeight={'semibold'}
+                            colorPalette={"brand"}
+                            size={"sm"}
+                            variant={"solid"}
+                            fontWeight={"semibold"}
                           >
                             {setIndex + 1}. Set
                           </Badge>
                           <Stack
-                            direction={'row'}
-                            alignItems={'center'}
+                            direction={"row"}
+                            alignItems={"center"}
                             gap={8}
                           >
-                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                            <AppNumberInput<WorkoutTemplateFormValues>
                               label="Target Reps"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.reps`}
                             />
-                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                            <AppNumberInput<WorkoutTemplateFormValues>
                               label="Target Weight"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.weight`}
                             />
-                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                            <AppNumberInput<WorkoutTemplateFormValues>
                               label="Target RIR"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.rir`}
                             />
-                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                            <AppNumberInput<WorkoutTemplateFormValues>
                               label="Target RM%"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.rm`}
                             />
-                            <AppNumberInput<CreateWorkoutTemplateFormValues>
+                            <AppNumberInput<WorkoutTemplateFormValues>
                               label="Rest"
                               required={false}
                               name={`exercises.${idx}.sets.${setIndex}.rest`}
@@ -222,10 +231,10 @@ function WorkoutTemplateForm({ onSubmit, isSubmitting, error }: Props) {
         <Box>
           <Button
             type="submit"
-            size={'lg'}
-            fontWeight={'semibold'}
+            size={"lg"}
+            fontWeight={"semibold"}
             loading={isSubmitting}
-            colorPalette={'brand'}
+            colorPalette={"brand"}
           >
             Save Template
           </Button>

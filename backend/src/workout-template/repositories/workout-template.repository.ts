@@ -51,11 +51,8 @@ export class WorkoutTemplateRepository {
         id,
         createdBy: { id: userId },
       },
-      select: {
-        createdBy: { id: true },
-      },
       relations: {
-        createdBy: true,
+        createdBy: false,
         exercises: {
           exercise: true,
           sets: true,

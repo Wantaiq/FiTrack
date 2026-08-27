@@ -1,5 +1,6 @@
 import {
   ArrayNotEmpty,
+  ArrayUnique,
   IsArray,
   IsString,
   ValidateNested,
@@ -13,6 +14,9 @@ export class CreateWorkoutTemplateDto {
 
   @IsArray()
   @ArrayNotEmpty()
+  @ArrayUnique(
+    (exercise: CreateWorkoutTemplateExerciseDto) => exercise.exerciseId,
+  )
   @ValidateNested({ each: true })
   @Type(() => CreateWorkoutTemplateExerciseDto)
   exercises!: CreateWorkoutTemplateExerciseDto[];

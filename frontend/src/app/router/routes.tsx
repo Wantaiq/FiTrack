@@ -1,42 +1,43 @@
-import { DashboardPage } from '@/common/pages';
-import { LoginPage, RegisterPage, LogoutPage } from '@/features/auth';
+import { DashboardPage } from "@/common/pages";
+import { LoginPage, RegisterPage, LogoutPage } from "@/features/auth";
 import {
   ExerciseDetailsPage,
   ExercisesPage,
   NewExercisePage,
-} from '@/features/exercises';
-import { SchedulePage } from '@/features/schedule';
+  EditExercisePage,
+} from "@/features/exercises";
+import { SchedulePage } from "@/features/schedule";
 import {
   NewWorkoutTemplatePage,
   WorkoutTemplateDetailsPage,
   WorkoutTemplatesPage,
-} from '@/features/workout-templates';
-import { AuthLayout, DashboardLayout } from '@/layouts';
-import type { AppRouteObject } from './types';
-import EditExercisePage from '@/features/exercises/pages/EditExercisePage';
+  EditWorkoutTemplatePage,
+} from "@/features/workout-templates";
+import { AuthLayout, DashboardLayout } from "@/layouts";
+import type { AppRouteObject } from "./types";
 
 const routes: AppRouteObject[] = [
   {
-    path: 'login',
+    path: "login",
     element: <LoginPage />,
   },
   {
-    path: 'register',
+    path: "register",
     element: <RegisterPage />,
   },
   {
-    path: 'logout',
+    path: "logout",
     element: <LogoutPage />,
   },
   {
-    path: '/',
+    path: "/",
     element: <AuthLayout />,
     children: [
       {
         element: <DashboardLayout />,
         handle: {
           nav: {
-            label: 'Dashboard',
+            label: "Dashboard",
           },
         },
         children: [
@@ -45,10 +46,10 @@ const routes: AppRouteObject[] = [
             element: <DashboardPage />,
           },
           {
-            path: 'exercises',
+            path: "exercises",
             handle: {
               nav: {
-                label: 'Exercises',
+                label: "Exercises",
               },
             },
             children: [
@@ -57,24 +58,24 @@ const routes: AppRouteObject[] = [
                 element: <ExercisesPage />,
               },
               {
-                path: 'new',
+                path: "new",
                 element: <NewExercisePage />,
               },
               {
-                path: ':id',
+                path: ":id",
                 element: <ExerciseDetailsPage />,
               },
               {
-                path: ':id/edit',
+                path: ":id/edit",
                 element: <EditExercisePage />,
               },
             ],
           },
           {
-            path: 'workout-templates',
+            path: "workout-templates",
             handle: {
               nav: {
-                label: 'Workout templates',
+                label: "Workout templates",
               },
             },
             children: [
@@ -83,20 +84,24 @@ const routes: AppRouteObject[] = [
                 element: <WorkoutTemplatesPage />,
               },
               {
-                path: 'new',
+                path: "new",
                 element: <NewWorkoutTemplatePage />,
               },
               {
-                path: ':id',
+                path: ":id",
                 element: <WorkoutTemplateDetailsPage />,
+              },
+              {
+                path: ":id/edit",
+                element: <EditWorkoutTemplatePage />,
               },
             ],
           },
           {
-            path: 'schedule',
+            path: "schedule",
             handle: {
               nav: {
-                label: 'Schedule',
+                label: "Schedule",
               },
             },
             children: [

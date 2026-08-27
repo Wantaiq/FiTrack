@@ -46,7 +46,7 @@ function WorkoutTemplatesList({ workoutTemplates }: Props) {
           <Card.Footer mt={"auto"} flexWrap={"wrap"}>
             {template.exercises.map(({ exercise }) => {
               return (
-                <Badge colorPalette="cyan" size="md">
+                <Badge colorPalette="cyan" size="md" key={exercise.id}>
                   {exercise.name}
                 </Badge>
               );

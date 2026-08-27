@@ -1,9 +1,9 @@
-import z from 'zod';
+import z from "zod";
 import {
   workoutTemplateExerciseFullSchema,
   workoutTemplateSetFullSchema,
   workoutTemplateFullSchema,
-} from './workout-template.schema';
+} from "./workout-template.schema";
 
 const createWorkoutTemplateSetFullSchema = workoutTemplateSetFullSchema.omit({
   id: true,
@@ -27,6 +27,20 @@ export const createWorkoutTemplateSchema = workoutTemplateFullSchema
     exercises: z.array(createWorkoutTemplateExerciseSchema).min(1),
   });
 
-export type CreateWorkoutTemplateFormValues = z.infer<
+export type WorkoutTemplateFormValues = z.infer<
   typeof createWorkoutTemplateSchema
+>;
+
+const workoutTemplateFormInitialValues = createWorkoutTemplateSchema
+  .omit({
+    exercises: true,
+  })
+  .extend({
+    exercises: z.array(
+      createWorkoutTemplateExerciseSchema.extend({ name: z.string() }),
+    ),
+  });
+
+export type WorkoutTemplateInitialFormValues = z.infer<
+  typeof workoutTemplateFormInitialValues
 >;

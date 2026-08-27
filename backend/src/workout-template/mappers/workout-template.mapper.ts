@@ -3,6 +3,7 @@ import { User } from '../../user/entities/user.entity';
 import { CreateWorkoutTemplateExerciseSetDto } from '../dto/create-workout-template-exercise-set.dto';
 import { CreateWorkoutTemplateExerciseDto } from '../dto/create-workout-template-exercise.dto';
 import { CreateWorkoutTemplateDto } from '../dto/create-workout-template.dto';
+import { UpdateWorkoutTemplateDto } from '../dto/update-workout-template.dto';
 import { WorkoutTemplateExercise } from '../entities/workout-template-exercise.entity';
 import { WorkoutTemplateSet } from '../entities/workout-template-set.entity';
 import { WorkoutTemplate } from '../entities/workout-template.entity';
@@ -17,6 +18,19 @@ export class WorkoutTemplateMapper {
     template.name = dto.name;
     template.createdBy = { id: userId } as User;
     template.exercises = dto.exercises.map((exerciseDto, i) =>
+      this.buildExercise(exerciseDto, foundExercises),
+    );
+
+    return template;
+  }
+
+  static updateEntity(
+    template: WorkoutTemplate,
+    dto: UpdateWorkoutTemplateDto,
+    foundExercises: Exercise[],
+  ): WorkoutTemplate {
+    template.name = dto.name;
+    template.exercises = dto.exercises.map((exerciseDto) =>
       this.buildExercise(exerciseDto, foundExercises),
     );
 

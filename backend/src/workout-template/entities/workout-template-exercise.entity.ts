@@ -21,6 +21,8 @@ export class WorkoutTemplateExercise {
 
   @ManyToOne(() => Exercise, {
     nullable: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   exercise!: Exercise;
 

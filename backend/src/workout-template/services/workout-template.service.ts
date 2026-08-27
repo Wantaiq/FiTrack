@@ -19,15 +19,10 @@ export class WorkoutTemplateService {
   ) {}
 
   async save(dto: CreateWorkoutTemplateDto, user: TCurrentUser) {
-    const exerciseIds = dto.exercises.map((e) => e.exerciseId);
-    const foundExercises = await this.exerciseRepository.findVisibleByIds(
+    const foundExercises = await this.matchExercisesOrThrow(
+      dto.exercises,
       user.id,
-      exerciseIds,
     );
-
-    if (foundExercises.length !== exerciseIds.length) {
-      throw new BadRequestException('Exercises not found');
-    }
 
     const template = WorkoutTemplateMapper.toEntity(
       user.id,
@@ -61,6 +56,40 @@ export class WorkoutTemplateService {
   }
 
   async update(id: string, user: TCurrentUser, dto: UpdateWorkoutTemplateDto) {
-    return;
+    const template = await this.repository.findVisibleById(user.id, id);
+
+    if (!template) {
+      throw new NotFoundException();
+    }
+
+    const foundExercises = await this.matchExercisesOrThrow(
+      dto.exercises,
+      user.id,
+    );
+
+    const updated = WorkoutTemplateMapper.updateEntity(
+      template,
+      dto,
+      foundExercises,
+    );
+
+    return this.repository.save(updated);
+  }
+
+  private async matchExercisesOrThrow(
+    exerciseDtos: { exerciseId: string }[],
+    userId: string,
+  ) {
+    const exerciseIds = exerciseDtos.map((e) => e.exerciseId);
+    const foundExercises = await this.exerciseRepository.findVisibleByIds(
+      userId,
+      exerciseIds,
+    );
+
+    if (foundExercises.length !== exerciseIds.length) {
+      throw new BadRequestException('Exercises not found');
+    }
+
+    return foundExercises;
   }
 }
